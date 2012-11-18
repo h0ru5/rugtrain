@@ -11,7 +11,9 @@ function doQuery($sql) {
          }
 		 
 		 $hdb->setFetchMode(MDB2_FETCHMODE_OBJECT);
-		
+                 $hdb->setCharset('UTF8'); 
+                 #$hdb->query("SET NAMES UTF8");
+                 
 		#$sql=str_replace("\n","",$sql);
 		 $res = $hdb->query($sql);
 		
@@ -91,8 +93,11 @@ function del() {
 }
 
 function getViewUrl() {
-    return dirname($_SERVER['SCRIPT_NAME']) . "training.php";
-    #return "training.php";
+    $pth=dirname($_SERVER['SCRIPT_NAME']);
+    if($pth!='/') {
+        $pth = $pth . "/";
+    }
+    return $pth;
 }
 
 function getControllerUrl() {
@@ -104,7 +109,7 @@ function redirect($tid=NULL) {
 	
         $urlx=getViewUrl();
         if($tid)
-             $url = $urlx . "?tid=$tid";
+             $url = $urlx . "$tid";
         ?>
 	<p>Weiterleitung erfolgt...</p>
 	<script type="text/javascript">
@@ -129,7 +134,7 @@ function form($tid) {
 	$name = getCookieName();
 	?>
 	 <p></p>
-         <form action="<?= getControllerUrl() ?>" method="get">
+         <form action="<?= getViewUrl() . $tid . "/add" ?>" method="get">
 	  <input type="hidden" value="add" name="action" />
           <input type="hidden" value="<?= $tid ?>" name="tid" />
 	  <table>
@@ -197,9 +202,9 @@ function clear_old() {
 	  KEY `time` (`time`),
 	  FULLTEXT KEY `msg` (`msg`)
 	) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_german1_ci;";
-	doQuery($umfrage);
-	doQuery($comments);
-	print "<p class='feedback'>Umfrage gel&ouml;scht</p>";
+	#doQuery($umfrage);
+	#doQuery($comments);
+	#print "<p class='feedback'>Umfrage gel&ouml;scht</p>";
 }
 
 function clear($tid) {

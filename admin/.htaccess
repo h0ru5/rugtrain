@@ -1,0 +1,5 @@
+AddHandler x-httpd-php5 .php
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)\?*$ admin.php?__route__=/$1 [L,QSA]

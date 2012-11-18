@@ -49,12 +49,12 @@ switch($_REQUEST['action']) {
             <img src="img/logo_rb.jpg" alt="Rugbears Logo" width="369" height="295" />
             <h1>Training-site der Munich Rugbears</h1>
         </div>
-<p>Termine in den n&auml;chsten 2 Wochen:</p>
+<p>Die n&auml;chsten 20 Termine:</p>
 <ul>
 <? 
-$data =& soon(14);
+$data =& soon(20);
 while($row = $data->fetchRow()) {
-      print "<li><a href='" . getViewUrl() . "?tid=$row->tid'>$row->what ($row->where) in $row->diff Tagen</li>";
+      print "<li><a href='". getViewUrl() . $row->tid ."'>$row->what ($row->where) in $row->diff Tagen</li>";
     }
  ?>
 </ul>

@@ -34,12 +34,12 @@ function addcmt() {
 <body>
 
 <h1>RugBears Training <?= trainday3($tid) ?><!-- trainday(<?= $tid ?>); --></h1>	
-
+<div id="linkback"><a href="<?=getViewUrl() ?>">zur&uuml;ck zur &Uuml;bersicht</a></div>
 <div class="kommentare">
 	<h3>Kommentare: <a href="javascript:addcmt()" class="lil">hinzuf&uuml;gen...</a></h3>
 
 	<div id="cmtaddform" class="cmtform" >
-		<form method="post" action="<?= getControllerUrl() ?>">
+		<form method="post" action="<?= getViewUrl() . $tid . "/addcmt"  ?>">
 			Name:<br />
 			Kommentar: 
 			<div style="position:absolute;left:100px;top:0px">
