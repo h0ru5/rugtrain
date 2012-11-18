@@ -91,13 +91,13 @@ function del() {
 }
 
 function getViewUrl() {
-    #return dirname($_SERVER['SCRIPT_NAME']). "/" . "training.php";
-    return "training.php";
+    return dirname($_SERVER['SCRIPT_NAME']) . "training.php";
+    #return "training.php";
 }
 
 function getControllerUrl() {
     #dirname($_SERVER['SCRIPT_NAME']). "/" .
-    return  "index.php";
+    return dirname($_SERVER['SCRIPT_NAME']) . "index.php";
 }
 
 function redirect($tid=NULL) {

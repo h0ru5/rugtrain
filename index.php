@@ -13,16 +13,9 @@ if($_REQUEST['tid']) {
 } else {
     $tid = nextTid();
 }
-?>
-<html>
-    <head>
-        <title>Munich Rugbears Training Site</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link href="css/styling.css" rel="stylesheet" type="text/css" />
-    </head>
-    <body>
-<?
-ob_end_flush();
+
+print "called with " . $_SERVER['QUERY_STRING'];
+
 switch($_REQUEST['action']) {
 	case "add":
 		add($tid);
@@ -42,8 +35,16 @@ switch($_REQUEST['action']) {
                 break;
 	default:
                 if($_REQUEST['tid']) redirect($tid);
+	ob_end_flush();
 }
 ?>
+<html>
+    <head>
+        <title>Munich Rugbears Training Site</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link href="css/styling.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
         <div class="logo">
             <img src="img/logo_rb.jpg" alt="Rugbears Logo" width="369" height="295" />
             <h1>Training-site der Munich Rugbears</h1>
