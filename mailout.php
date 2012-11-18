@@ -1,32 +1,33 @@
 <?
 require_once("functions.inc.php");
+require_once("const.inc.php");
 
-#clear();
-    $data = & soon(14);
-    print "In the next two weeks:<br/>";
-    print "<ul>";
+
+    $now =& new DateTime();
+    $fp = fopen("mailout.log", "w");
+    $data = & soon(8);
+    
+    fputs($fp, "Mailout running on " . $now->format("Y-m-d") ."\n");
     while($row = $data->fetchRow()) {
-      print "<li><a href='" . getViewUrl() . "?tid=$row->tid'>$row->what in $row->where in $row->diff days</li>";
-      if($row->diff == 7) {
-          print "<p>Mailing";
+      fputs($fp,"> $row->tid: $row->what in $row->where in $row->diff days\n");
+      if($row->diff == $daysahead) {
+          fputs($fp,"mailing out...\n");
           mailOutFor($row->tid);
-          print "</p>";
       }
-      
     }
-    print "</ul>";
+    fputs($fp,"done!\n");
 
+    fclose($fp);
 
-
-function mailOutFor($tid) {
+function mailOutFor($tid,$log) {
     $data = & doQuery("SELECT name,email FROM mailliste ORDER BY name");
-    print "<br>\nmaile..<br>\n";
+    fputs($log,"start mailing\n");
     while($row = $data->fetchRow()) {
-        print $row->name . ": " . $row->email . "<br>\n";
+        fputs($log,$row->name . ": " . $row->email . "\n");
     #	mailout($row->name,$row->email,$tid);
     }
     mailout("Johannes","rugby@johanneshund.de",$tid);
-    print "Done";
+    fputs($log,"mailing done\n");
 }
 
 function mailout($name_i,$mailadd,$tid) {
@@ -76,6 +77,5 @@ $msg.=$html_body;
 $msg.="\n\n--$grenze";
 
 mail($mailadd,"RugBears Training $td",$msg,$headers);
-print "mail verschickt an $name ($mailadd)<br>\n";
 }
 ?>

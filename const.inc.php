@@ -1,7 +1,7 @@
 <?
 ################ Konstanten ##############
 
-#Werte für munichrugbears.de
+#Werte fï¿½r munichrugbears.de
 
 # Datenbank-Host
 $dbhost = "localhost";
@@ -21,6 +21,9 @@ $dsn = "mysql://$user:$pass@$dbhost/$dbname";
 #tabelle
 $table = "t2";
 #$table = "trainingsumfrage";
+
+#wie viele tage vorraus mailen?
+$daysahead=7
 
 ##########################################
 ?>

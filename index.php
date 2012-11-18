@@ -14,7 +14,7 @@ if($_REQUEST['tid']) {
     $tid = nextTid();
 }
 
-print "called with " . $_SERVER['QUERY_STRING'];
+#print "called with " . $_SERVER['QUERY_STRING'];
 
 switch($_REQUEST['action']) {
 	case "add":
