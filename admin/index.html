@@ -1,32 +1,39 @@
 ﻿<!DOCTYPE html >
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 <meta content="de" http-equiv="Content-Language" />
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-        <title>Admin Panel</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
-          <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js" type="text/javascript"></script>
-          <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/vader/jquery-ui.css" type="text/css" rel="stylesheet" />
-
+<title>Admin Panel</title>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js" type="text/javascript"></script>
+<script src="admin.js" type="text/javascript"></script>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/vader/jquery-ui.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
-.headline {
+header {
 	text-align: center;
+	border-bottom-style: none;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+	border-bottom-width: 0px;
 }
 .menubar {
 	border-style: none;
 	border-width: 0px;
-	padding: 0px;
-	margin: 2px;
+	padding: 2px;
+	margin: 0px;
 	width: 130px;
 	float: left;
 }
 .main {
 	padding: 0px;
-	height: 400px;
+	border-style:none;
+		margin-left: 130px;
+		height:400px;
+	overflow:auto;
 }
-.footer {
+footer {
 	text-align: right;
 	font-size: x-small;
 }
@@ -39,22 +46,34 @@
 </head>
 
 <body>
-<div class="ui-widget ui-corner-all">
-<div class="ui-widget-header headline">
-	<div class="ui-state-default ui-corner-all logout"><span class="ui-icon ui-icon-closethick"></span></div>
-	<h1>Munich Rugbears training site admin panel</h1>
-</div>
-<div class="main  ui-widget-content">
-<div class="menubar  ui-widget-content">
-	<img alt="Termine" height="128" src="../img/icons/stylistica/calendar.png" width="128" /><br />
-	<img alt="Benutzer" height="128" src="../img/icons/stylistica/users.png" width="128" /><br />
-	<img alt="Kommentare" height="128" src="../img/icons/stylistica/comments.png" width="128" />
+
+<div class="ui-widget">
+	<header class="ui-widget-header ui-corner-top">
+		<div class="ui-state-default ui-corner-all logout">
+			<span class="ui-icon ui-icon-closethick"></span></div>
+		<h1>Munich Rugbears training site admin panel</h1>
+	</header>
+	<div class="menubar ui-widget-content ui-corner-bl">
+		<img alt="Termine" height="128" src="../img/icons/stylistica/calendar.png" width="128" /><br />
+		<img alt="Benutzer" height="128" src="../img/icons/stylistica/users.png" width="128" /><br />
+		<img alt="Kommentare" height="128" src="../img/icons/stylistica/comments.png" width="128" />
 	</div>
 
+	
+	<div class="main ui-corner-br">
+		<ul>
+				<li><a href="#list">Liste</a></li>
+				<li><a href="#filter">Filter</a></li>
+			</ul>
+			<div id="list"><p>Liste</p></div>
+			<div id="filter"><p>Filterauswahl</p></div>
+		
+	</div>
+	</div>
 
-</div>
-<div class="footer">Icons by <a href="http://dryicons.com">http://dryicons.com</a></div>
-</div>
+<footer>
+	Icons by <a href="http://dryicons.com">http://dryicons.com</a>
+</footer>
 
 </body>
 
