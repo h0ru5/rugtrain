@@ -1,5 +1,28 @@
-﻿//onload handler
+﻿//globals
+var butAdd = $("<button>Neu</button>");
+var tables;
+//onload handler
 $(function() {
-	$(".main").tabs().removeClass("ui-corner-all").addClass("ui-corner-br");
-	$(".main .ui-tabs-nav").removeClass("ui-corner-all");
+	$("#vtab").tabs();
+	$(".menubar li").addClass("ui-corner-all");
+	$(".main").css("padding","0px");
+	tables=$(".dat").dataTable({
+		"bJQueryUI": true,
+		"bDeferRender": true,
+		"bPaginate": false,
+		"bProcessing": true,
+		"sAjaxSource": "trainings.json",
+		"ssAjaxDataProp" : "",
+		 "aoColumns": [
+	 	   { "mData": "diff" },
+            { "mData": "what" },
+            { "mData": "where" }       ]
+		
+	});
+	$(".main .dataTables_filter").append(butAdd);
+	butAdd.css("float","right").button({
+            icons: {
+                primary: "ui-icon-plusthick"
+            }
+        });
 });

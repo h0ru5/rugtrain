@@ -18,7 +18,7 @@ class Trainings {
     
     public static function index() {
         $ts =& soon(365);
-         return  $ts->fetchAll();
+         return  array("aaData" => $ts->fetchAll());
     }
       
     public static function createForWeekDays() {
