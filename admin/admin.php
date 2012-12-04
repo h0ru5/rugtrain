@@ -56,8 +56,9 @@ class Users {
         return array("OK" => "true");
     }
     
-    public static function index() {
-        return array('Höäürst','Schorch','Koarl','Depp');
+    public static function index()  {
+    	$data = & doQuery("SELECT name,email FROM mailliste ORDER BY name");
+		return $data->fetchAll();
     }
 }
 ?>

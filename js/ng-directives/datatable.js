@@ -114,7 +114,7 @@ function Ctrl($scope) {
 
 var adminPanel = angular.module('adminPanel', []);
 
-    dialogApp.directive('datatable', function() {
+    adminPanel.directive('myTable', function() {
         return function(scope, element, attrs) {
 
             // apply DataTable options, use defaults if none specified by user
@@ -156,6 +156,7 @@ var adminPanel = angular.module('adminPanel', []);
             if (attrs.fnRowCallback) {
                 options["fnRowCallback"] = scope.$eval(attrs.fnRowCallback);
             }
+            
 
             // apply the plugin
             var dataTable = element.dataTable(options);
