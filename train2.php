@@ -10,7 +10,7 @@
 <script type="text/javascript">
         var tid=<?= $_REQUEST["tid"]?>;
         </script>
-<script src="controllers.js"></script>
+<script src="js/controllers/training.js"></script>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
 <title>T2</title>
 <style type="text/css">
