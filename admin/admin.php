@@ -9,6 +9,8 @@ getApi()->post('/users.json',array('Users','create'), EpiApi::external);
 getApi()->get('/trainings.json',array('Trainings','index'), EpiApi::external);
 getApi()->post('/trainings.json',array('Trainings','create'), EpiApi::external);
 getApi()->post('/trainings/weekdays',array('Trainings','createForWeekDays'), EpiApi::external);
+getApi()->get('/comments.json',array('Comments','index'), EpiApi::external);
+getApi()->post('/comments.json',array('Comments','create'), EpiApi::external);
 getRoute()->run();
 
 class Trainings {
@@ -17,8 +19,8 @@ class Trainings {
     }
     
     public static function index() {
-        $ts =& soon(365);
-         return  array("aaData" => $ts->fetchAll());
+        $ts =& doQuery("SELECT `tid`,`when`,`where`,`what` FROM trainings WHERE `when` > CURDATE() ORDER BY `when`");
+        return   $ts->fetchAll();
     }
       
     public static function createForWeekDays() {
@@ -60,5 +62,16 @@ class Users {
     	$data = & doQuery("SELECT name,email FROM mailliste ORDER BY name");
 		return $data->fetchAll();
     }
+}
+
+class Comments {
+    public static function create() {
+        return array("OK" => "true");
+    }
+    
+    public static function index()  {
+     $data = & doQuery("SELECT tid,autor,time,msg FROM kommentare ORDER BY time DESC");
+     return $data->fetchAll();
+   }
 }
 ?>

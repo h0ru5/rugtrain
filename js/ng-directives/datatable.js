@@ -128,7 +128,7 @@ var adminPanel = angular.module('adminPanel', []);
                     "bJQueryUI": true,
                     "bPaginate": false,
                     "bLengthChange": false,
-                    "bFilter": false,
+                    "bFilter": true,
                     "bInfo": true,
                     "bDestroy": true,
                     "bDeferRender": true,
