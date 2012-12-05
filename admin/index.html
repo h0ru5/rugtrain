@@ -16,20 +16,18 @@
 <link href="../css/adminpanel.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
 //globals
-var butAdd = $("<button>Neu</button>");
-
+var butAdd = $("<button>Neu</button>").button({
+            icons: {
+                primary: "ui-icon-plusthick"
+            }
+        });
 //onload handler
 $(function() {
 	$("#vtab").tabs();
 	$(".menubar li").addClass("ui-corner-all");
 	$(".main").css("padding","0px");
-	butAdd.css("float","right").button({
-            icons: {
-                primary: "ui-icon-plusthick"
-            }
-        });
+	butAdd.css("float","right");
 	$(".main .dataTables_filter").append(butAdd);
-	
 });
 </script>
 </head>
@@ -68,6 +66,7 @@ $(function() {
 					<tr>
 						<th>Name</th>
 						<th>eMail</th>
+						<th>Aktion</th>
 					</tr>
 				</thead>
 			</table>

@@ -1,7 +1,27 @@
-﻿function userAdmin($scope,$http) {
+﻿function delBut(url,data) {
+      this.aTargets=[-1];
+      this.mData="id";
+      this.fnCreatedCell=function (nTd, sData, oData, iRow, iCol) {
+			butDel = $("<button>x</button>").button({
+        	    text:false,
+	            icons: {
+	                primary: "ui-icon-trash",
+	            }
+	        })
+	        .on("click",function() {
+        		alert("calling " + url +" with " + data +"=" + sData);
+        	});
+
+        	$(nTd).empty().prepend(butDel);
+      }        
+}
+
+
+function userAdmin($scope,$http) {
 	$scope.userColumnDefs = [ 
-            { "mDataProp": "name", "aTargets":[0] },
-            { "mDataProp": "email", "aTargets":[1] }
+            { "mData": "name", "aTargets":[0] },
+            { "mData": "email", "aTargets":[1] },
+            new delBut("myurl","id")
         ]; 
 
 	$http.get("/admin/users.json").success(function(data) {$scope.users=data;});   
@@ -11,7 +31,7 @@ function eventAdmin($scope,$http) {
             { "mDataProp": "what", "aTargets":[0] },
             { "mDataProp": "where", "aTargets":[1] },
             { "mDataProp": "when", "aTargets":[2] }
-            
+         
         ]; 
 
 	$http.get("/admin/trainings.json").success(function(data) {$scope.events=data;});   

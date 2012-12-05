@@ -58,8 +58,13 @@ class Users {
         return array("OK" => "true");
     }
     
+    public static function delete() {
+        return array("OK" => "true");
+    }
+
+    
     public static function index()  {
-    	$data = & doQuery("SELECT name,email FROM mailliste ORDER BY name");
+    	$data = & doQuery("SELECT id,name,email FROM mailliste ORDER BY name");
 		return $data->fetchAll();
     }
 }
