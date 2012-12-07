@@ -5,7 +5,9 @@ Epi::setPath('base','../epiphany');
 Epi::init('api');
 
 getApi()->get('/users.json',array('Users','index'), EpiApi::external);
-getApi()->post('/users.json',array('Users','create'), EpiApi::external);
+getApi()->get('/users/([^/]+).json',array('Users','get'), EpiApi::external);
+getApi()->delete('/users/([^/]+).json',array('Users','delete'), EpiApi::external);
+getApi()->post('/users',array('Users','create'), EpiApi::external);
 getApi()->get('/trainings.json',array('Trainings','index'), EpiApi::external);
 getApi()->post('/trainings.json',array('Trainings','create'), EpiApi::external);
 getApi()->post('/trainings/weekdays',array('Trainings','createForWeekDays'), EpiApi::external);
@@ -15,7 +17,7 @@ getRoute()->run();
 
 class Trainings {
     public static function create() {
-        return array("OK" => "true");
+        return $_POST;
     }
     
     public static function index() {
@@ -54,14 +56,31 @@ class Trainings {
 }
 
 class Users {
+    
     public static function create() {
+         $data =& json_decode(file_get_contents('php://input'));
+         $sql="INSERT INTO mailliste (`name`,`email`) VALUES ('$data->name','$data->email')";
+            return doQuery($sql)->fetchAll();
+    }
+        
+    public static function update() {
         return array("OK" => "true");
     }
     
-    public static function delete() {
-        return array("OK" => "true");
+    public static function delete($id) {
+        $uid = escapeSQL($id);
+       $data = & doQuery("DELETE FROM mailliste WHERE id=$uid");
+       if(PEAR::isError($data)) 
+        return array("OK" => "false");
+       else
+           return array("OK" => "true");
     }
 
+    public static function get($id) {
+        $uid = escapeSQL($id);
+        $data = & doQuery("SELECT id,name,email FROM mailliste WHERE id=$uid ORDER BY name");
+        return $data->fetchRow();
+    }
     
     public static function index()  {
     	$data = & doQuery("SELECT id,name,email FROM mailliste ORDER BY name");

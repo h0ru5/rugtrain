@@ -112,9 +112,7 @@ function Ctrl($scope) {
  
  */
 
-var adminPanel = angular.module('adminPanel', []);
-
-    adminPanel.directive('myTable', function() {
+angular.module('myTable', []).directive('myTable', function() {
         return function(scope, element, attrs) {
 
             // apply DataTable options, use defaults if none specified by user
