@@ -11,9 +11,7 @@ angular.module("jqDialog",[])
                 options= {modal:true};
             }
             options.autoOpen= false;
-            options.close = function() {
-                scope.dlgState=false;
-            }
+            options.close = scope.hideDlg;
             
             if(attrs.dlgButtons && attrs.dlgButtons.length > 0) {
                 options.buttons = scope.$eval(attrs.dlgButtons)
@@ -31,7 +29,7 @@ angular.module("jqDialog",[])
                
             });
             
-            
+            console.dir(options);
             element.dialog(options);
         }
 });

@@ -31,9 +31,14 @@ function userAdmin($scope,$window,$resource) {
         
 
         $scope.showDlg = function() {
-            $window.alert("Setting state to true");
             $scope.dlgState=true;
         }
+        
+        $scope.hideDlg = function() {
+            $scope.dlgState=false;
+            $scope.$digest();
+        }
+        
         
         $scope.refresh =function() {
             User.query(function(data) {$scope.users=data; });
