@@ -130,7 +130,7 @@ angular.module('myTable', []).directive('myTable', function() {
                     "bInfo": true,
                     "bDestroy": true,
                     "bDeferRender": true,
-					"bProcessing": true,
+                    "bProcessing": true
                 };
             }
 
@@ -155,11 +155,13 @@ angular.module('myTable', []).directive('myTable', function() {
                 options["fnRowCallback"] = scope.$eval(attrs.fnRowCallback);
             }
             
-
+            
+            
+            
             // apply the plugin
             var dataTable = element.dataTable(options);
 
-            
+           
             
             // watch for any changes to our data, rebuild the DataTable
             scope.$watch(attrs.aaData, function(value) {

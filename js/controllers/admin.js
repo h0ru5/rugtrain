@@ -1,17 +1,17 @@
-﻿angular.module("adminPanel",["myTable","ngResource"]);
+﻿angular.module("adminPanel",["myTable","ngResource","jqDialog","addButton"]);
 
-function delBut(url,data) {
+function delBut(_mData) {
       this.aTargets=[-1];
-      this.mData="id";
+      this.mData=_mData;
       this.fnCreatedCell=function (nTd, sData, oData, iRow, iCol) {
-			butDel = $("<button>x</button>").button({
+		butDel = $("<button>delete</button>").button({
         	    text:false,
 	            icons: {
-	                primary: "ui-icon-trash",
+	                primary: "ui-icon-trash"
 	            }
 	        })
 	        .on("click",function() {
-        		alert("calling " + url +" with " + data +"=" + sData);
+                            myscope = angular.element(nTd).scope().doDel(oData);
         	});
 
         	$(nTd).empty().prepend(butDel);
@@ -19,22 +19,41 @@ function delBut(url,data) {
 }
 
 
-function userAdmin($scope,$http,$resource) {
-	$scope.userColumnDefs = [ 
+function userAdmin($scope,$window,$resource) {
+	var User = $resource('/admin/users/:userId',{userId:'@id'});
+    
+        $scope.userColumnDefs = [ 
             { "mData": "name", "aTargets":[0] },
             { "mData": "email", "aTargets":[1] },
-            new delBut("myurl","id")
+            new delBut("id")
         ]; 
+        
+        
 
-	$http.get("/admin/users.json").success(function(data) {$scope.users=data;});   
+        $scope.showDlg = function() {
+            $window.alert("Setting state to true");
+            $scope.dlgState=true;
+        }
         
-        var User = $resource('/admin/users/:userId',{userId:'@id'});
+        $scope.refresh =function() {
+            User.query(function(data) {$scope.users=data; });
+        }
         
-        $scope.createUser = function() {
-            $scope.msg = "Called!";
+        $scope.doDel = function(usr) {
+            if($window.confirm(usr.name + " wirklich löschen?")) {            
+                User.remove({userId:usr.id});
+            }
+            $scope.refresh();
+        }
+        
+        $scope.submitDialog = function() {
             me = new User({name:"Honk",email:"wupp@wapp.dapp"});
             me.$save();
         }
+        
+        //initialization code
+        $scope.refresh();
+        $scope.dlgState = false;
 }
 
 function eventAdmin($scope,$http) {

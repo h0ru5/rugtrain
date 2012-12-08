@@ -4,9 +4,9 @@ require_once '../functions.inc.php';
 Epi::setPath('base','../epiphany');
 Epi::init('api');
 
-getApi()->get('/users.json',array('Users','index'), EpiApi::external);
-getApi()->get('/users/([^/]+).json',array('Users','get'), EpiApi::external);
-getApi()->delete('/users/([^/]+).json',array('Users','delete'), EpiApi::external);
+getApi()->get('/users',array('Users','index'), EpiApi::external);
+getApi()->get('/users/([^/]+)',array('Users','get'), EpiApi::external);
+getApi()->delete('/users/([^/]+)',array('Users','delete'), EpiApi::external);
 getApi()->post('/users',array('Users','create'), EpiApi::external);
 getApi()->get('/trainings.json',array('Trainings','index'), EpiApi::external);
 getApi()->post('/trainings.json',array('Trainings','create'), EpiApi::external);
