@@ -80,15 +80,47 @@ function userAdmin($scope,$window,$resource) {
         
 }
 
-function eventAdmin($scope,$http) {
+function eventAdmin($scope,$resource,$window) {
 	$scope.eventColumnDefs = [ 
             { "mDataProp": "what", "aTargets":[0] },
             { "mDataProp": "where", "aTargets":[1] },
-            { "mDataProp": "when", "aTargets":[2] }
-         
+            { "mDataProp": "when", "aTargets":[2] },
+            new actButtons("tid")
         ]; 
+	
+	var Event = $resource('/admin/trainings/:evtId',{evtId:'@tid'});
 
-	$http.get("/admin/trainings").success(function(data) {$scope.events=data;});   
+	function refresh() {
+            Event.query(function(data) {$scope.events=data;});
+       }
+
+        $scope.doDel = function(evt) {
+            if($window.confirm(evt.what + " (" + evt.where +") wirklich löschen?")) {            
+               Event.remove({evtId:evt.tid});
+            }
+            refresh();
+        };
+  
+        $scope.doEdit = function(evt) {
+            $scope.curEvt = Event.get({evtId:evt.tid});
+            $scope.dlgState=true;
+        };
+
+       $scope.showDlg = function() {
+           $scope.curEvt=new Event();
+           $scope.dlgState = true;
+       }
+
+       $scope.submitDlg = function() {
+           $scope.curEvt.$save();
+           $scope.dlgState=false;
+           refresh();
+       }
+
+        //init
+        $scope.dlgState = false;
+        refresh();
+        $scope.curEvt = new Event();
 }
 
 

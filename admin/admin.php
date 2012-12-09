@@ -44,8 +44,8 @@ class Trainings {
 
     public static function update($tid) {
         $data =& jsonPostData();
-        $mysqldate=$data->when->format("Y-m-d H:i:s");
-        $ts =& doQuery("REPLACE  INTO trainings (`tid`,`when`,`where`,`what`) VALUES ('$tid','$mysqldate','$where','$what') ");
+        #$mysqldate=$data->when->format("Y-m-d H:i:s");
+        $ts =& doQuery("REPLACE  INTO trainings (`tid`,`when`,`where`,`what`) VALUES ($tid,'$data->when','$data->where','$data->what') ");
         return $ts->fetchAll();
     }
     
@@ -78,8 +78,8 @@ class Trainings {
     }
     
     private static function createTrain($day,$where,$what) {
-        $mysqldate=$day->format("Y-m-d H:i:s");
-        $sql="INSERT INTO trainings (`when`,`where`,`what`) VALUES ('$mysqldate','$where','$what')";
+        #$mysqldate=$day->format("Y-m-d H:i:s");
+        $sql="INSERT INTO trainings (`when`,`where`,`what`) VALUES ('$day','$where','$what')";
         $res = doQuery($sql)->fetchAll();
     }
     

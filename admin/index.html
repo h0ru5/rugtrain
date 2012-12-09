@@ -54,15 +54,29 @@ $(function() {
 			<img alt="Kommentare" height="128" src="../img/icons/stylistica/comments.png" width="128" /></a></li>
 		</ul>
 		<div id="evnt" class="main ui-corner-br" ng-controller="eventAdmin">
-			<table aa-data="events" ao-column-defs="eventColumnDefs" class="dat" my-table="">
+			<table aa-data="events" ao-column-defs="eventColumnDefs" class="dat" my-table="" add-button="Neu">
 				<thead>
 					<tr>
 						<th>Termin</th>
 						<th>Ort</th>
 						<th>Zeit</th>
+                                                <th>Aktion</th>
 					</tr>
 				</thead>
 			</table>
+                        <div id="diagEvt" title="Add/Edit Event" jq-dialog dlg-State="dlgState">
+                    <form>
+                        <fieldset>
+                            <input type="hidden" ng-model="curEvt.tid"/>
+                            <label for="termin">Termin</label>
+                            <input id="termin" name="termin" type="text" class="text ui-widget-content ui-corner-all" ng-model="curEvt.what"/>
+                            <label for="time">Zeit</label>
+                            <input id="time" type="datetime" name="time" class="text ui-widget-content ui-corner-all" ng-model="curEvt.when"/>
+                            <label for="ort">Ort</label>
+                            <input id="ort" name="ort" type="text" class="text ui-widget-content ui-corner-all" ng-model="curEvt.where" />
+                        </fieldset>
+                    </form>
+                </div>
 		</div>
             <div id="usr" class="main ui-corner-br" ng-controller="userAdmin">
                 <table aa-data="users" ao-column-defs="userColumnDefs" my-table="" class="dat" add-button="Neu">
@@ -120,7 +134,6 @@ $(function() {
 	Icons by <a href="http://dryicons.com">http://dryicons.com</a>
 </footer>
 
-    <div ng-controller="userAdmin" id="msgman"><p>{{dlgState}}<br>{{curUsr | json}}</p></div>
 </body>
 
 </html>

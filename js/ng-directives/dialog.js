@@ -27,6 +27,18 @@ angular.module("jqDialog",[])
             
                 if(attrs.dlgButtons && attrs.dlgButtons.length > 0) {
                     options.buttons = scope.$eval(attrs.dlgButtons)
+                } else {
+                    options.buttons = 
+                        {
+                            "Cancel" : options.close,
+                            "Save"  :  function() {
+                                if(attrs.dlgAction)  {
+                                    scope.$eval(attrs.dlgAction)();
+                                } else {
+                                    scope.submitDlg();
+                                }
+                            }
+                        }
                 }
             
                 scope.openDlg=function() {
