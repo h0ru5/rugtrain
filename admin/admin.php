@@ -6,8 +6,10 @@ Epi::init('api');
 
 getApi()->get('/users',array('Users','index'), EpiApi::external);
 getApi()->get('/users/([^/]+)',array('Users','get'), EpiApi::external);
+getApi()->post('/users/([^/]+)',array('Users','update'), EpiApi::external);
 getApi()->delete('/users/([^/]+)',array('Users','delete'), EpiApi::external);
 getApi()->post('/users',array('Users','create'), EpiApi::external);
+
 getApi()->get('/trainings.json',array('Trainings','index'), EpiApi::external);
 getApi()->post('/trainings.json',array('Trainings','create'), EpiApi::external);
 getApi()->post('/trainings/weekdays',array('Trainings','createForWeekDays'), EpiApi::external);
@@ -58,13 +60,15 @@ class Trainings {
 class Users {
     
     public static function create() {
-         $data =& json_decode(file_get_contents('php://input'));
+         $data =& jsonPostData();
          $sql="INSERT INTO mailliste (`name`,`email`) VALUES ('$data->name','$data->email')";
-            return doQuery($sql)->fetchAll();
+         return doQuery($sql)->fetchAll();
     }
         
     public static function update() {
-        return array("OK" => "true");
+         $data =& jsonPostData();
+         $sql="REPLACE INTO mailliste (`id`,`name`,`email`) VALUES ($data->id,'$data->name','$data->email')";
+         return doQuery($sql)->fetchAll();
     }
     
     public static function delete($id) {

@@ -77,11 +77,11 @@ $(function() {
                 <div id="diagUsr" title="Add/Edit User" jq-dialog>
                     <form>
                         <fieldset>
-                            <input type="hidden" id="usrid"/>
+                            <input type="hidden" id="usrid" ng-model="curUsr.id"/>
                             <label for="name">Name</label>
-                            <input type="text" class="text ui-widget-content ui-corner-all" ng-model="curusr.name" />
+                            <input type="text" class="text ui-widget-content ui-corner-all" ng-model="curUsr.name" />
                             <label for="email">email</label>
-                            <input type="email" class="text ui-widget-content ui-corner-all" ng-model="curusr.email"/>
+                            <input type="email" class="text ui-widget-content ui-corner-all" ng-model="curUsr.email"/>
                         </fieldset>
                     </form>
                     <button ng-click="submitDialog()">Save</button>
@@ -106,7 +106,7 @@ $(function() {
 	Icons by <a href="http://dryicons.com">http://dryicons.com</a>
 </footer>
 
-    <div ng-controller="userAdmin" id="msgman"><p>{{dlgState}}</p></div>
+    <div ng-controller="userAdmin" id="msgman"><p>{{dlgState}}<br>{{curUsr | json}}</p></div>
 </body>
 
 </html>

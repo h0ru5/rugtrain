@@ -1,6 +1,6 @@
 ﻿angular.module("adminPanel",["myTable","ngResource","jqDialog","addButton"]);
 
-function delBut(_mData) {
+function actButtons(_mData) {
       this.aTargets=[-1];
       this.mData=_mData;
       this.fnCreatedCell=function (nTd, sData, oData, iRow, iCol) {
@@ -14,7 +14,18 @@ function delBut(_mData) {
                             myscope = angular.element(nTd).scope().doDel(oData);
         	});
 
-        	$(nTd).empty().prepend(butDel);
+
+                butEdit = $("<button>edit</button>").button({
+        	    text:false,
+	            icons: {
+	                primary: "ui-icon-wrench"
+	            }
+	        })
+	        .on("click",function() {
+                            myscope = angular.element(nTd).scope().doEdit(oData);
+        	}); 
+
+        	$(nTd).empty().prepend(butDel).prepend(butEdit);
       }        
 }
 
@@ -25,12 +36,13 @@ function userAdmin($scope,$window,$resource) {
         $scope.userColumnDefs = [ 
             { "mData": "name", "aTargets":[0] },
             { "mData": "email", "aTargets":[1] },
-            new delBut("id")
+            new actButtons("id")
         ]; 
         
         
 
         $scope.showDlg = function() {
+            $scope.curUsr = new User();
             $scope.dlgState=true;
         }
         
@@ -42,6 +54,7 @@ function userAdmin($scope,$window,$resource) {
         
         $scope.refresh =function() {
             User.query(function(data) {$scope.users=data; });
+            $scope.$apply();
         }
         
         $scope.doDel = function(usr) {
@@ -51,14 +64,22 @@ function userAdmin($scope,$window,$resource) {
             $scope.refresh();
         }
         
+        $scope.doEdit = function(usr) {
+            $scope.curUsr = User.get({userId:usr.id});
+            $scope.dlgState=true;
+        }
+        
         $scope.submitDialog = function() {
-            me = new User({name:"Honk",email:"wupp@wapp.dapp"});
-            me.$save();
+            $scope.curUsr.$save();
+            $scope.dlgState=false;
+            $scope.refresh();
         }
         
         //initialization code
         $scope.refresh();
         $scope.dlgState = false;
+        $scope.curUsr=new User();
+        
 }
 
 function eventAdmin($scope,$http) {

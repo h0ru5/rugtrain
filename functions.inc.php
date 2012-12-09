@@ -35,6 +35,10 @@ function escapeSQL($sql) {
 		return $hdb->escape($sql);
 }
 
+function jsonPostData() {
+    return json_decode(file_get_contents('php://input'));
+}
+
 function tableview($tid) {
     global $table;
 	#$sql = "SELECT t.Name AS name, v.text AS vote, t.id AS id, t.vote AS vid, t.time AS time FROM
