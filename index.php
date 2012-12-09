@@ -37,16 +37,17 @@ switch($_REQUEST['action']) {
                 if($_REQUEST['tid']) redirect($tid);
 	ob_end_flush();
 }
+if(!$_REQUEST['action']) {
 ?>
 <html>
     <head>
         <title>Munich Rugbears Training Site</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link href="css/styling.css" rel="stylesheet" type="text/css" />
+        <link href="/css/styling.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
         <div class="logo">
-            <img src="img/logo_rb.jpg" alt="Rugbears Logo" width="369" height="295" />
+            <img src="/img/logo_rb.jpg" alt="Rugbears Logo" width="369" height="295" />
             <h1>Training-site der Munich Rugbears</h1>
         </div>
 <p>Die n&auml;chsten 20 Termine:</p>
@@ -60,4 +61,4 @@ while($row = $data->fetchRow()) {
 </ul>
     </body>
 </html>
-    
+<? } ?>    

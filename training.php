@@ -14,8 +14,8 @@ if($_REQUEST['tid']) {
 }
 
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <!-- link rel="alternate" type="application/rss+xml" title="RSS-Feed" href="rss.php" / -->
@@ -46,7 +46,7 @@ function addcmt() {
 				<input type="hidden" name="tid" value="<?= $tid ?>" />
                                 <input type="hidden" name="action" value="addcmt" />
 				<input type="text" name="autor"  value="<?= getCookieName() ?>" /><br />
-				<textarea cols="40" name="msg" wrap="physical"></textarea>
+				<textarea cols="40" name="msg" wrap="virtual"></textarea>
 				<input type="submit" value="Eintragen" />
 			</div>
 		</form>
