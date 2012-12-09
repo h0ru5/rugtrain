@@ -38,8 +38,6 @@ function userAdmin($scope,$window,$resource) {
             { "mData": "email", "aTargets":[1] },
             new actButtons("id")
         ]; 
-        
-        
 
         $scope.showDlg = function() {
             $scope.curUsr = new User();
@@ -54,7 +52,7 @@ function userAdmin($scope,$window,$resource) {
         
         $scope.refresh =function() {
             User.query(function(data) {$scope.users=data; });
-            $scope.$apply();
+          //  $scope.$apply();
         }
         
         $scope.doDel = function(usr) {
@@ -76,8 +74,8 @@ function userAdmin($scope,$window,$resource) {
         }
         
         //initialization code
-        $scope.refresh();
         $scope.dlgState = false;
+        $scope.refresh();
         $scope.curUsr=new User();
         
 }
@@ -90,20 +88,39 @@ function eventAdmin($scope,$http) {
          
         ]; 
 
-	$http.get("/admin/trainings.json").success(function(data) {$scope.events=data;});   
+	$http.get("/admin/trainings").success(function(data) {$scope.events=data;});   
 }
 
 
-function commentAdmin($scope,$http) {
+function commentAdmin($scope,$resource,$window) {
 	$scope.commentColumnDefs = [ 
             { "mDataProp": "tid", "aTargets":[0] },
             { "mDataProp": "autor", "aTargets":[1] },
             { "mDataProp": "time", "aTargets":[2] },
-            { "mDataProp": "msg", "aTargets":[3] }
-            
+            { "mDataProp": "msg", "aTargets":[3] },
+             new actButtons("id")
         ]; 
-
         
+        var Comment = $resource('/admin/comments/:cmtId',{cmtId:'@id'});
 
-	$http.get("/admin/comments.json").success(function(data) {$scope.comments=data;});   
+        function refresh() {
+            Comment.query(function(data) {$scope.comments=data;});
+        }
+
+        $scope.doDel = function(cmt) {
+            if($window.confirm("Kommentar wirklich löschen?")) {            
+               Comment.remove({cmtId:cmt.id});
+            }
+            refresh();
+        };
+  
+        $scope.doEdit = function(cmt) {
+            $scope.curCmt = Comment.get({cmtId:cmt.id});
+            $scope.dlgState=true;
+        };
+
+        //init
+        $scope.dlgState = false;
+        refresh();
+        $scope.curCmt = new Comment();
 }

@@ -10,23 +10,51 @@ getApi()->post('/users/([^/]+)',array('Users','update'), EpiApi::external);
 getApi()->delete('/users/([^/]+)',array('Users','delete'), EpiApi::external);
 getApi()->post('/users',array('Users','create'), EpiApi::external);
 
-getApi()->get('/trainings.json',array('Trainings','index'), EpiApi::external);
-getApi()->post('/trainings.json',array('Trainings','create'), EpiApi::external);
+getApi()->get('/trainings',array('Trainings','index'), EpiApi::external);
+getApi()->post('/trainings',array('Trainings','create'), EpiApi::external);
+getApi()->get('/trainings/([^/]+)',array('Trainings','get'), EpiApi::external);
+getApi()->post('/trainings/([^/]+)',array('trainings','update'), EpiApi::external);
+getApi()->delete('/trainings/([^/]+)',array('Trainings','delete'), EpiApi::external);
 getApi()->post('/trainings/weekdays',array('Trainings','createForWeekDays'), EpiApi::external);
-getApi()->get('/comments.json',array('Comments','index'), EpiApi::external);
-getApi()->post('/comments.json',array('Comments','create'), EpiApi::external);
+
+getApi()->get('/comments',array('Comments','index'), EpiApi::external);
+getApi()->post('/comments',array('Comments','create'), EpiApi::external);
+getApi()->get('/comments/([^/]+)',array('Comments','get'), EpiApi::external);
+getApi()->post('/comments/([^/]+)',array('Comments','update'), EpiApi::external);
+getApi()->delete('/comments/([^/]+)',array('Comments','delete'), EpiApi::external);
+
 getRoute()->run();
 
 class Trainings {
     public static function create() {
-        return $_POST;
+        $data = & jsonPostData();
+        return self::createTrain($data->when,$data->where,$data->what);
     }
     
     public static function index() {
         $ts =& doQuery("SELECT `tid`,`when`,`where`,`what` FROM trainings WHERE `when` > CURDATE() ORDER BY `when`");
-        return   $ts->fetchAll();
+        return $ts->fetchAll();
     }
-      
+    
+    public static function get($tid) {
+        $tid = escapeSQL($tid);
+        $ts =& doQuery("SELECT `tid`,`when`,`where`,`what` FROM trainings WHERE `tid` = $tid");
+        return $ts->fetchRow();
+    }
+
+    public static function update($tid) {
+        $data =& jsonPostData();
+        $mysqldate=$data->when->format("Y-m-d H:i:s");
+        $ts =& doQuery("REPLACE  INTO trainings (`tid`,`when`,`where`,`what`) VALUES ('$tid','$mysqldate','$where','$what') ");
+        return $ts->fetchAll();
+    }
+    
+    public static function delete($tid) {
+        $tid = escapeSQL($tid);
+        $ts =& doQuery("DELETE FROM trainings WHERE `tid` = $tid");
+        return $ts->fetchRow();
+    }
+    
     public static function createForWeekDays() {
         $weekday=  escapeSQL($_POST['weekday']);
         $where=  escapeSQL($_POST['where']);
@@ -93,12 +121,31 @@ class Users {
 }
 
 class Comments {
+    
+     public static function get($id) {
+        $uid = escapeSQL($id);
+        $data = & doQuery("SELECT tid,autor,time,msg FROM kommentare WHERE id=$uid");
+        return $data->fetchRow();
+     }
+    
+     public static function update($id) {
+        $uid = escapeSQL($id); 
+        $data =& jsonPostData();
+        $data = & doQuery("REPLACE INTO kommentare (id,tid,autor,time,msg) VALUES ($uid,$data->tid,'$data->autor','$data->time','$data->msg')");
+        return $data->fetchRow();
+     }
+     
+     public static function delete($id) {
+        $uid = escapeSQL($id);
+        $data = & doQuery("DELETE FROM kommentare WHERE id=$uid");
+        return array("OK" => !PEAR::isError($data));
+     }
     public static function create() {
         return array("OK" => "true");
     }
     
     public static function index()  {
-     $data = & doQuery("SELECT tid,autor,time,msg FROM kommentare ORDER BY time DESC");
+     $data = & doQuery("SELECT id,tid,autor,time,msg FROM kommentare ORDER BY time DESC");
      return $data->fetchAll();
    }
 }

@@ -74,7 +74,7 @@ $(function() {
                         </tr>
                     </thead>
                 </table>
-                <div id="diagUsr" title="Add/Edit User" jq-dialog>
+                <div id="diagUsr" title="Add/Edit User" jq-dialog dlg-State="dlgState">
                     <form>
                         <fieldset>
                             <input type="hidden" id="usrid" ng-model="curUsr.id"/>
@@ -96,10 +96,24 @@ $(function() {
 						<th>Autor</th>
 						<th>Zeit</th>
 						<th>Inhalt</th>
+                                                <th>Aktion</th>
 					</tr>
 				</thead>
 			</table>
-		</div>
+		    <div id="diagCmt" title="Add/Edit Comment" jq-dialog dlg-State="dlgState">
+                    <form>
+                        <fieldset>
+                            <input type="hidden" ng-model="curCmt.id"/>
+                            <input type="hidden" ng-model="curCmt.tid"/>
+                            <label for="autor">Autor</label>
+                            <input id="autor" name="autor" type="text" class="text ui-widget-content ui-corner-all" ng-model="curCmt.autor"/>
+                            <label for="time">Zeit</label>
+                            <input id="time" type="datetime" name="time" class="text ui-widget-content ui-corner-all" ng-model="curCmt.time"/>
+                            <label for="msg">Inhalt</label>
+                            <textarea id="msg" name="msg" type="text" class="text ui-widget-content ui-corner-all" ng-model="curCmt.msg"></textarea>
+                        </fieldset>
+                    </form>
+                </div>
 	</div>
 </div>
 <footer>
