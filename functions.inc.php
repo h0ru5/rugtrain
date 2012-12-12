@@ -55,7 +55,7 @@ function tableview($tid) {
 	while($row = & $data->fetchRow()) {
 		print "<tr><td>$row->name</td>";
 		print "<td class='v$row->vid'>$row->vote</td>";
-		print "<td align='right'>";
+		print "<td class='vdate' align='right'>";
 		print(strftime("%a %H:%M",strtotime($row->time)));
 		#print(date("d.n.y H:i",strtotime($row->time)));
 		#<!-- a href='$PHP_SELF?action=del&id=$row->id'>l&ouml;schen</a -->
