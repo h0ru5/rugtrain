@@ -6,13 +6,13 @@ require_once("const.inc.php");
     $now =& new DateTime();
     $fp = fopen("mailout.log", "w");
     $data = & soon(8);
-    
+        
     fputs($fp, "Mailout running on " . $now->format("Y-m-d") ."\n");
     while($row = $data->fetchRow()) {
       fputs($fp,"> $row->tid: $row->what in $row->where in $row->diff days\n");
       if($row->diff == $daysahead) {
           fputs($fp,"mailing out...\n");
-          mailOutFor($row->tid);
+          mailOutFor($row->tid,$fp);
       }
     }
     fputs($fp,"done!\n");
@@ -41,12 +41,12 @@ $html_body = "
 
 <body>
 <h1>RugBears Training am $td</h1>
-<p>Kommst du? einfach den Link anklicken<br>Ergebnisse sind auf <a href='http://rugby.johanneshund.de'>rugby.johanneshund.de</a></p>
+<p>Kommst du? einfach den Link anklicken<br>Ergebnisse sind auf <a href='http://training.munichrugbears.de/$tid'>training.munichrugbears.de</a></p>
 <table width='80%' style='table-layout:fixed'>
 <tr>
-<td width='33%'><a href='http://rugby.johanneshund.de/index.php?action=add&vote=1&name=$name'>Spiele</a></td>
-<td width='33%'><a href='http://rugby.johanneshund.de/index.php?action=add&vote=2&name=$name'>Komme</a></td>
-<td width='33%'><a href='http://rugby.johanneshund.de/index.php?action=add&vote=3&name=$name'>Komme nicht</a></td>
+<td width='33%'><a href='http://training.munich-rugbears.de/$tid/add?vote=1&name=$name'>Spiele</a></td>
+<td width='33%'><a href='http://training.munich-rugbears.de/$tid/add?vote=2&name=$name'>Komme</a></td>
+<td width='33%'><a href='http://training.munich-rugbears.de/$tid/add?vote=3&name=$name'>Komme nicht</a></td>
 </tr>
 </table>
 </body>
@@ -54,14 +54,14 @@ $html_body = "
 
 $text_body = "
 Rugbears Training am $td\n\nKommst du? einfach link anklicken\n
-Spiele: http://rugby.johanneshund.de/index.php?action=add&vote=1&name=$name\n\n
-Komme: http://rugby.johanneshund.de/index.php?action=add&vote=2&name=$name\n\n
-Komme nicht: http://rugby.johanneshund.de/index.php?action=add&vote=3&name=$name\n\n";
+Spiele: http://training.munich-rugbears.de/$tid/add?vote=3&name=$name\n\n
+Komme: http://training.munich-rugbears.de/$tid/add?vote=3&name=$name\n\n
+Komme nicht: http://training.munich-rugbears.de/$tid/add?vote=3&name=$name\n\n";
 $grenze="Nextpart";
 
 $headers ="MIME-Version: 1.0\n";
 #$headers.="From:\"$name_i\"<$mailadd>\n";
-$headers.="From:\"Rugbot\"<rugby@johanneshund.de>\n";
+$headers.="From:\"Rugbot\"<training@munich-rugbears.de>\n";
 $headers.="Content-Type: multipart/alternative;\n\tboundary=$grenze\n";
 
 $msg = "\n--$grenze\n";

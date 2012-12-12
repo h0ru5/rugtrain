@@ -55,7 +55,7 @@ if(!$_REQUEST['action']) {
 <? 
 $data =& soon(20);
 while($row = $data->fetchRow()) {
-      print "<li><a href='". getViewUrl() . $row->tid ."'>$row->what ($row->where) in $row->diff Tagen</li>";
+      print "<li><a href='". getViewUrl() . $row->tid ."'>$row->what ($row->where) am ". trainday3($row->tid) ." (in $row->diff Tagen)</li>";
     }
  ?>
 </ul>
