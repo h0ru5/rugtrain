@@ -18,9 +18,14 @@ if($_REQUEST['tid']) {
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<!-- link rel="alternate" type="application/rss+xml" title="RSS-Feed" href="rss.php" / -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.min.js" type="text/javascript"></script>
 <title>Rugbears Training</title>
 <script type="text/javascript">
+$()
+
+
+
 function addcmt() {
 	if(document.getElementById("cmtaddform").style.visibility == "visible")
 		document.getElementById("cmtaddform").style.visibility = "hidden";

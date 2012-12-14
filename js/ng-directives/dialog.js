@@ -55,8 +55,8 @@ angular.module("jqDialog",[])
                 
                 });
             
-                console.dir(options);
-                element.dialog(options);
+                
+                $(element).dialog(options);
                 scope.dlgState=false;
             }
         }

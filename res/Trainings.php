@@ -11,6 +11,12 @@ require_once '../functions.inc.php';
  * @author h0ru5
  */
 class Trainings {
+
+	public static function details($tid) {
+        $data = & doQuery("SELECT `tid`,`what`,`where`,`when` FROM trainings WHERE tid=$tid");
+        return $data->fetchRow();
+	}
+
     public static function votes($tid) {
         $sql = "SELECT t.Name AS name, v.text AS vote, t.vote AS vid, t.time AS time FROM
 	           t2 AS t JOIN votes AS v ON t.Vote = v.id 
@@ -26,13 +32,16 @@ class Trainings {
     }
     
     public static function addComment($tid) {
-        $autor = escapeSQL($_POST['autor']);
-	$msg= escapeSQL($_POST['msg']);
-        $tid= escapeSQL($_POST['tid']);
+    $input = jsonPostData();
+#        $autor = escapeSQL($_POST['autor']);
+#	$msg= escapeSQL($_POST['msg']);
+#        $tid= escapeSQL($_POST['tid']);
 	$now = date( 'Y-m-d H:i:s');
 	setcookie("user",$name,mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1));
-	doQuery("INSERT INTO kommentare (tid,autor,msg,time) VALUES ('$tid','$autor','$msg','$now')");
-        return array("OK"=>TRUE);
+	$res =&doQuery("INSERT INTO kommentare (tid,autor,msg,time) VALUES ('$input->tid','$input->autor','$input->msg','$now')");
+		$res = $input;
+		$res->time = $now;
+        return $res;
     }
     
     public static function addVote($tid) {
@@ -48,7 +57,10 @@ class Trainings {
     }
     
      public static function stats($tid) {
-	$data = & doQuery("SELECT v.id AS vote, COUNT(v.id) AS count FROM t2 AS t JOIN votes AS v ON t.vote = v.id WHERE t.tid=$tid GROUP BY v.id ORDER BY v.id");
+		$data = & doQuery("SELECT v.id,v.text AS vote, COUNT(v.id) AS count 
+			FROM t2 AS t JOIN votes AS v ON t.vote = v.id
+			WHERE t.tid=$tid
+			GROUP BY v.id ORDER BY v.id");
         return $data->fetchAll();
      }
     
