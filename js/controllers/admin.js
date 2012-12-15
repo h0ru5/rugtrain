@@ -151,6 +151,12 @@ function commentAdmin($scope,$resource,$window) {
             $scope.dlgState=true;
         };
 
+        $scope.submitDlg = function() {
+           $scope.curCmt.$save();
+           $scope.dlgState=false;
+           refresh();
+       }
+
         //init
         $scope.dlgState = false;
         refresh();

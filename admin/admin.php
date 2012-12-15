@@ -124,7 +124,7 @@ class Comments {
     
      public static function get($id) {
         $uid = escapeSQL($id);
-        $data = & doQuery("SELECT tid,autor,time,msg FROM kommentare WHERE id=$uid");
+        $data = & doQuery("SELECT id,tid,autor,time,msg FROM kommentare WHERE id=$uid");
         return $data->fetchRow();
      }
     
