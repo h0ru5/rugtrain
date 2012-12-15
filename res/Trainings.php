@@ -36,8 +36,8 @@ class Trainings {
 #        $autor = escapeSQL($_POST['autor']);
 #	$msg= escapeSQL($_POST['msg']);
 #        $tid= escapeSQL($_POST['tid']);
-	$now = date( 'Y-m-d H:i:s');
-	setcookie("user",$name,mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1));
+        setUsrCookie($input->autor);
+        $now = date( 'Y-m-d H:i:s');
 	$res =&doQuery("INSERT INTO kommentare (tid,autor,msg,time) VALUES ('$input->tid','$input->autor','$input->msg','$now')");
 		$res = $input;
 		$res->time = $now;
@@ -46,14 +46,18 @@ class Trainings {
     
     public static function addVote($tid) {
         $table = "t2";
-	$name = escapeSQL($_GET['name']);
-	$vote = escapeSQL($_GET['vote']);
+#	$name = escapeSQL($_GET['name']);
+#	$vote = escapeSQL($_GET['vote']);
 	$now = date('Y-m-d H:i:s');
-	
-	setcookie("user",$name,mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1));
-	doQuery("REPLACE INTO $table (tid,Name,Vote,time) VALUES ('$tid','$name',$vote,'$now')");   
-        
-        return array("OK"=>TRUE);
+
+        $input = jsonPostData();
+        setUsrCookie($input->name);
+	$res =&doQuery("REPLACE INTO $table (tid,Name,Vote,time) VALUES ('$input->tid','$input->name',$input->vote,'$now')");   
+        if(PEAR::isError($res)) {
+            return array("OK"=>FALSE);
+        } else {
+            return array("OK"=>TRUE);
+        }
     }
     
      public static function stats($tid) {

@@ -121,7 +121,7 @@ angular.module('myTable', []).directive('myTable', function() {
                 options = scope.$eval(attrs.myTable);
             } else {
                 options = {
-                    "bStateSave": true,
+                    "bStateSave": false,
                     "iCookieDuration": 2419200, /* 1 month */
                     "bJQueryUI": true,
                     "bPaginate": false,

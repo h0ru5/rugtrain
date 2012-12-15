@@ -74,13 +74,17 @@ function soon($limit=1) {
     return $data;
 }
 
+function setUsrCookie($usrname) {
+    setcookie("user",$usrname,mktime(0, 0, 0, date("m"),   date("d")+30,   date("Y")),"/");
+}
+
 function add($tid) {
 	global $table;
 	$name = escapeSQL($_GET['name']);
 	$vote = escapeSQL($_GET['vote']);
 	$now = date('Y-m-d H:i:s');
 	
-	setcookie("user",$name,mktime(0, 0, 0, date("m"),   date("d"),   date("Y")+1));
+	setUsrCookie($name);
 	
 	doQuery("REPLACE INTO $table (tid,Name,Vote,time) VALUES ('$tid','$name',$vote,'$now')");
 	

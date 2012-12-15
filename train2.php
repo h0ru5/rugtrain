@@ -10,6 +10,7 @@
 <script src="js/lib/jquery.timeago.de.js"></script>
 <link href="css/styling.css" rel="stylesheet" type="text/css" />
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular-cookies.min.js" type="text/javascript"></script>
 <script src="js/ng-modules/pdate.js"></script>
 <script src="js/ng-modules/timeago.js"></script>
 <script src="js/ng-directives/dialog.js"></script>
@@ -48,7 +49,7 @@ header * {
 </head>
 
 <body ng-controller="TrainCtrl">
-
+<p>Hello, {{usrname}}</p>
 <div class="ui-widget ui-corner-all">
 	<header class="ui-widget-header">
 		<h1>{{details.what}} am {{details.when | date: 'dd.MM.yy'}}</h1>
@@ -88,7 +89,7 @@ header * {
 	</form>
 </div>
 <footer>
-	<ul>
+ 	<ul>
 		<li ng-repeat="stat in stats">{{stat.vote}}: {{stat.count}}</li>
 	</ul>
 </footer>
