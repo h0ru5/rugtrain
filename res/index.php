@@ -11,6 +11,7 @@ getApi()->get('/users',array('Users','names'), EpiApi::external);
 #getApi()->get('/next',array('Trainings','next'), EpiApi::external);
 #getApi()->get('/next/[^/]+',array('Trainings','nextn'), EpiApi::external);
 #getApi()->get('/trainings/[^/]+',array('Trainings','one'), EpiApi::external);
+getApi()->get('/votetypes',array('Trainings','votetypes'), EpiApi::external);
 getApi()->get('/trainings/([^/]+)/votes',array('Trainings','votes'), EpiApi::external);
 getApi()->get('/trainings/([^/]+)/comments',array('Trainings','comments'), EpiApi::external);
 getApi()->get('/trainings/([^/]+)/stats',array('Trainings','stats'), EpiApi::external);

@@ -12,6 +12,11 @@ require_once '../functions.inc.php';
  */
 class Trainings {
 
+        public static function votetypes() {
+            $votes = & doQuery("SELECT id,text FROM votes");
+            return $votes->fetchAll();
+        }
+    
 	public static function details($tid) {
         $data = & doQuery("SELECT `tid`,`what`,`where`,`when` FROM trainings WHERE tid=$tid");
         return $data->fetchRow();

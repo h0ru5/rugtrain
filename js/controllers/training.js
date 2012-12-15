@@ -9,15 +9,26 @@ function TrainCtrl($scope,$http,$cookies) {
                     });
     }
 
+    function hasVote() {
+        myVote = $.grep($scope.votes,function(v) { return v.name == $cookies.user});
+        console.dir(myVote);
+        return (myVote.length > 0);
+    }
+    
     $scope.usrname = $cookies.user;
+    
     
     $scope.curCmt = {
             msg: "",
-            autor : $scope.usrname,
+            autor : $cookies.user,
             tid : tid
     };
 
-   $http.get("/res/trainings/" + tid + "/votes").success(function(data) { $scope.votes=data; });        
+   $http.get("/res/trainings/" + tid + "/votes").success(function(data) {
+       $scope.votes=data; 
+       $scope.voted = hasVote();
+    });        
+   $http.get("/res/votetypes").success(function(data) {$scope.votetypes=data;}); 
    $http.get("/res/trainings/" + tid + "/comments").success(function(data) {$scope.comments=data;});   
    $http.get("/res/trainings/" + tid + "/stats").success(function(data) {$scope.stats=data;});   
    $http.get("/res/trainings/" + tid + "/details")
