@@ -34,7 +34,7 @@ function addcmt() {
 }
 </script>
 
-<link href="css/styling.css" rel="stylesheet" type="text/css" />
+<link href="/css/styling.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 

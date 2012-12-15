@@ -44,6 +44,14 @@ if(!$_REQUEST['action']) {
         <title>Munich Rugbears Training Site</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link href="/css/styling.css" rel="stylesheet" type="text/css" />
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
+        <script src="http://timeago.yarp.com/jquery.timeago.js"></script>
+        <script src="js/lib/jquery.timeago.de.js"></script>
+        <script type="text/javascript">
+            $(function() {
+               $("abbr.timeago").timeago(); 
+            });
+        </script>
     </head>
     <body>
         <div class="logo">
@@ -55,7 +63,8 @@ if(!$_REQUEST['action']) {
 <? 
 $data =& soon(20);
 while($row = $data->fetchRow()) {
-      print "<li><a href='". getViewUrl() . $row->tid ."'>$row->what ($row->where) am ". trainday3($row->tid) ." (in $row->diff Tagen)</li>";
+      print "<li><a href='". getViewUrl() . $row->tid ."'>$row->what ($row->where) am ". trainday3($row->tid);
+      print " (<abbr class='timeago' title='$row->when'></abbr>)</li>";
     }
  ?>
 </ul>
