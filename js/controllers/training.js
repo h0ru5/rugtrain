@@ -1,4 +1,4 @@
-angular.module("trainSite",["pdate","timeago","jqDialog","ngCookies","jqAutoComplete"]);
+angular.module("trainSite",["pdate","timeago","jqDialog","ngCookies","jqAutoComplete","jqButton"]);
 function TrainCtrl($scope,$http,$cookies) {
     function addCmt() {
             console.log("Adding Comment " + $scope.curCmt.msg + " from " + $scope.curCmt.usr);

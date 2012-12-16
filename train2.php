@@ -9,12 +9,13 @@
         <script src="http://timeago.yarp.com/jquery.timeago.js"></script>
         <script src="js/lib/jquery.timeago.de.js"></script>
         <link href="css/styling.css" rel="stylesheet" type="text/css" />
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.js" type="text/javascript"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js" type="text/javascript"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular-cookies.min.js" type="text/javascript"></script>
         <script src="js/ng-modules/pdate.js"></script>
         <script src="js/ng-modules/timeago.js"></script>
         <script src="js/ng-directives/autocomplete.js"></script>
         <script src="js/ng-directives/dialog.js"></script>
+        <script src="js/ng-directives/jqButton.js"></script>
         <script src="js/controllers/training.js"></script>
         <script type="text/javascript">
             var tid=<?= $_REQUEST["tid"] ?>;
@@ -55,6 +56,7 @@
     <body ng-controller="TrainCtrl">
         <div class="ui-widget ui-corner-all">
               <header class="ui-widget-header">
+                  <a jq-button="home" href="/" style="float: left">Home</a>
                 <h1>{{details.what}} am {{details.when | date: 'dd.MM.yy'}}</h1>
                 <p>Ab {{details.when | date: 'HH:mm'}}, {{details.where}}</p>
             </header>
@@ -119,9 +121,8 @@
             </form>
         </div>
         <footer>
-            <p><a href="/">Zur &Uuml;bersicht</a><br/>
+            <p>
                 <a href="retro/<?= $_REQUEST["tid"] ?>">Zur alten Ansicht<!-- for loosers with IE --></a> 
-                
             </p>
             <ul>
                 <li ng-repeat="stat in stats">{{stat.vote}}: {{stat.count}}</li>
