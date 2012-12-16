@@ -1,4 +1,4 @@
-angular.module("trainSite",["pdate","timeago","jqDialog","ngCookies"]);
+angular.module("trainSite",["pdate","timeago","jqDialog","ngCookies","jqAutoComplete"]);
 function TrainCtrl($scope,$http,$cookies) {
     function addCmt() {
             console.log("Adding Comment " + $scope.curCmt.msg + " from " + $scope.curCmt.usr);
@@ -55,6 +55,7 @@ function TrainCtrl($scope,$http,$cookies) {
    $http.get("/res/votetypes").success(function(data) {$scope.votetypes=data;}); 
    $http.get("/res/trainings/" + tid + "/comments").success(function(data) {$scope.comments=data;});   
    $http.get("/res/trainings/" + tid + "/stats").success(function(data) {$scope.stats=data;});   
+   $http.get("/res/users").success(function(data) {$scope.unames=data;});
    $http.get("/res/trainings/" + tid + "/details")
     .success(function(data) {
          $scope.details=data;

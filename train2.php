@@ -9,10 +9,11 @@
         <script src="http://timeago.yarp.com/jquery.timeago.js"></script>
         <script src="js/lib/jquery.timeago.de.js"></script>
         <link href="css/styling.css" rel="stylesheet" type="text/css" />
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js" type="text/javascript"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.js" type="text/javascript"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular-cookies.min.js" type="text/javascript"></script>
         <script src="js/ng-modules/pdate.js"></script>
         <script src="js/ng-modules/timeago.js"></script>
+        <script src="js/ng-directives/autocomplete.js"></script>
         <script src="js/ng-directives/dialog.js"></script>
         <script src="js/controllers/training.js"></script>
         <script type="text/javascript">
@@ -53,7 +54,7 @@
 
     <body ng-controller="TrainCtrl">
         <div class="ui-widget ui-corner-all">
-            <header class="ui-widget-header">
+              <header class="ui-widget-header">
                 <h1>{{details.what}} am {{details.when | date: 'dd.MM.yy'}}</h1>
                 <p>Ab {{details.when | date: 'HH:mm'}}, {{details.where}}</p>
             </header>
@@ -73,6 +74,7 @@
                             <select id="vote" class="text ui-widget-content ui-corner-all" name="vote" 
                                     ng-model="curVote.vid" ng-options="v.id as v.text for v in votetypes" 
                                     value="curVote.vid" ng-change="revote()" ng-switch-when="true" />
+                            
                         </td>
                         <td>{{vote.time | pdate | timeago}}</td>
                     </tr>
@@ -80,15 +82,19 @@
                 <div class="ui-widget ui-corner-all" id="VoteForm" ng-show="!voted">
                     <form>
                         <fieldset>
-                            <input type="hidden" name="tid" ng-model="curVote.tid" />		
-                            <label for="name">Name</label>
-                            <input id="name" class="text ui-widget-content ui-corner-all" name="name" ng-model="usrname" type="text" />
-                            <label for="vote">Vote</label>
+                            <span><!-- I'll buy a beer for anyone who can explain me why this span is needed! if i take it away, the following select will humble-->
+                            <label for="usrname">Name</label>
+                            <input id="usrname"  class="text ui-widget-content ui-corner-all" name="usrname"
+                                   ng-model="usrname" type="text" jq-auto-complete="unames" />
+                            
+                            </span>
+                        <label for="vote">Vote</label>
                             <select id="vote" class="text ui-widget-content ui-corner-all" name="vote" 
                                     ng-model="curVote.vid" ng-options="v.id as v.text for v in votetypes" 
-                                    value="curVote.vid" ng-change="revote()">
-
+                                    value="curVote.vid" ng-change="revote()">                            
+                                
                             </select>
+                            
                         </fieldset>
                     </form>
                 </div>
@@ -106,7 +112,7 @@
                 <fieldset>
                     <input type="hidden" name="tid" ng-model="curCmt.tid" />		
                     <label for="autor">Autor</label>
-                    <input id="autor" class="text ui-widget-content ui-corner-all" name="autor" ng-model="curCmt.autor" type="text" />
+                    <input id="autor" class="text ui-widget-content ui-corner-all" name="autor" ng-model="curCmt.autor" type="text" jq-auto-complete="unames"/>
                     <label for="msg">Inhalt</label>
                     <textarea id="msg" class="text ui-widget-content ui-corner-all" name="msg" ng-model="curCmt.msg"></textarea>
                 </fieldset>
@@ -114,7 +120,8 @@
         </div>
         <footer>
             <p><a href="/">Zur &Uuml;bersicht</a><br/>
-                <a href="retro/<?= $_REQUEST["tid"] ?>">Zur alten Ansicht<!-- for loosers with IE --></a>            
+                <a href="retro/<?= $_REQUEST["tid"] ?>">Zur alten Ansicht<!-- for loosers with IE --></a> 
+                
             </p>
             <ul>
                 <li ng-repeat="stat in stats">{{stat.vote}}: {{stat.count}}</li>
