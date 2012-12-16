@@ -38,12 +38,13 @@ class Trainings {
     
     public static function addComment($tid) {
     $input = jsonPostData();
+    $stid = escapeSQL($tid);
 #        $autor = escapeSQL($_POST['autor']);
 #	$msg= escapeSQL($_POST['msg']);
 #        $tid= escapeSQL($_POST['tid']);
         setUsrCookie($input->autor);
         $now = date( 'Y-m-d H:i:s');
-	$res =&doQuery("INSERT INTO kommentare (tid,autor,msg,time) VALUES ('$input->tid','$input->autor','$input->msg','$now')");
+	$res =&doQuery("INSERT INTO kommentare (tid,autor,msg,time) VALUES ('$stid','$input->autor','$input->msg','$now')");
 		$res = $input;
 		$res->time = $now;
         return $res;
@@ -51,13 +52,14 @@ class Trainings {
     
     public static function addVote($tid) {
         $table = "t2";
+        $stid = escapeSQL($tid);
 #	$name = escapeSQL($_GET['name']);
 #	$vote = escapeSQL($_GET['vote']);
 	$now = date('Y-m-d H:i:s');
 
         $input = jsonPostData();
         setUsrCookie($input->name);
-	$res =&doQuery("REPLACE INTO $table (tid,Name,Vote,time) VALUES ('$input->tid','$input->name',$input->vote,'$now')");   
+	$res =&doQuery("REPLACE INTO $table (tid,Name,Vote,time) VALUES ('$stid','$input->name',$input->vid,'$now')");   
         if(PEAR::isError($res)) {
             return array("OK"=>FALSE);
         } else {

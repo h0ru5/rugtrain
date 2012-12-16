@@ -52,7 +52,6 @@
     </head>
 
     <body ng-controller="TrainCtrl">
-        <p>Hello, {{usrname}} ({{voted}})</p>
         <div class="ui-widget ui-corner-all">
             <header class="ui-widget-header">
                 <h1>{{details.what}} am {{details.when | date: 'dd.MM.yy'}}</h1>
@@ -69,11 +68,16 @@
                     </thead>
                     <tr class="ui-widget-content ui-corner-all" ng-repeat="vote in votes">
                         <td>{{vote.name}}</td>
-                        <td class="v{{vote.vid}}">{{vote.vote}}</td>
+                        <td class="v{{vote.vid}}" ng-switch on="vote.name==usrname">
+                            <span ng-switch-default>{{votetypes[vote.vid-1].text}}</span>
+                            <select id="vote" class="text ui-widget-content ui-corner-all" name="vote" 
+                                    ng-model="curVote.vid" ng-options="v.id as v.text for v in votetypes" 
+                                    value="curVote.vid" ng-change="revote()" ng-switch-when="true" />
+                        </td>
                         <td>{{vote.time | pdate | timeago}}</td>
                     </tr>
                 </table>
-                <div class="ui-widget ui-corner-all" id="VoteForm" >
+                <div class="ui-widget ui-corner-all" id="VoteForm" ng-show="!voted">
                     <form>
                         <fieldset>
                             <input type="hidden" name="tid" ng-model="curVote.tid" />		
@@ -81,7 +85,8 @@
                             <input id="name" class="text ui-widget-content ui-corner-all" name="name" ng-model="usrname" type="text" />
                             <label for="vote">Vote</label>
                             <select id="vote" class="text ui-widget-content ui-corner-all" name="vote" 
-                                    ng-model="selectedVote" ng-options="v.id as v.text for v in votetypes" value="selectedVote.id">
+                                    ng-model="curVote.vid" ng-options="v.id as v.text for v in votetypes" 
+                                    value="curVote.vid" ng-change="revote()">
 
                             </select>
                         </fieldset>
@@ -108,6 +113,9 @@
             </form>
         </div>
         <footer>
+            <p><a href="/">Zur &Uuml;bersicht</a><br/>
+                <a href="retro/<?= $_REQUEST["tid"] ?>">Zur alten Ansicht<!-- for loosers with IE --></a>            
+            </p>
             <ul>
                 <li ng-repeat="stat in stats">{{stat.vote}}: {{stat.count}}</li>
             </ul>

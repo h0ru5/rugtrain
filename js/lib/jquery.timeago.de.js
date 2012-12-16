@@ -1,5 +1,4 @@
 ﻿// German
-jQuery.timeago.settings.allowFuture=true;
 jQuery.timeago.settings.strings = {
   prefixAgo: "vor",
   prefixFromNow: "in",

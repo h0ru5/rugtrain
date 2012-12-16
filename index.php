@@ -48,6 +48,7 @@ if(!$_REQUEST['action']) {
         <script src="http://timeago.yarp.com/jquery.timeago.js"></script>
         <script src="js/lib/jquery.timeago.de.js"></script>
         <script type="text/javascript">
+            jQuery.timeago.settings.allowFuture=true;
             $(function() {
                $("abbr.timeago").timeago(); 
             });

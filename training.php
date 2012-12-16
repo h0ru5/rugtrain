@@ -22,10 +22,6 @@ if($_REQUEST['tid']) {
 <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.min.js" type="text/javascript"></script>
 <title>Rugbears Training</title>
 <script type="text/javascript">
-$()
-
-
-
 function addcmt() {
 	if(document.getElementById("cmtaddform").style.visibility == "visible")
 		document.getElementById("cmtaddform").style.visibility = "hidden";
@@ -39,7 +35,10 @@ function addcmt() {
 <body>
 
 <h1>RugBears Training <?= trainday3($tid) ?><!-- trainday(<?= $tid ?>); --></h1>	
-<div id="linkback"><a href="<?=getViewUrl() ?>">zur&uuml;ck zur &Uuml;bersicht</a></div>
+<div id="linkback">
+    <a href="<?=getViewUrl() ?>">zur&uuml;ck zur &Uuml;bersicht</a><br/>
+    <a href="<?=getViewUrl() . $tid ?>">zur neuen Ansicht</a>
+</div>
 <div class="kommentare">
 	<h3>Kommentare: <a href="javascript:addcmt()" class="lil">hinzuf&uuml;gen...</a></h3>
 
