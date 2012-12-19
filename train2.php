@@ -3,13 +3,17 @@
 
     <head>
         <meta charset="utf-8">
+        <!-- link href="css/black-tie/jquery-ui-black-tie.min.css" media="all" rel="stylesheet" type="text/css" /-->
+         <link href="http://code.jquery.com/ui/1.9.2/themes/black-tie/jquery-ui.css" media="all" rel="stylesheet" type="text/css" />
+        <link href="css/styling.css" rel="stylesheet" type="text/css" />
+        
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
-        <link href="http://code.jquery.com/ui/1.9.2/themes/black-tie/jquery-ui.css" media="all" rel="stylesheet" type="text/css" />
         <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.min.js" type="text/javascript"></script>
+        <!-- script src="js/lib/jquery-ui-custom.min.js" type="text/javascript"></script-->
         <script src="http://timeago.yarp.com/jquery.timeago.js"></script>
         <script src="js/lib/jquery.timeago.de.js"></script>
-        <link href="css/styling.css" rel="stylesheet" type="text/css" />
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js" type="text/javascript"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.js" type="text/javascript"></script>
+        <script src="http://cdn.jsdelivr.net/angularjs/1.0.2/i18n/angular-locale_de.js" type="text/javascript"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular-cookies.min.js" type="text/javascript"></script>
         <script src="js/ng-modules/pdate.js"></script>
         <script src="js/ng-modules/timeago.js"></script>
@@ -29,36 +33,14 @@
         </script>
         <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
         <title>New Training site</title>
-        <style type="text/css">
-            .players {
-                float: left;
-                width: 50%;
-            }
-            .players table {
-                width: 100%;
-            }
-            .comments {
-                margin: 0px 0px 0px 50%;
-                overflow: auto;
-            }
-            header * {
-                text-align: center;
-            }
-            .addButton {
-                float:right;	
-            }
-            .comments .ui-widget-header {
-                height:3em;
-            }
-        </style>
     </head>
 
     <body ng-controller="TrainCtrl">
         <div class="ui-widget ui-corner-all">
               <header class="ui-widget-header">
                   <a jq-button="home" href="/" style="float: left">Home</a>
-                <h1>{{details.what}} am {{details.when | date: 'dd.MM.yy'}}</h1>
-                <p>Ab {{details.when | date: 'HH:mm'}}, {{details.where}}</p>
+                <h1>{{details.what}} am {{details.when | pdate | date: 'EEE dd.MM.yy'}}</h1>
+                <p>Ab {{details.when | pdate| date: 'HH:mm'}}, {{details.where}}</p>
             </header>
             <div class="players">
                 <table class="ui-corner-all ui-widget ">
@@ -87,7 +69,7 @@
                             <span><!-- I'll buy a beer for anyone who can explain me why this span is needed! if i take it away, the following select will humble-->
                             <label for="usrname">Name</label>
                             <input id="usrname"  class="text ui-widget-content ui-corner-all" name="usrname"
-                                   ng-model="usrname" type="text" jq-auto-complete="unames" />
+                                   ng-model="curVote.name" value="curVote.name" type="text" jq-auto-complete="unames" />
                             
                             </span>
                         <label for="vote">Vote</label>
@@ -113,8 +95,9 @@
             <form>
                 <fieldset>
                     <input type="hidden" name="tid" ng-model="curCmt.tid" />		
-                    <label for="autor">Autor</label>
+                    <span><label for="autor">Autor</label>
                     <input id="autor" class="text ui-widget-content ui-corner-all" name="autor" ng-model="curCmt.autor" type="text" jq-auto-complete="unames"/>
+                    </span>
                     <label for="msg">Inhalt</label>
                     <textarea id="msg" class="text ui-widget-content ui-corner-all" name="msg" ng-model="curCmt.msg"></textarea>
                 </fieldset>

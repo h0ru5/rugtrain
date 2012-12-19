@@ -62,3 +62,23 @@ body {
 	position:absolute;
 	width:450px;
 }
+            .players {
+                float: left;
+                width: 50%;
+            }
+            .players table {
+                width: 100%;
+            }
+            .comments {
+                margin: 0px 0px 0px 50%;
+                overflow: auto;
+            }
+            header * {
+                text-align: center;
+            }
+            .addButton {
+                float:right;	
+            }
+            .comments .ui-widget-header {
+                height:3em;
+            }

@@ -1,5 +1,5 @@
 angular.module("trainSite",["pdate","timeago","jqDialog","ngCookies","jqAutoComplete","jqButton"]);
-function TrainCtrl($scope,$http,$cookies) {
+function TrainCtrl($scope,$http,$cookies,$window) {
     function addCmt() {
             console.log("Adding Comment " + $scope.curCmt.msg + " from " + $scope.curCmt.usr);
             $http.post("/res/trainings/" + tid + "/comments", $scope.curCmt)
@@ -10,6 +10,7 @@ function TrainCtrl($scope,$http,$cookies) {
     }
 
     function hasVote() {
+        if(!$scope.nameKnown()) return false;
         myVote = $.grep($scope.votes,function(v) { return v.name == $cookies.user});
         
         if (myVote.length > 0) {
@@ -21,13 +22,23 @@ function TrainCtrl($scope,$http,$cookies) {
             
     }
     
+    $scope.nameKnown = function() {
+        return !($scope.usrname == "" || !$scope.usrname)
+    }
+    
      $scope.revote = function() {
-         console.log("revoting to " + $scope.curVote.vid)
-          $http.post("/res/trainings/" + tid + "/votes", $scope.curVote)
+         console.log("revoting to " + $scope.curVote.vid);
+         console.log("Usr is |" + $scope.curVote.name + "| -> empty:" + ($scope.curVote.name == "" || !$scope.curVote.name) );
+         if (!$scope.curVote.name || $scope.curVote.name == "") {
+             $window.alert("Bitte erst Namen eingeben!");
+         } else {
+         $scope.usrname =  $scope.curVote.name;   
+         $http.post("/res/trainings/" + tid + "/votes", $scope.curVote)
                     .error(function(data) {console.log("Fehler: " + data)})
                     .success(function(data) {console.log("OK!");
                             updateVotes();
                     });
+         }
     }
     
     function updateVotes() {
@@ -37,7 +48,7 @@ function TrainCtrl($scope,$http,$cookies) {
         });        
     }
     
-    $scope.usrname = $cookies.user;
+    $scope.usrname = $cookies.user || "";
 
     $scope.curVote = {
         tid : tid,
@@ -59,7 +70,7 @@ function TrainCtrl($scope,$http,$cookies) {
    $http.get("/res/trainings/" + tid + "/details")
     .success(function(data) {
          $scope.details=data;
-         $scope.details.when = Date.parse($scope.details.when);	            	
+         //$scope.details.when = Date.parse($scope.details.when);	            	
      }); 
      updateVotes();
 
