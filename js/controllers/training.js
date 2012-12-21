@@ -13,7 +13,9 @@ function TrainCtrl($scope,$http,$cookies,$window) {
         if(!$scope.nameKnown()) return false;
         myVote = $.grep($scope.votes,function(v) { return v.name == $cookies.user});
         
+        
         if (myVote.length > 0) {
+            console.dir(myVote[0]);
             $scope.curVote = myVote[0];
             return true;
         } else {
@@ -42,13 +44,19 @@ function TrainCtrl($scope,$http,$cookies,$window) {
     }
     
     function updateVotes() {
-        $http.get("/res/trainings/" + tid + "/votes").success(function(data) {
+        nocache= Math.random(); //HACK for IE ajax caching
+        $http.get("/res/trainings/" + tid + "/votes?nocache=" + nocache).success(function(data) {
             $scope.votes=data; 
             $scope.voted = hasVote();
         });        
     }
     
-    $scope.usrname = $cookies.user || "";
+   //init
+   
+   //prevent IE insane caching
+   $.ajaxSetup({ cache: false });
+   
+   $scope.usrname = $cookies.user || "";
 
     $scope.curVote = {
         tid : tid,
@@ -72,7 +80,8 @@ function TrainCtrl($scope,$http,$cookies,$window) {
          $scope.details=data;
          //$scope.details.when = Date.parse($scope.details.when);	            	
      }); 
-     updateVotes();
+    
+    updateVotes();
 
 
     $scope.dlgState = false;
