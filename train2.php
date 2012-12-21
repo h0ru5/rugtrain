@@ -1,26 +1,43 @@
+<? require_once 'const.inc.php' ?>
 <!DOCTYPE html>
 <html ng-app="trainSite">
 
     <head>
         <meta charset="utf-8">
-        <!-- link href="css/black-tie/jquery-ui-black-tie.min.css" media="all" rel="stylesheet" type="text/css" /-->
-         <link href="http://code.jquery.com/ui/1.9.2/themes/black-tie/jquery-ui.css" media="all" rel="stylesheet" type="text/css" />
-        <link href="css/styling.css" rel="stylesheet" type="text/css" />
-        
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
-        <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.min.js" type="text/javascript"></script>
-        <!-- script src="js/lib/jquery-ui-custom.min.js" type="text/javascript"></script-->
-        <script src="http://timeago.yarp.com/jquery.timeago.js"></script>
-        <script src="js/lib/jquery.timeago.de.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.js" type="text/javascript"></script>
-        <script src="http://cdn.jsdelivr.net/angularjs/1.0.2/i18n/angular-locale_de.js" type="text/javascript"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular-cookies.min.js" type="text/javascript"></script>
-        <script src="js/ng-modules/pdate.js"></script>
-        <script src="js/ng-modules/timeago.js"></script>
-        <script src="js/ng-directives/autocomplete.js"></script>
-        <script src="js/ng-directives/dialog.js"></script>
-        <script src="js/ng-directives/jqButton.js"></script>
-        <script src="js/controllers/training.js"></script>
+        <? if ($debugging) { ?>
+            <!-- debugging -->
+            <link href="http://code.jquery.com/ui/1.9.2/themes/black-tie/jquery-ui.css" media="all" rel="stylesheet" type="text/css" />
+            <link href="css/styling.css" rel="stylesheet" type="text/css" />
+
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.js" type="text/javascript"></script>
+            <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js" type="text/javascript"></script>
+
+            <script src="http://timeago.yarp.com/jquery.timeago.js"></script>
+            <script src="js/lib/jquery.timeago.de.js"></script>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.js" type="text/javascript"></script>
+            <script src="http://cdn.jsdelivr.net/angularjs/1.0.2/i18n/angular-locale_de.js" type="text/javascript"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular-cookies.js" type="text/javascript"></script>
+            <script src="js/ng-modules/pdate.js"></script>
+            <script src="js/ng-modules/timeago.js"></script>
+            <script src="js/ng-directives/autocomplete.js"></script>
+            <script src="js/ng-directives/dialog.js"></script>
+            <script src="js/ng-directives/jqButton.js"></script>
+            <script src="js/controllers/training.js"></script>
+        <? } else { #productive ?>
+            <!-- productive -->
+            <link href="http://code.jquery.com/ui/1.9.2/themes/black-tie/jquery-ui.css" media="all" rel="stylesheet" type="text/css" />
+            <link href="css/styling.css" rel="stylesheet" type="text/css" />
+
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
+            <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.min.js" type="text/javascript"></script>
+            <script src="js/lib/jquery.timeago.min.js"></script>
+            <script src="js/lib/jquery.timeago.de.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js" type="text/javascript"></script>
+            <script src="js/lib/angular-locale_de.min.js" type="text/javascript"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular-cookies.min.js" type="text/javascript"></script>
+            <script src="js/train-pack.min.js"></script><!-- todo: pack&min -->
+        <? } #end dbg?>
         <script type="text/javascript">
             var tid=<?= $_REQUEST["tid"] ?>;
             $(function() {
@@ -37,8 +54,8 @@
 
     <body ng-controller="TrainCtrl">
         <div class="ui-widget ui-corner-all">
-              <header class="ui-widget-header">
-                  <a jq-button="home" href="/" style="float: left">Home</a>
+            <header class="ui-widget-header">
+                <a jq-button="home" href="/" style="float: left">Home</a>
                 <h1>{{details.what}} am {{details.when | pdate | date: 'EEE dd.MM.yy'}}</h1>
                 <p>Ab {{details.when | pdate| date: 'HH:mm'}}, {{details.where}}</p>
             </header>
@@ -58,7 +75,7 @@
                             <select id="vote" class="text ui-widget-content ui-corner-all" name="vote" 
                                     ng-model="curVote.vid" ng-options="v.id as v.text for v in votetypes" 
                                     value="curVote.vid" ng-change="revote()" ng-switch-when="true" />
-                            
+
                         </td>
                         <td>{{vote.time | pdate | timeago}}</td>
                     </tr>
@@ -67,18 +84,18 @@
                     <form>
                         <fieldset>
                             <span><!-- I'll buy a beer for anyone who can explain me why this span is needed! if i take it away, the following select will humble-->
-                            <label for="usrname">Name</label>
-                            <input id="usrname"  class="text ui-widget-content ui-corner-all" name="usrname"
-                                   ng-model="curVote.name" value="curVote.name" type="text" jq-auto-complete="unames" />
-                            
+                                <label for="usrname">Name</label>
+                                <input id="usrname"  class="text ui-widget-content ui-corner-all" name="usrname"
+                                       ng-model="curVote.name" value="curVote.name" type="text" jq-auto-complete="unames" />
+
                             </span>
-                        <label for="vote">Vote</label>
+                            <label for="vote">Vote</label>
                             <select id="vote" class="text ui-widget-content ui-corner-all" name="vote" 
                                     ng-model="curVote.vid" ng-options="v.id as v.text for v in votetypes" 
                                     value="curVote.vid" ng-change="revote()">                            
-                                
+
                             </select>
-                            
+
                         </fieldset>
                     </form>
                 </div>
@@ -96,7 +113,7 @@
                 <fieldset>
                     <input type="hidden" name="tid" ng-model="curCmt.tid" />		
                     <span><label for="autor">Autor</label>
-                    <input id="autor" class="text ui-widget-content ui-corner-all" name="autor" ng-model="curCmt.autor" type="text" jq-auto-complete="unames"/>
+                        <input id="autor" class="text ui-widget-content ui-corner-all" name="autor" ng-model="curCmt.autor" type="text" jq-auto-complete="unames"/>
                     </span>
                     <label for="msg">Inhalt</label>
                     <textarea id="msg" class="text ui-widget-content ui-corner-all" name="msg" ng-model="curCmt.msg"></textarea>
