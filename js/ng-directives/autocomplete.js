@@ -3,10 +3,18 @@
  */
 angular.module("jqAutoComplete",[])
     .directive("jqAutoComplete", function() {
-        return {
-            
-            link: function(scope, element, attrs) {
+        return {      
+            require: '?ngModel',
+            link: function(scope, element, attrs,model) {
                 $(element).autocomplete();
+
+                if(attrs.ngModel) {
+                    element.blur(function() {
+                        return scope.$apply(function() {
+                            model.$setViewValue( element.val());
+                        });
+                    });
+                }
                 
                 scope.$watch(attrs.jqAutoComplete, function(value) {
                     var val = value || null;
