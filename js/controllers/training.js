@@ -1,5 +1,6 @@
 angular.module("trainSite",["pdate","timeago","jqDialog","ngCookies","jqAutoComplete","jqButton"]);
-function TrainCtrl($scope,$http,$cookies,$window) {
+var TrainCtrl=function($scope,$http,$cookies,$window) {
+    
     function addCmt() {
             console.log("Adding Comment " + $scope.curCmt.msg + " from " + $scope.curCmt.usr);
             $http.post("/res/trainings/" + tid + "/comments", $scope.curCmt)
@@ -90,6 +91,7 @@ function TrainCtrl($scope,$http,$cookies,$window) {
         $scope.dlgState=false;
     }
     
-}
+};
+TrainCtrl.$inject = ['$scope','$http','$cookies','$window'];
             
         
