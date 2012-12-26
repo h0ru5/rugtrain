@@ -1,8 +1,4 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-angular.module('jqButton', []).directive("jqButton", function($compile) {
+angular.module('jqButton', []).directive("jqButton", ['$compile', function($compile) {
         return function(scope, element, attrs) {
              butOptions = {};
               if(attrs.jqButton.length>0) {
@@ -12,4 +8,4 @@ angular.module('jqButton', []).directive("jqButton", function($compile) {
             }
             element.button(butOptions);
         }
-});
+}]);
