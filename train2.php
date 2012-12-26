@@ -62,6 +62,14 @@
                 <p>Ab {{details.when | pdate| date: 'HH:mm'}}, {{details.where}}</p>
             </header>
             <div class="players">
+                <div id="stats" class="ui-widget ui-corner-all">
+                    <div class="ui-widget-header">Zusammenfassung:</div>
+                    <div class="ui-widget-content">
+                    <ul>
+                        <li ng-repeat="stat in stats">{{stat.vote}}: {{stat.count}}</li>
+                    </ul>
+                    </div>
+                </div>
                 <table class="ui-corner-all ui-widget ">
                     <thead>
                         <tr class="ui-widget-header ui-corner-all">
@@ -70,6 +78,7 @@
                             <th>Zeit</th>
                         </tr>
                     </thead>
+                    <tbody class="ui-widget-content">
                     <tr class="ui-widget-content ui-corner-all" ng-repeat="vote in votes">
                         <td>{{vote.name}}</td>
                         <td class="v{{vote.vid}}" ng-switch on="vote.name==usrname">
@@ -81,6 +90,7 @@
                         </td>
                         <td>{{vote.time | pdate | timeago}}</td>
                     </tr>
+                    </tbody>
                 </table>
                 <div class="ui-widget ui-corner-all" id="VoteForm" ng-show="!voted">
                     <form>
@@ -126,9 +136,6 @@
             <p>
                 <a href="retro/<?= $_REQUEST["tid"] ?>">Zur alten Ansicht<!-- for loosers with IE --></a> 
             </p>
-            <ul>
-                <li ng-repeat="stat in stats">{{stat.vote}}: {{stat.count}}</li>
-            </ul>
         </footer>
 
     </body>
