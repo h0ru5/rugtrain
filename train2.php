@@ -46,7 +46,9 @@
                         primary: "ui-icon-plusthick"
                     }
                 });
+                $("#diagCmt").parent().resizable({"alsoResize":"#msg"});
             });
+            
         </script>
         <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
         <title>New Training site</title>
