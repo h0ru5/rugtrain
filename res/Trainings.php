@@ -11,18 +11,30 @@ require_once '../functions.inc.php';
  * @author h0ru5
  */
 class Trainings {
+        
+    private static function nextOrNum($p) {
+        if($p=="next")
+            return nextTid ();
+        else 
+            return escapeSQL($p);
+    }
 
-        public static function votetypes() {
+
+    public static function votetypes() {
             $votes = & doQuery("SELECT id,text FROM votes");
             return $votes->fetchAll();
         }
-    
-	public static function details($tid) {
-        $data = & doQuery("SELECT `tid`,`what`,`where`,`when` FROM trainings WHERE tid=$tid");
-        return $data->fetchRow();
+
+	public static function details($ptid) {
+          $tid=  self::nextOrNum($ptid);
+            $data = & doQuery("SELECT `tid`,`what`,`where`,`when` FROM trainings WHERE tid=$tid");
+            $res = $data->fetchRow();
+            $res->stats = self::stats($tid);
+            return $res;
 	}
 
-    public static function votes($tid) {
+    public static function votes($ptid) {
+        $tid=  self::nextOrNum($ptid);
         $sql = "SELECT t.Name AS name, v.text AS vote, t.vote AS vid, t.time AS time FROM
 	           t2 AS t JOIN votes AS v ON t.Vote = v.id 
                         WHERE t.tid=$tid
@@ -32,13 +44,15 @@ class Trainings {
         
     }
     public static function comments($tid) {
+        $tid=  self::nextOrNum($ptid);
         $data = & doQuery("SELECT id,autor,time,msg FROM kommentare WHERE tid='$tid' ORDER BY time DESC");
         return $data->fetchAll();
     }
     
     public static function addComment($tid) {
     $input = jsonPostData();
-    $stid = escapeSQL($tid);
+    
+        $stid=  self::nextOrNum($tid);
 #        $autor = escapeSQL($_POST['autor']);
 #	$msg= escapeSQL($_POST['msg']);
 #        $tid= escapeSQL($_POST['tid']);
@@ -52,7 +66,7 @@ class Trainings {
     
     public static function addVote($tid) {
         $table = "t2";
-        $stid = escapeSQL($tid);
+        $stid=  self::nextOrNum($tid);
 #	$name = escapeSQL($_GET['name']);
 #	$vote = escapeSQL($_GET['vote']);
 	$now = date('Y-m-d H:i:s');
