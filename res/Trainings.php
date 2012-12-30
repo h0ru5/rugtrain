@@ -43,7 +43,7 @@ class Trainings {
         return $data->fetchAll();
         
     }
-    public static function comments($tid) {
+    public static function comments($ptid) {
         $tid=  self::nextOrNum($ptid);
         $data = & doQuery("SELECT id,autor,time,msg FROM kommentare WHERE tid='$tid' ORDER BY time DESC");
         return $data->fetchAll();
