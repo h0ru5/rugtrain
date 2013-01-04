@@ -1,4 +1,4 @@
-﻿angular.module("adminPanel",["myTable","ngResource","jqDialog","addButton"]);
+﻿angular.module("adminPanel",["myTable","ngResource","jqDialog","addButton","ui"]);
 
 function actButtons(_mData) {
       this.aTargets=[-1];
@@ -103,11 +103,13 @@ function eventAdmin($scope,$resource,$window) {
   
         $scope.doEdit = function(evt) {
             $scope.curEvt = Event.get({evtId:evt.tid});
+            $scope.curEvt.when = Date.parse($scope.curEvt.when);
             $scope.dlgState=true;
         };
 
        $scope.showDlg = function() {
            $scope.curEvt=new Event();
+           $scope.curEvt.when = new Date();
            $scope.dlgState = true;
        }
 
@@ -121,6 +123,7 @@ function eventAdmin($scope,$resource,$window) {
         $scope.dlgState = false;
         refresh();
         $scope.curEvt = new Event();
+        $scope.curEvt.when = new Date();
 }
 
 

@@ -6,18 +6,20 @@
 <meta content="de" http-equiv="Content-Language" />
 <title>Admin Panel</title>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/vader/jquery-ui.css" rel="stylesheet" type="text/css" />
+<link href="../css/adminpanel.min.css" rel="stylesheet" type="text/css" />
+<link href="../css/angular-ui.min.css" rel="stylesheet" type="text/css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js" type="text/javascript"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js" type="text/javascript"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js" type="text/javascript"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular-resource.min.js" type="text/javascript"></script>
+<script src="../js/lib/angular-ui.min.js" type="text/javascript"></script>
 <script src="../js/ng-directives/datatable.js" type="text/javascript"></script>
 <script src="../js/ng-directives/dialog.js" type="text/javascript"></script>
 <script src="../js/ng-directives/addButton.js" type="text/javascript"></script>
 <script src="../js/controllers/admin.js" type="text/javascript"></script>
 
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/vader/jquery-ui.css" rel="stylesheet" type="text/css" />
-<link href="../css/adminpanel.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
 //globals
  /* var butAdd = $("<button ng-click='dlgOpen()'>Neu</button>").button({
@@ -69,13 +71,13 @@ $(function() {
                             <label for="termin">Termin</label>
                             <input id="termin" name="termin" type="text" class="text ui-widget-content ui-corner-all" ng-model="curEvt.what"/>
                             <label for="time">Zeit</label>
-                            <input id="time" type="datetime" name="time" class="text ui-widget-content ui-corner-all" ng-model="curEvt.when"/>
+                            <input id="time" type="datetime" name="time" class="text ui-widget-content ui-corner-all" ng-model="curEvt.when" ui-date="{'dateFormat' : 'yy-mm-dd'}" ui-date-format="yy-mm-dd"/>
                             <label for="ort">Ort</label>
                             <input id="ort" name="ort" type="text" class="text ui-widget-content ui-corner-all" ng-model="curEvt.where" />
                         </fieldset>
                     </form>
                 </div>
-		</div>
+	</div>
             <div id="usr" class="main ui-corner-br" ng-controller="userAdmin">
                 <table aa-data="users" ao-column-defs="userColumnDefs" my-table="" class="dat" add-button="Neu">
                     <thead>
@@ -118,7 +120,7 @@ $(function() {
                             <label for="autor">Autor</label>
                             <input id="autor" name="autor" type="text" class="text ui-widget-content ui-corner-all" ng-model="curCmt.autor"/>
                             <label for="time">Zeit</label>
-                            <input id="time" type="datetime" name="time" class="text ui-widget-content ui-corner-all" ng-model="curCmt.time"/>
+                            <input id="time" type="datetime" name="time" class="text ui-widget-content ui-corner-all" ng-model="curCmt.time" ui-date="{'dateFormat' : 'yy-mm-dd'}" ui-date-format="yy-mm-dd"/>
                             <label for="msg">Inhalt</label>
                             <textarea id="msg" name="msg" type="text" class="text ui-widget-content ui-corner-all" ng-model="curCmt.msg"></textarea>
                         </fieldset>
