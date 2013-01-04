@@ -7,7 +7,6 @@ require_once '../functions.inc.php';
 
 /**
  * Description of Trainings
- *
  * @author h0ru5
  */
 class Trainings {
@@ -19,7 +18,11 @@ class Trainings {
             return escapeSQL($p);
     }
 
-
+    public static function soon() {
+        $data =& soon(10);
+        return $data->fetchAll();
+    }
+    
     public static function votetypes() {
             $votes = & doQuery("SELECT id,text FROM votes");
             return $votes->fetchAll();
