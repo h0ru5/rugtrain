@@ -27,6 +27,9 @@ function mailOutFor($evt,$log) {
     #	mailout($row->name,$row->email,$evt);
     }
     mailout("Johannes","rugby@johanneshund.de",$evt);
+    mailout("Johannes (gmail)","johannes.hund@gmail.com",$evt);
+    mailout("Franz Hund","fhund@t-online.de",$evt);
+    mailout("David","mail.david@gmx.de",$evt);
     fputs($log,"mailing done\n");
 }
 
