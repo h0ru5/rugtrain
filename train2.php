@@ -28,7 +28,7 @@ require_once 'functions.inc.php';
             <script src="js/controllers/training.js"></script>
         <? } else { #productive ?>
             <!-- productive -->
-            <link href="http://code.jquery.com/ui/1.9.2/themes/black-tie/jquery-ui.css" media="all" rel="stylesheet" type="text/css" />
+            <link href="http://code.jquery.com/ui/1.9.2/themes/smoothness/jquery-ui.css" media="all" rel="stylesheet" type="text/css" />
             <!-- link href="css/black-tie/jquery-ui.min.css" media="all" rel="stylesheet" type="text/css" /-->
             <link href="css/styling.min.css" rel="stylesheet" type="text/css" />
 

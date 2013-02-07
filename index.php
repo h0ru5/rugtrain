@@ -45,32 +45,68 @@ if(!$_REQUEST['action']) {
         <title>Munich Rugbears Training Site</title>
         <meta charset="utf-8">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link href="/css/styling.css" rel="stylesheet" type="text/css" />
+        <link href="/css/styling.min.css" rel="stylesheet" type="text/css" />
+         <link href="http://code.jquery.com/ui/1.9.2/themes/smoothness/jquery-ui.css"  rel="stylesheet" type="text/css" />
+         
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
+        <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.min.js" type="text/javascript"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="http://timeago.yarp.com/jquery.timeago.js"></script>
         <script src="js/lib/jquery.timeago.de.js"></script>
         <script type="text/javascript">
-            jQuery.timeago.settings.allowFuture=true;
-            $(function() {
-               $("abbr.timeago").timeago(); 
-            });
-        </script>
+                $(function() {
+                    $('#butnext').button();
+                    $("abbr.timeago").timeago(); 
+                    $("#ttab tr").click(function() {
+                        $(this).find("a")[0].click();
+                    }).hover(
+                    function () {
+                        $(this).toggleClass('ui-state-hover');
+                    },
+                    function () {
+                        $(this).toggleClass('ui-state-hover');
+                    }
+                );
+                });
+                
+            </script>
     </head>
     <body>
         <div class="logo">
             <img src="/img/logo_rb.jpg" alt="Rugbears Logo" width="369" height="295" />
             <h1>Training-site der Munich Rugbears</h1>
+            <p><a href="/next" title="n&auml;chster Termin" id="butnext">n&auml;chster Termin</a></p>
         </div>
-<p>Die n&auml;chsten 20 Termine:</p>
-<ul>
+        
+        
+<table id="ttab" width='100%' class="ui-widget ui-corner-all">
+    <thead class="ui-widget-header"><tr>
+            <th width='33%'>Was</th>
+            <th width='33%'>Wo</th>
+            <th width='33%'>Wann</th>
+        </tr></thead>
+    <tbody class="ui-widget-content">
 <? 
 $data =& soon(20);
 while($row = $data->fetchRow()) {
-      print "<li><a href='". getViewUrl() . $row->tid ."'>$row->what ($row->where) am ". trainday3($row->tid);
-      print " (<abbr class='timeago' title='$row->when'></abbr>)</li>";
+   
+    print "<tr>";
+    $mydate=trainday3($row->tid) . " (<abbr class='timeago' title='$row->when'></abbr>)";
+    foreach (array($row->what, $row->where, $mydate) as $str) {
+        #,$row->diff
+            print "<td><a href='" . getViewUrl() . $row->tid . "'>";
+
+            print $str;
+            
+            #print "<td>" . trainday3($row->tid) . " (<abbr class='timeago' title='$row->when'></abbr>)</td>";
+            print "</td></a>";
+        }
+    print "</tr>";
     }
  ?>
-</ul>
+        </tbody>
+</table>
+        
     </body>
 </html>
 <? } ?>    
