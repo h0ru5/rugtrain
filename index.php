@@ -1,10 +1,11 @@
 <? ob_start();
 #cache disable
-header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");                  // Date in the past   
+header( 'content-type: text/html; charset=utf-8' );
+/* header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");                  // Date in the past   
 header('Last-Modified: '.gmdate('D, d M Y H:i:s') . ' GMT');
 header('Cache-Control: no-store, no-cache, must-revalidate');     // HTTP/1.1
 header('Cache-Control: pre-check=0, post-check=0, max-age=0');    // HTTP/1.1
-header ("Pragma: no-cache");
+header ("Pragma: no-cache"); */
 
 require_once("functions.inc.php");
 
@@ -42,6 +43,7 @@ if(!$_REQUEST['action']) {
 <html>
     <head>
         <title>Munich Rugbears Training Site</title>
+        <meta charset="utf-8">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link href="/css/styling.css" rel="stylesheet" type="text/css" />
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>

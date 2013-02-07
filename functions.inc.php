@@ -35,6 +35,13 @@ function escapeSQL($sql) {
 		return $hdb->escape($sql);
 }
 
+ function nextOrNum($p) {
+        if($p=="next")
+            return nextTid ();
+        else 
+            return escapeSQL($p);
+    }
+
 function jsonPostData() {
     return json_decode(file_get_contents('php://input'));
 }

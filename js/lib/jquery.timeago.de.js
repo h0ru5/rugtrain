@@ -1,4 +1,4 @@
-﻿// German
+// German
 jQuery.timeago.settings.strings = {
   prefixAgo: "vor",
   prefixFromNow: "in",

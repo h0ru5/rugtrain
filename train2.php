@@ -1,6 +1,8 @@
 <?
 header("Connection:keep-alive",TRUE);
-require_once 'const.inc.php'; ?>
+require_once 'const.inc.php'; 
+require_once 'functions.inc.php'; 
+?>
 <!DOCTYPE html>
 <html ng-app="trainSite">
 
@@ -47,7 +49,9 @@ require_once 'const.inc.php'; ?>
             <script src="js/training-pack.min.js" type="text/javascript"></script><!-- todo: pack&min -->
         <? } #end dbg?>
         <script type="text/javascript">
-            var tid=<?= $_REQUEST["tid"] ?>;
+            //<?= $_REQUEST["tid"] ?>
+            
+            var tid=<?= nextOrNum($_REQUEST["tid"]) ?>;
             $(function() {
                 $(".addButton").button({
                     icons: {
@@ -65,7 +69,7 @@ require_once 'const.inc.php'; ?>
     <body ng-controller="TrainCtrl">
         <div class="ui-widget ui-corner-all">
             <header class="ui-widget-header">
-                <a jq-button="home" href="/" style="float: left">Home</a>
+                <a jq-button="home" href="/" style="float: left">zur &Uuml;bersichtseite</a>
                 <h1>{{details.what}} am {{details.when | pdate | date: 'EEE dd.MM.yy'}}</h1>
                 <p>Ab {{details.when | pdate| date: 'HH:mm'}}, {{details.where}}</p>
             </header>

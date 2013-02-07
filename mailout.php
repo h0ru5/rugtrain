@@ -57,7 +57,11 @@ $html_body = "
 <p>Ort: $evt->where</p>
 </div>
 
-<p>Kommst du? einfach den Link anklicken<br>Ergebnisse sind auf <a href='http://training.munichrugbears.de/$evt->tid'>training.munichrugbears.de</a></p>
+<p>Kommst du? einfach den Link anklicken<br/>
+Ergebnisse für diesen Termin sind auf <a href='http://training.munichrugbears.de/$evt->tid'>training.munichrugbears.de/$evt->tid</a><br/>
+Den nächsten Termin findest du auf <a href='http://training.munichrugbears.de/next'>training.munichrugbears.de/next</a><br/>
+Die Liste aller Termine findest du auf <a href='http://training.munichrugbears.de'>training.munichrugbears.de</a>
+</p>
 <table width='80%' style='table-layout:fixed'>
 <tr>
 <td width='33%'><a href='http://training.munich-rugbears.de/$evt->tid/add?vote=1&name=$name'>Spiele</a></td>

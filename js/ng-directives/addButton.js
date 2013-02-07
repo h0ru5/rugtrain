@@ -2,7 +2,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-angular.module('addButton', []).directive("addButton", function($compile) {
+angular.module('addButton', []).directive("addButton", 
+function($compile) {
         return function(scope, element, attrs) {
         
         if(attrs.addButton.length > 0) {
@@ -17,7 +18,7 @@ angular.module('addButton', []).directive("addButton", function($compile) {
             action="showDlg()";
         }
         
-        child = element.parent().find(".dataTables_filter");
+        
         butAdd = $("<button ng-click='"+ action + "'>" + caption + "</button>").button({
             icons: {
                 primary: "ui-icon-plusthick"
@@ -25,6 +26,12 @@ angular.module('addButton', []).directive("addButton", function($compile) {
         });
         butAdd.css('float','right');
         cbut=$compile(butAdd)(scope);
-        $(child).append(cbut);
+        
+       // $(function() {
+            child = element.parent().find(".dataTables_filter");
+            $(child).append(cbut);
+       // });
+        
+         
    }
 });
