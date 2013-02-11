@@ -75,7 +75,7 @@ require_once 'functions.inc.php';
             </header>
             <div class="players">
                 <div id="stats" class="ui-widget ui-corner-all">
-                    <div class="ui-widget-header">Zusammenfassung:</div>
+                    <div class="ui-widget-header hoch3">Zusammenfassung:</div>
                     <div class="ui-widget-content">
                     <ul>
                         <li ng-repeat="stat in stats">{{stat.vote}}: {{stat.count}}</li>
@@ -84,7 +84,7 @@ require_once 'functions.inc.php';
                 </div>
                 <table class="ui-corner-all ui-widget ">
                     <thead>
-                        <tr class="ui-widget-header ui-corner-all">
+                        <tr class="ui-widget-header ui-corner-all hoch3">
                             <th>Name</th>
                             <th>Vote</th>
                             <th>Zeit</th>
