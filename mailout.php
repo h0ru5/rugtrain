@@ -58,8 +58,8 @@ $html_body = "
 </div>
 
 <p>Kommst du? einfach den Link anklicken<br/>
-Ergebnisse für diesen Termin sind auf <a href='http://training.munichrugbears.de/$evt->tid'>training.munichrugbears.de/$evt->tid</a><br/>
-Den nächsten Termin findest du auf <a href='http://training.munichrugbears.de/next'>training.munichrugbears.de/next</a><br/>
+Ergebnisse f&uuml;r diesen Termin sind auf <a href='http://training.munichrugbears.de/$evt->tid'>training.munichrugbears.de/$evt->tid</a><br/>
+Den n&auml;chsten Termin findest du auf <a href='http://training.munichrugbears.de/next'>training.munichrugbears.de/next</a><br/>
 Die Liste aller Termine findest du auf <a href='http://training.munichrugbears.de'>training.munichrugbears.de</a>
 </p>
 <table width='80%' style='table-layout:fixed'>
