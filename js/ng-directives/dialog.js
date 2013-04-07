@@ -21,7 +21,7 @@ angular.module("jqDialog",[])
                 options.autoOpen= false;
                 options.close = function() {
                     scope.dlgState = false
-                    scope.$digest();
+                    if(!scope.$$phase) scope.$digest();
                     };
                 //scope.hideDlg;
             
@@ -52,7 +52,7 @@ angular.module("jqDialog",[])
                     } else {
                         element.dialog("close");
                     }
-                
+                    
                 });
             
                 
