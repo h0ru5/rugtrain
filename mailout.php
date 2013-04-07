@@ -24,12 +24,8 @@ function mailOutFor($evt,$log) {
     fputs($log,"start mailing\n");
     while($row = $data->fetchRow()) {
         fputs($log,$row->name . ": " . $row->email . "\n");
-    #	mailout($row->name,$row->email,$evt);
+        mailout($row->name,$row->email,$evt);
     }
-    mailout("Johannes","rugby@johanneshund.de",$evt);
-    mailout("Johannes (gmail)","johannes.hund@gmail.com",$evt);
-    mailout("Franz Hund","fhund@t-online.de",$evt);
-    mailout("David","mail.david@gmx.de",$evt);
     fputs($log,"mailing done\n");
 }
 
@@ -77,7 +73,7 @@ Rugbears $evt->what am $td\nin $evt->where\n\nKommst du? einfach link anklicken\
 Spiele: http://training.munich-rugbears.de/$evt->tid/add?vote=3&name=$name\n\n
 Komme: http://training.munich-rugbears.de/$evt->tid/add?vote=3&name=$name\n\n
 Komme nicht: http://training.munich-rugbears.de/$evt->tid/add?vote=3&name=$name\n\n";
-$grenze="Nextpart";
+$grenze="NextpartInMyMultiModalmessage";
 
 $headers ="MIME-Version: 1.0\n";
 #$headers.="From:\"$name_i\"<$mailadd>\n";
@@ -94,7 +90,7 @@ $msg.="Content-transfer-encoding: 7BIT\n";
 $msg.="Content-type: text/html\n";
 $msg.="Content-Disposition: inline\n\n";
 $msg.=$html_body;
-$msg.="\n\n--$grenze";
+$msg.="\n\n--$grenze--";
 
 mail($mailadd,"RugBears Training $td",$msg,$headers);
 }
