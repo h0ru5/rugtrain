@@ -46,13 +46,15 @@ function userAdmin($scope,$window,$resource) {
         
         $scope.hideDlg = function() {
             $scope.dlgState=false;
-            $scope.$digest();
+            $scope.refresh();
         }
         
         
         $scope.refresh =function() {
             User.query(function(data) {$scope.users=data; });
-          //  $scope.$apply();
+          if(!$scope.$$phase) { 
+                $scope.$digest();
+            } 
         }
         
         $scope.doDel = function(usr) {
@@ -67,10 +69,10 @@ function userAdmin($scope,$window,$resource) {
             $scope.dlgState=true;
         }
         
-        $scope.submitDialog = function() {
+        $scope.submitDlg = function() {
             $scope.curUsr.$save();
             $scope.dlgState=false;
-            $scope.refresh();
+            $scope.refresh(); 
         }
         
         //initialization code
