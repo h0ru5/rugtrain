@@ -36,6 +36,8 @@ $td = trainday3($evt->tid);
 $html_body = "
 <html>
 <head>
+<meta charset='utf-8'>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
 <style type='text/css'>
 .logo, .logo * {
     text-align: center;
