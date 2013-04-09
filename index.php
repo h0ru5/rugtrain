@@ -51,7 +51,7 @@ if(!$_REQUEST['action']) {
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
         <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.min.js" type="text/javascript"></script>
         <script src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js" type="text/javascript"></script>
-        <script src="http://timeago.yarp.com/jquery.timeago.js"></script>
+        <script src="js/lib/jquery.timeago.js"></script>
         <script src="js/lib/jquery.timeago.de.js"></script>
         <script type="text/javascript">
             jQuery.timeago.settings.allowFuture=true;
