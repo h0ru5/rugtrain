@@ -258,7 +258,7 @@ function clear($tid) {
 function comments($tid) {
 	$data = & doQuery("SELECT * FROM kommentare WHERE tid=$tid ORDER BY id DESC");
 	setlocale(LC_ALL,'de_DE','de');
-	print "<div class='comments'>";
+	print "<div class='retrocomments'>";
 	while($row = & $data->fetchRow()) {
 		print "<p><b>$row->autor</b>&nbsp;(";
 		print(strftime("%a %H:%M",strtotime($row->time)));

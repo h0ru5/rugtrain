@@ -46,7 +46,7 @@ th {
 body {
     font-family:Arial, Helvetica, sans-serif;
 }
-.comments {
+.retrocomments {
     width:50%;
     height:600px;
     overflow:auto;

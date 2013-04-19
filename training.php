@@ -8,7 +8,7 @@ header ("Pragma: no-cache");
 require_once("functions.inc.php");
 
 if($_REQUEST['tid']) {
-    $tid = escapeSQL($_REQUEST['tid']);
+    $tid = nextOrNum($_REQUEST["tid"]);
 } else {
     $tid = nextTid();
 }
