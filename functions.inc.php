@@ -76,7 +76,7 @@ function nextTid() {
 }
 
 function allFutures() {
-    $sql = "SELECT `tid`,`what`,`where`,`when` FROM trainings WHERE `when` > CURDATE() ORDER BY `when` ASC";
+    $sql = "SELECT `tid` FROM trainings WHERE `when` > CURDATE() ORDER BY `when` ASC";
     $data = & doQuery($sql);
     return $data;
 }

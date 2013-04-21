@@ -468,12 +468,18 @@ class iCalEvent
 	// each event can have multiple attendees
 	// use clearAttendee() to remove all attendees
 	// might need some looking into (for additional parameters)
-	function addAttendee($text)
+	function addAttendee($email,$fields="")
 	{
+                $text="ATTENDEE";
+                if(!empty($fields)) {
+                    $text .= ";" . $fields;
+                }
+                $text .= ":mailto:".$email;
+            
 		if (empty($this->attendee))
-			$this->attendee = "ATTENDEE:".$text;
+                    $this->attendee = $text;
 		else
-		$this->attendee = $this->attendee . "\r\nATTENDEE:".$text; 
+                    $this->attendee = $this->attendee . "\r\n".$text; 
 	}
 	
 	// removes all attendees

@@ -1,12 +1,13 @@
 <?php
-require_once("res/phpicalwriter/iCalWriter.php");
-require_once("functions.inc.php");
+require_once("phpicalwriter/iCalWriter.php");
+require_once("Trainings.php");
 
 function addEvents($cal) {
     $all = allFutures()->fetchAll();
-    
-    foreach ($all as $it) {
+    foreach ($all as $tid) {
         $item = new iCalEvent;
+        $it = Trainings::details($tid->tid);
+        
         
         $item->setLocation($it->where);
         $item->setShortDescription($it->what);
@@ -17,8 +18,16 @@ function addEvents($cal) {
         $item->setDuration(0, 1);
         
         $text = "$it->what ($it->where) \\n " ;
-        $text .= "Details unter http://training.munich-rugbears.de/" . $it->tid;
+        foreach ($it->stats as $v) {
+                $text .= $v->vote . ": " . $v->count . "\\n";
+        }
+        $text .= "Details unter http://training.munich-rugbears.de/" . $it->tid . "\\n";
         $text .=   "\n";
+        
+        $item->addAttendee("rugbyball@munich-rugbears.de", "PARTSTAT=ACCEPTED;CN=\"Rugby Ball\"");
+        $item->addAttendee("john@somewhere.de", "PARTSTAT=DECLINED;CN=\"John Doe\"");
+        
+        
         
         $item->setLongDescription($text);
         $item->setURL("http://training.munich-rugbears.de/" . $it->tid);
