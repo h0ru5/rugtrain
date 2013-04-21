@@ -75,6 +75,12 @@ function nextTid() {
     return soon(1)->fetchRow()->tid;
 }
 
+function allFutures() {
+    $sql = "SELECT `tid`,`what`,`where`,`when` FROM trainings WHERE `when` > CURDATE() ORDER BY `when` ASC";
+    $data = & doQuery($sql);
+    return $data;
+}
+
 function soon($limit=1) {
     $sql = "SELECT `tid`,`what`,`where`,`when`, DATEDIFF(`when`,CURDATE()) AS diff  FROM trainings WHERE `when` > CURDATE() ORDER BY diff ASC LIMIT $limit";
     $data = & doQuery($sql);

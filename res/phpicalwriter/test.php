@@ -11,15 +11,17 @@ $iAlarm = new iCalDisplayAlarm;
 
 $iRecurrence = new iCalRecurrence;
 
-$iCal->setHTMLOutput();
+//$iCal->setHTMLOutput();
+$iCal->setDownloadOutput();
+$iCal->setFileName("test.ics");
 //$iCal->setFileOutput();
-$iCal->setFileName("/var/www/iCal/test.ics");
+//$iCal->setFileName("/var/www/iCal/test.ics");
 
 $iCal->start();
 
 
-$iEvent->setStart("2008", "02", "10", 0, 1, "", 1, "14", "12");
-$iEvent->setEnd("2008", "02", "12", 1, 0, "", 1, "12");
+$iEvent->setStart("2013", "04", "20", 0, 1, "", 1, "14", "12");
+$iEvent->setEnd("2013", "04", "20", 1, 0, "", 1, "16","30");
 $iEvent->setShortDescription("Ein Test");
 $iEvent->setLongDescription("Eine lange lange und noch längere Beschreibung");
 $iEvent->setLocation("Oranienburg\, Deutschland");
@@ -75,7 +77,7 @@ $iEvent->setComment("Eine Anmerkung. Aber diese interessiert ja doch keinen...")
 //$iEvent->setURL("http://www.sebastiankleine.de");
 $iCal->add($iEvent);
 
-
+//sorry, gotta go, see ya! good luck with your exam
 
 
 $iCal->end();
