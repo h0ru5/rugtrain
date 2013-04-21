@@ -87,6 +87,7 @@ function eventAdmin($scope,$resource,$window) {
             { "mDataProp": "what", "aTargets":[0] },
             { "mDataProp": "where", "aTargets":[1] },
             { "mDataProp": "when", "aTargets":[2] },
+            { "mDataProp": "end", "aTargets":[3] },
             new actButtons("tid")
         ]; 
 	
@@ -126,6 +127,7 @@ function eventAdmin($scope,$resource,$window) {
         refresh();
         $scope.curEvt = new Event();
         $scope.curEvt.when = new Date();
+        $scope.curEvt.end = new Date();
 }
 
 

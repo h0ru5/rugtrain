@@ -28,24 +28,24 @@ getRoute()->run();
 class Trainings {
     public static function create() {
         $data = & jsonPostData();
-        return self::createTrain($data->when,$data->where,$data->what);
+        return self::createTrain($data->when,$data->end,$data->where,$data->what);
     }
     
     public static function index() {
-        $ts =& doQuery("SELECT `tid`,`when`,`where`,`what` FROM trainings WHERE `when` > CURDATE() ORDER BY `when`");
+        $ts =& doQuery("SELECT `tid`,`when`,`where`,`what`,`start`,`end` FROM trainings WHERE `start` > CURDATE() ORDER BY `start`");
         return $ts->fetchAll();
     }
     
     public static function get($tid) {
         $tid = escapeSQL($tid);
-        $ts =& doQuery("SELECT `tid`,`when`,`where`,`what` FROM trainings WHERE `tid` = $tid");
+        $ts =& doQuery("SELECT `tid`,`when`,`where`,`what`,`start`,`end` FROM trainings WHERE `tid` = $tid");
         return $ts->fetchRow();
     }
 
     public static function update($tid) {
         $data =& jsonPostData();
         #$mysqldate=$data->when->format("Y-m-d H:i:s");
-        $ts =& doQuery("REPLACE  INTO trainings (`tid`,`when`,`where`,`what`) VALUES ($tid,'$data->when','$data->where','$data->what') ");
+        $ts =& doQuery("REPLACE  INTO trainings (`tid`,`when`,`where`,`what`,`start`,`end`) VALUES ($tid,'$data->when','$data->where','$data->what','$data->when','$data->end') ");
         return $ts->fetchAll();
     }
     
@@ -61,25 +61,30 @@ class Trainings {
         $what=  escapeSQL($_POST['what']);
         
         setlocale(LC_ALL,'de_DE','de');
-        $day =& new DateTime();
-        $day->setTime(18, 30, 00);
+        $start =& new DateTime();
+        $start->setTime(18, 30, 00);
+        
+        $end =& new DateTime();
+        $end->setTime(21, 00, 00);
+        
 
         $i=0;
         $j=0;
 	while($i<=365) {
-                if($day->format('w')==$weekday) {
-                    self::createTrain($day,$where,$what);
+                if($start->format('w')==$weekday) {
+                    self::createTrain($start,$end,$where,$what);
                     $j++;
                 }
-		$day->modify("+1 day");
+		$start->modify("+1 day");
+                $end->modify("+1 day");
                 $i++;
 	}
         return array("count" => $j);
     }
     
-    private static function createTrain($day,$where,$what) {
+    private static function createTrain($start,$end,$where,$what) {
         #$mysqldate=$day->format("Y-m-d H:i:s");
-        $sql="INSERT INTO trainings (`when`,`where`,`what`) VALUES ('$day','$where','$what')";
+        $sql="INSERT INTO trainings (`when`,`start`,`end`,`where`,`what`) VALUES ('$start','$start','$end','$where','$what')";
         $res = doQuery($sql)->fetchAll();
     }
     
