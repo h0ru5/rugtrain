@@ -18,11 +18,13 @@ function addEvents($cal) {
         
         $item->setLocation($it->where);
         $item->setShortDescription($it->what);
-        $dat = new DateTime($it->when);
-        $item->setStart($dat->format("Y"),$dat->format("m"),$dat->format("d"), 0, 1, "", 1,"00","00");
-        $dat->modify("+1 day"); //refractor dates to start and end
-        $item->setEnd($dat->format("Y"),$dat->format("m"),$dat->format("d"),0, 1, "", 1,"00","00");
-        $item->setDuration(0, 1);
+        //$dat = new DateTime($it->when);
+        $dat = new DateTime($it->start);
+        $item->setStart($dat->format("Y"),$dat->format("m"),$dat->format("d"), 0, 1, "", 1,$dat->format("H"),$dat->format("i"));
+        $dat = new DateTime($it->end);
+        //$dat->modify("+1 day"); //refractor dates to start and end
+        $item->setEnd($dat->format("Y"),$dat->format("m"),$dat->format("d"),0, 1, "", 1,$dat->format("H"),$dat->format("i"));
+        //$item->setDuration(0, 1);
         
         $text = "$it->what ($it->where) \\n" ;
         foreach ($it->stats as $v) {

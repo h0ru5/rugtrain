@@ -30,7 +30,7 @@ class Trainings {
 
 	public static function details($ptid) {
           $tid=  self::nextOrNum($ptid);
-            $data = & doQuery("SELECT `tid`,`what`,`where`,`when` FROM trainings WHERE tid=$tid");
+            $data = & doQuery("SELECT `tid`,`what`,`where`,`when`,`start`,`end` FROM trainings WHERE tid=$tid");
             $res = $data->fetchRow();
             $res->stats = self::stats($tid);
             return $res;
