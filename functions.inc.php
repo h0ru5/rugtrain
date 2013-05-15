@@ -126,11 +126,11 @@ function getControllerUrl() {
     return dirname($_SERVER['SCRIPT_NAME']) . "index.php";
 }
 
-function redirect($tid=NULL) {
+function redirect($tid=NULL,$prefix="retro/") {
 	
         $urlx=getViewUrl();
         if($tid)
-             $url = $urlx . "$tid";
+             $url = $urlx . $prefix . "$tid";
         ?>
 	<p>Weiterleitung erfolgt...</p>
 	<script type="text/javascript">
