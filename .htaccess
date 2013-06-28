@@ -10,3 +10,6 @@ RewriteRule ^retro/([0-9]+|next)$ ./training.php?tid=$1
 RewriteRule ^cal/?$ ./res/calender.php [QSA] 
 RewriteRule ^([0-9]+|next)$ ./train2.php?tid=$1 
 RewriteRule ^([0-9]+|next)/([a-zA-Z]+)$ ./index.php?tid=$1&action=$2 [QSA,L]
+
+AddCharset UTF-8 .html
+AddCharset UTF-8 .php

@@ -42,20 +42,24 @@
               <li><a href="#about" class="">About</a></li>
               <li><a href="#contact" class="">Contact</a></li>
             </ul>
-            <form class="navbar-form pull-right">
+            <form class="navbar-form pull-right" ng-show="usrname==''">
               <input class="span2" type="text" placeholder="Name">
               <button type="submit" class="btn">Anmelden</button>
             </form>
+              <form class="navbar-form pull-right" ng-show="usrname!=''">
+                  <strong>{{usrname}}</strong>&nbsp;
+                  <button type="button" class="btn">Abmelden</button>
+              </form>
           </div><!--/.nav-collapse -->
         </div>
       </div>
     </div>
     
-    <div class="container">
+    <div class="container" id="content">
     
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="page-header">
-        <h1 class="">Training {{tid}}</h1>
+        <h1 class="">{{details.what}} {{tid}}</h1>
         <div class="">von {{details.start | pdate| date: 'EEE dd.MM.yy HH:mm'}} bis {{details.end | pdate| date: 'EEE dd.MM.yy HH:mm'}}</div>
 		<div class="">in {{details.where}}</div>
         <p></p>
@@ -66,18 +70,39 @@
         <div class="span4">
           <h2 class="">Zusammenfassung</h2>
           <div ng-repeat="stat in details.stats">
-              {{stat.vote}}: {{stat.count}}<br/>   
+              <div class="dropdown">
+              <a class="dropdown-toggle">{{stat.vote}}: {{stat.count}}</a>
+              <ul class="dropdown-menu">
+                <li ng-repeat="vote in votes | filter: {vid :  stat.id}">
+                  <a>{{vote.name}}</a>
+                </li>
+              </ul>
+              </div>
           </div>
         </div>
         <div class="span4">
           <h2 class="">Abstimmen</h2>
-          <div class="btn-group"><a href="#" class="btn">Spiele</a><a href="#" class="btn">Komme</a><a href="#" class="btn">Komme nicht</a></div><p></p>
+          <div class="btn-group">
+              <button type="button" class="btn btn-success" ng-model="myVote.vid" btn-radio="1" ng-class="{'btn-large' : myVote.vid==1}" ng-change="revote()">
+                  Spiele
+              </button>
+              <button type="button" class="btn btn-warning" ng-model="myVote.vid" btn-radio="2" ng-class="{'btn-large' : myVote.vid==2}" ng-change="revote()">
+                  Komme
+              </button>
+              <button type="button" class="btn btn-danger" ng-model="myVote.vid" btn-radio="3" ng-class="{'btn-large' : myVote.vid==3}" ng-change="revote()">
+                  Komme nicht
+              </button>
+          </div>
        </div>
         <div class="span4">
           <h2 class="">Kommentare</h2>
           <a class="btn btn-primary" href="#">Neu...</a>
-          <p class="">Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p></p>
+          <div>
+              <div class="ui-widget-content" ng-repeat="comment in comments">
+                  <strong>{{comment.autor}}</strong>&nbsp;<small>({{comment.time | pdate | date: 'EEE dd.MM HH:mm' }})</small>:<br />
+                    {{comment.msg}}</div>
+            </div>
+          </div>
         </div>
       </div>
     
@@ -88,24 +113,26 @@
       </footer>
     
     </div> <!-- /container -->
-   
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js" type="text/javascript"> </script>
      <script src="http://code.angularjs.org/1.0.7/i18n/angular-locale_de-de.js" type="text/javascript"></script>
-    <script src="http://code.angularjs.org/1.0.7/angular-bootstrap.min.js" type="text/javascript"></script>
      <script src="http://code.angularjs.org/1.0.7/angular-cookies.min.js" type="text/javascript"></script>
     
+     <script src="../js/lib/ui-bootstrap.min.js"></script>  
+     <script src="assets/js/bootstrap.min.js"></script> <!-- for nav-collabsible -->
     
      <script src="../js/ng-modules/pdate.js" type="text/javascript"></script>
     <script src="../js/controllers/shiny.js" type="text/javascript"></script>
      
     <!--
-    <script src="assets/js/bootstrap.js"></script>
+    
     <script src="../js/training-pack.min.js" type="text/javascript"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+   
     -->
 
     <style type="text/css">
-      body {
+      #content {
         padding-top: 60px;
         padding-bottom: 40px;
       }      
