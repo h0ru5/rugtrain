@@ -59,3 +59,10 @@ var ShinyCtrl=function($scope,$http,$cookies,$log,$location) {
    $http.get("/res/trainings/" + $scope.tid + "/details").success(function(data) {$scope.details=data;});
    $scope.updateVotes();
 };
+var OverviewCtrl=function($scope,$http,$cookies,$log) {
+   $http.get("/res/trainings/next/details").success(function(data) {$scope.details=data;});
+    $scope.usrname = $cookies.user || "";
+    $scope.nameKnown = function() {
+        return !($scope.usrname == "" || !$scope.usrname)
+    }
+};
