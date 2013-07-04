@@ -1,17 +1,34 @@
 angular.module("shinyTrain",["ngCookies","pdate","ui.bootstrap"])
 .config(function ($locationProvider) {
        $locationProvider.html5Mode(true).hashPrefix('!');
-});
-
-var ShinyCtrl=function($scope,$http,$cookies,$log,$location) {
-   $scope.usrname = $cookies.user || "";
+})
+.factory('UserService',['$cookies',function($cookies) {
+    var UserService = {usrname : ''};
+    UserService.usrname = $cookies.user || "";
+    UserService.signIn = function(newName) {
+       $cookies.user= newName;
+       UserService.usrname=newName;
+   }
+   UserService.signOut = function() {
+       UserService.usrname="";
+       $cookies.usrname="";
+   }
    
+    UserService.isLoggedIn = function() {
+        return !(UserService.usrname == "" || !UserService.usrname);
+    }    
+    return UserService;
+}]) ;
+    
+
+
+var ShinyCtrl=function($scope,$http,$cookies,$log,$location,UserService) {
    $scope.tid = "next";
    if("tid" in $location.search()) { $scope.tid = $location.search().tid};
   
    function hasVote() {
-        if(!$scope.nameKnown()) return false;
-        myVote = $.grep($scope.votes,function(v) { return v.name == $scope.usrname});
+        if(!UserService.isLoggedIn()) return false;
+        myVote = $.grep($scope.votes,function(v) { return v.name == UserService.usrname});
         
         if (myVote.length > 0) {
             $scope.myVote = myVote[0];
@@ -22,10 +39,6 @@ var ShinyCtrl=function($scope,$http,$cookies,$log,$location) {
             
     }
    
-   $scope.nameKnown = function() {
-        return !($scope.usrname == "" || !$scope.usrname)
-    }
-
    $scope.updateVotes = function() {
         nocache= Math.random(); //HACK for IE ajax caching
         $http.get("/res/trainings/" + $scope.tid + "/votes?nocache=" + nocache).success(function(data) {
@@ -34,13 +47,14 @@ var ShinyCtrl=function($scope,$http,$cookies,$log,$location) {
         });
         $http.get("/res/trainings/" + $scope.tid + "/details").success(function(data) {$scope.details=data;});
     }
+    
     $scope.revote = function() {
          $log.log("revoting to " + $scope.myVote.vid);
          $log.log("Usr is |" + $scope.usrname + "| -> empty:" + ($scope.usrname == "" || !$scope.usrname) );
-         if (!$scope.usrname || $scope.usrname == "") {
+         if (!UserService.isLoggedIn()) {
              $window.alert("Bitte erst Namen eingeben!");
          } else {
-         $scope.myVote.name=$scope.usrname;
+         $scope.myVote.name=UserService.usrname;
          //angular.extend($scope.myVote,$scope.myVote.name,{"name" : $scope.usrname});
          $http.post("/res/trainings/" + $scope.tid + "/votes", $scope.myVote)
                     .error(function(data) {$log.log("Fehler: " + data)})
@@ -50,7 +64,7 @@ var ShinyCtrl=function($scope,$http,$cookies,$log,$location) {
          }
     }
     
-    
+   //load data 
    $log.log("loading " + $scope.tid);
    $http.get("/res/votetypes").success(function(data) {$scope.votetypes=data;}); 
    $http.get("/res/users").success(function(data) {$scope.unames=data;});
@@ -58,11 +72,40 @@ var ShinyCtrl=function($scope,$http,$cookies,$log,$location) {
    //$http.get("/res/trainings/" + $scope.tid + "/stats").success(function(data) {$scope.stats=data;});   
    $http.get("/res/trainings/" + $scope.tid + "/details").success(function(data) {$scope.details=data;});
    $scope.updateVotes();
+   
+   
+   
+   //usage of service, there must be a more elegant way
+   $scope.usrname = UserService.usrname;
+   $scope.signOut = function() {
+        UserService.signOut();
+        $scope.usrname = UserService.usrname;
+    }
+    $scope.signIn = function(nname) {
+        UserService.signIn(nname);
+        $scope.usrname = UserService.usrname;
+    }
+    $scope.$watch('usrname', function(nV,oV) {
+      $log.log("username changed to " + nV);
+      $scope.nameKnown = UserService.isLoggedIn();
+      $scope.updateVotes();
+   });
+   
+
 };
-var OverviewCtrl=function($scope,$http,$cookies,$log) {
+var OverviewCtrl=function($scope,$http,$cookies,$log,UserService) {
    $http.get("/res/trainings/next/details").success(function(data) {$scope.details=data;});
-    $scope.usrname = $cookies.user || "";
+   $http.get("/res/users").success(function(data) {$scope.unames=data;});
+    $scope.usrname = UserService.usrname;
     $scope.nameKnown = function() {
-        return !($scope.usrname == "" || !$scope.usrname)
+        return UserService.isLoggedIn();
+    }
+    $scope.signOut = function() {
+            UserService.signOut();
+            $scope.usrname = UserService.usrname;
+    }
+    $scope.signIn = function(nname) {
+            UserService.signIn(nname);
+            $scope.usrname = UserService.usrname;
     }
 };
