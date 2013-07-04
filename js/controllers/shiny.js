@@ -3,20 +3,25 @@ angular.module("shinyTrain",["ngCookies","pdate","ui.bootstrap"])
        $locationProvider.html5Mode(true).hashPrefix('!');
 })
 .factory('UserService',['$cookies',function($cookies) {
-    var UserService = {usrname : ''};
-    UserService.usrname = $cookies.user || "";
+    var UserService = {
+            user:  {name : ''}
+    };
+    
+    UserService.user.name = $cookies.user || "";
     UserService.signIn = function(newName) {
        $cookies.user= newName;
-       UserService.usrname=newName;
+       UserService.user.name=newName;
    }
    UserService.signOut = function() {
-       UserService.usrname="";
-       $cookies.usrname="";
+       UserService.user.name="";
+       $cookies.user="";
    }
    
     UserService.isLoggedIn = function() {
-        return !(UserService.usrname == "" || !UserService.usrname);
+        return !(UserService.user.name == "" || !UserService.user.name);
     }    
+    UserService.usrname = function() {return UserService.user.name}
+    
     return UserService;
 }]) ;
     
@@ -28,7 +33,7 @@ var ShinyCtrl=function($scope,$http,$cookies,$log,$location,UserService) {
   
    function hasVote() {
         if(!UserService.isLoggedIn()) return false;
-        myVote = $.grep($scope.votes,function(v) { return v.name == UserService.usrname});
+        myVote = $.grep($scope.votes,function(v) { return v.name == UserService.user.name});
         
         if (myVote.length > 0) {
             $scope.myVote = myVote[0];
@@ -54,7 +59,7 @@ var ShinyCtrl=function($scope,$http,$cookies,$log,$location,UserService) {
          if (!UserService.isLoggedIn()) {
              $window.alert("Bitte erst Namen eingeben!");
          } else {
-         $scope.myVote.name=UserService.usrname;
+         $scope.myVote.name=UserService.user.name;
          //angular.extend($scope.myVote,$scope.myVote.name,{"name" : $scope.usrname});
          $http.post("/res/trainings/" + $scope.tid + "/votes", $scope.myVote)
                     .error(function(data) {$log.log("Fehler: " + data)})
@@ -75,18 +80,12 @@ var ShinyCtrl=function($scope,$http,$cookies,$log,$location,UserService) {
    
    
    
-   //usage of service, there must be a more elegant way
-   $scope.usrname = UserService.usrname;
-   $scope.signOut = function() {
-        UserService.signOut();
-        $scope.usrname = UserService.usrname;
-    }
-    $scope.signIn = function(nname) {
-        UserService.signIn(nname);
-        $scope.usrname = UserService.usrname;
-    }
-    $scope.$watch('usrname', function(nV,oV) {
-      $log.log("username changed to " + nV);
+   //expose user service
+   $scope.user = UserService.user;
+   $scope.signOut = UserService.signOut;
+   $scope.signIn =      UserService.signIn;
+   $scope.$watch('user.name', function(nV,oV) {
+      if(nV)$log.log("username changed to " + nV.name);
       $scope.nameKnown = UserService.isLoggedIn();
       $scope.updateVotes();
    });
@@ -96,16 +95,15 @@ var ShinyCtrl=function($scope,$http,$cookies,$log,$location,UserService) {
 var OverviewCtrl=function($scope,$http,$cookies,$log,UserService) {
    $http.get("/res/trainings/next/details").success(function(data) {$scope.details=data;});
    $http.get("/res/users").success(function(data) {$scope.unames=data;});
-    $scope.usrname = UserService.usrname;
-    $scope.nameKnown = function() {
-        return UserService.isLoggedIn();
-    }
-    $scope.signOut = function() {
-            UserService.signOut();
-            $scope.usrname = UserService.usrname;
-    }
-    $scope.signIn = function(nname) {
-            UserService.signIn(nname);
-            $scope.usrname = UserService.usrname;
-    }
+   
+   //expose user service
+   $scope.user = UserService.user;
+   $scope.signOut = UserService.signOut;
+   $scope.signIn =      UserService.signIn;
+   $scope.$watch('user.name', function(nV,oV) {
+      if(nV)$log.log("username changed to " + nV.name);
+      $scope.nameKnown = UserService.isLoggedIn();
+      $scope.updateVotes();
+   });
+   
 };
