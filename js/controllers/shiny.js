@@ -103,7 +103,6 @@ var OverviewCtrl=function($scope,$http,$cookies,$log,UserService) {
    $scope.$watch('user.name', function(nV,oV) {
       if(nV)$log.log("username changed to " + nV.name);
       $scope.nameKnown = UserService.isLoggedIn();
-      $scope.updateVotes();
    });
    
 };
