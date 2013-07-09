@@ -43,9 +43,28 @@ var ShinyCtrl=function($scope,$http,$cookies,$log,$location,UserService) {
         }
             
     }
+    
+     $scope.addCmt = function() {
+         var newComment = {"autor" : UserService.user.name, "msg" : $scope.curCmt };
+         if (!UserService.isLoggedIn()) {
+             $scope.addAlert("Bitte erst Namen eingeben","warn");
+         } else {
+            $log.log("Adding Comment " + $scope.curCmt + " from " + UserService.user.name);
+            $http.post("/res/trainings/" + $scope.tid + "/comments", newComment)
+                    .error(function(data) {
+                        $log.log("Fehler: " + data);
+                        $scope.addAlert("Fehler beim Kommentar eintragen!");
+                    })
+                    .success(function(data) {
+                         $log.log("OK!");
+                         $scope.addAlert("Kommentar eingetragen!","success");
+                         $scope.comments.unshift(data);
+                    });
+         }
+    }
    
    $scope.updateVotes = function() {
-        nocache= Math.random(); //HACK for IE ajax caching
+        var nocache= Math.random(); //HACK for IE ajax caching
         $http.get("/res/trainings/" + $scope.tid + "/votes?nocache=" + nocache).success(function(data) {
             $scope.votes=data; 
             $scope.voted = hasVote();
@@ -55,19 +74,40 @@ var ShinyCtrl=function($scope,$http,$cookies,$log,$location,UserService) {
     
     $scope.revote = function() {
          $log.log("revoting to " + $scope.myVote.vid);
-         $log.log("Usr is |" + $scope.usrname + "| -> empty:" + ($scope.usrname == "" || !$scope.usrname) );
+         $log.log("Usr is |" + UserService.user.name + "| -> empty:" + (UserService.user.name == "" || !UserService.user.name) );
          if (!UserService.isLoggedIn()) {
-             $window.alert("Bitte erst Namen eingeben!");
+             $scope.addAlert("Bitte erst Namen eingeben","warn");
          } else {
          $scope.myVote.name=UserService.user.name;
          //angular.extend($scope.myVote,$scope.myVote.name,{"name" : $scope.usrname});
          $http.post("/res/trainings/" + $scope.tid + "/votes", $scope.myVote)
-                    .error(function(data) {$log.log("Fehler: " + data)})
-                    .success(function(data) {$log.log("OK!");
-                            $scope.updateVotes();
+                    .error(function(data) {
+                        $log.log("Fehler: " + data);
+                        $scope.addAlert("Fehler beim Abstimmung eintragen!");
+                    })
+                    .success(function(data) {
+                        $log.log("OK!");
+                        $scope.addAlert("Abstimmung eingetragen!","success");
+                        $scope.updateVotes();
                     });
          }
     }
+    
+    //Alert handling
+   $scope.alerts = [];
+
+    $scope.addAlert = function(msg,type) {
+        if(!type || type=="") 
+            type='error';
+        $scope.alerts.push({
+            "msg" : msg,
+            "type" : type
+        });
+    };
+
+    $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+    };
     
    //load data 
    $log.log("loading " + $scope.tid);

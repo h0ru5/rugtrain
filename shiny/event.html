@@ -57,7 +57,7 @@
     
     <div class="container" id="content">
     
-      <!-- Main hero unit for a primary marketing message or call to action -->
+      
       <div class="page-header">
         <h1 class="">{{details.what}} {{tid}}</h1>
         <div class="">von {{details.start | pdate| date: 'EEE dd.MM.yy HH:mm'}} bis {{details.end | pdate| date: 'EEE dd.MM.yy HH:mm'}}</div>
@@ -65,7 +65,9 @@
         <p></p>
       </div>
     
-      <!-- Example row of columns -->
+       <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+      
+      
       <div class="row">
         <div class="span4">
           <h2 class="">Zusammenfassung</h2>
@@ -96,7 +98,19 @@
        </div>
         <div class="span4">
           <h2 class="">Kommentare</h2>
-          <a class="btn btn-primary" href="#">Neu...</a>
+          
+          <a class="btn btn-primary" ng-click="showAdd=true" ng-hide="showAdd" ng-show="!showAdd" title="Neuen Kommentar einfügen">Neu...</a>
+          <div collapse="!showAdd">
+		<div class="well well-large">
+                    <form>
+                    Neuer Kommentar:<br/>
+                    <textarea rows="3" ng-model="curCmt" class="input-block-level"></textarea>
+                    <br/>
+                    <button type="button" class="btn btn-primary" title="Kommentar einfügen" ng-click="addCmt();showAdd=false">Ok</button>
+                    <button type="reset" class="btn" title="Keinen Kommentar einfügen, Formular schließen" ng-click="showAdd=false">Abbrechen</button>
+                </form>   
+                </div> 
+	</div>
           <div>
               <div class="ui-widget-content" ng-repeat="comment in comments">
                   <strong>{{comment.autor}}</strong>&nbsp;<small>({{comment.time | pdate | date: 'EEE dd.MM HH:mm' }})</small>:<br />
