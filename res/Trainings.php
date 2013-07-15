@@ -18,8 +18,8 @@ class Trainings {
             return escapeSQL($p);
     }
 
-    public static function soon() {
-        $data =& soon(10);
+    public static function soon($n=10) {
+        $data =& soon($n);
         return $data->fetchAll();
     }
     

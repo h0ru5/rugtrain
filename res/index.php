@@ -18,8 +18,8 @@ getApi()->get('/trainings/([^/]+)/stats/?',array('Trainings','stats'), EpiApi::e
 getApi()->get('/trainings/([^/]+)/details/?',array('Trainings','details'), EpiApi::external);
 getApi()->post('/trainings/([^/]+)/comments/?',array('Trainings','addComment'), EpiApi::external);
 getApi()->post('/trainings/([^/]+)/votes/?',array('Trainings','addVote'), EpiApi::external);
-getApi()->get('/soon/?',array('Trainings','soon'), EpiApi::external);
-
+#getApi()->get('/soon/?',array('Trainings','soon'), EpiApi::external);
+getApi()->get('/soon/?([^/]+)?/?',array('Trainings','soon'), EpiApi::external);
 getRoute()->run();
 
 ?>
