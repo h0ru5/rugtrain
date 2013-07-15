@@ -93,13 +93,28 @@
 	   
           <div class="span4">
               <h2>Übersicht</h2>
-              <div class="row-fluid">
-                  <div class="span4">Was</div>
-                  <div class="span4">Wann</div>
-                  <div class="span4">Wo</div>
-              </div>
-              
-              <p><a class="btn" href="#">Weitere Termine »</a></p>
+              <table class="table table-hover">
+                  <thead>
+                      <tr>
+                        <th>Was</th>
+                        <th>Wann</th>
+                        <th>Wo</th>
+                       </tr>
+                  </thead>
+                  <tbody>
+                      <tr ng-repeat="evt in soon" ng-click="gotoEvt(evt.tid)">
+                          <td>{{evt.what}}</td>
+                  <td>{{evt.when | pdate | date: 'EEE dd.MM.yy'}}</td>
+                  <td>{{evt.where}}</td>
+                      </tr>
+                      
+                      
+                  </tbody>
+                  
+                  
+              </table>
+             
+              <p><a class="btn btn-primary" href="#">Weitere Termine »</a></p>
                   
           </div>
       </div>

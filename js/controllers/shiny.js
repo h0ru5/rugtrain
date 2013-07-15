@@ -132,9 +132,15 @@ var ShinyCtrl=function($scope,$http,$cookies,$log,$location,UserService) {
    
 
 };
-var OverviewCtrl=function($scope,$http,$cookies,$log,UserService) {
+var OverviewCtrl=function($scope,$http,$window,$log,UserService) {
    $http.get("/res/trainings/next/details").success(function(data) {$scope.details=data;});
    $http.get("/res/users").success(function(data) {$scope.unames=data;});
+   $http.get("/res/soon/5").success(function(data) {$scope.soon=data;});
+   
+   $scope.gotoEvt = function(tid) {
+       $log.log("switching to " + tid);
+       $window.location.href = "event.html?tid=" + tid;
+   }
    
    //expose user service
    $scope.user = UserService.user;
