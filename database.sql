@@ -92,6 +92,17 @@ CREATE TABLE IF NOT EXISTS `votes` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_german1_ci AUTO_INCREMENT=4 ;
 
+-- Table for shoutbox
+CREATE TABLE IF NOT EXISTS `shouts` (
+  `id` int(32) unsigned NOT NULL AUTO_INCREMENT,
+  `autor` varchar(512) NOT NULL,
+  `msg` text NOT NULL,
+  `zeit` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+
 --
 -- Constraints for dumped tables
 --

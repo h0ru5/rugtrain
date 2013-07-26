@@ -3,10 +3,13 @@
 require_once '../epiphany/Epi.php';
 require_once 'Trainings.php';
 require_once 'Users.php';
+require_once 'Shouts.php';
 
 Epi::setPath('base','../epiphany');
 Epi::init('api');
 
+getApi()->get('/shouts/?([^/]+)?/?', array('Shouts','last'), EpiApi::external);
+getApi()->post('/shouts/?', array('Shouts','add'), EpiApi::external);
 getApi()->get('/users/?',array('Users','names'), EpiApi::external);
 #getApi()->get('/next',array('Trainings','next'), EpiApi::external);
 #getApi()->get('/next/[^/]+',array('Trainings','nextn'), EpiApi::external);
