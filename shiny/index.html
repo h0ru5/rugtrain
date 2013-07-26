@@ -59,6 +59,7 @@
       </div>
     </div>
     
+     
     <div class="container" id="content">
     
       <!-- Main hero unit for a primary marketing message or call to action -->
@@ -67,7 +68,10 @@
 	  <h1 class="text-center">Rugbears Training Redux</h1>
 	  </div>
       </div>
-    
+     
+      <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+      
+      
       <!-- Example row of columns -->
       <div class="row">
         <div class="span4">
@@ -83,14 +87,15 @@
             <h2>Shoutbox</h2>
             <div><form>
                     <div class="input-append">
-                        <input type="text" placeholder="dein Text..." />
-                        <button type="submit" class="btn"><i class="icon-plus-sign"></i></button>
+                        <input type="text" placeholder="dein Text..." ng-model="myShout"/>
+                        <button type="submit" class="btn" ng-click="addShout(myShout)"><i class="icon-plus-sign"></i></button>
                     </div>
                 </form></div>
             <div>
-                <b>Ich:</b> bla<br>
-                <div><b>Du:</b> bla bla</div>
-                <div><b>Weranders:</b> Bla bie blupp</div>
+                <div ng-repeat="shout in shouts">
+                    <b>{{shout.autor}}:</b>
+                    {{shout.msg}}
+                </div>
             </div>
         </div>
        

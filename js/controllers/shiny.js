@@ -137,10 +137,52 @@ var OverviewCtrl=function($scope,$http,$window,$log,UserService) {
    $http.get("/res/users").success(function(data) {$scope.unames=data;});
    $http.get("/res/soon/5").success(function(data) {$scope.soon=data;});
    
+   //switch to event
    $scope.gotoEvt = function(tid) {
        $log.log("switching to " + tid);
        $window.location.href = "event.html?tid=" + tid;
    }
+   
+   //shoutbox
+   $scope.updateShouts = function() {
+        $http.get("/res/shouts/5").success(function(data) {$scope.shouts=data;});
+   }
+   $scope.updateShouts();
+   
+   $scope.addShout = function(msg) {
+       var newShout = {"autor" : UserService.user.name, "msg" : msg };
+         if (!UserService.isLoggedIn()) {
+             $scope.addAlert("Bitte erst Namen eingeben","warn");
+         } else {
+            $log.log("Adding Shout " + msg + " from " + UserService.user.name);
+            $http.post("/res/shouts", newShout)
+                    .error(function(data) {
+                        $log.log("Fehler: " + data);
+                        $scope.addAlert("Fehler beim Shoutboxeintrag!");
+                    })
+                    .success(function(data) {
+                         $log.log("OK!");
+                         $scope.addAlert("eingetragen!","success");
+                         $scope.shouts.unshift(newShout);
+                    });
+         }
+   }
+   
+       //Alert handling
+   $scope.alerts = [];
+
+    $scope.addAlert = function(msg,type) {
+        if(!type || type=="") 
+            type='error';
+        $scope.alerts.push({
+            "msg" : msg,
+            "type" : type
+        });
+    };
+
+    $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+    };
    
    //expose user service
    $scope.user = UserService.user;
