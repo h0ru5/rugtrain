@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="de">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>About Rugbears Training Site Redux
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="information about the purpose, technology and future plans of the trainings site">
+    <meta name="author" content="Johannes Hund">
+    <!-- Le styles -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <style type="text/css">
+      #content {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }      
+    </style>
+    
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js">
+      </script>
+    <![endif]-->
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+    <style>
+    </style>
+  </head>
+  <body>
+    
+    <div class="navbar navbar-inverse navbar-fixed-top" >
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="index.html" target="_self">Rugbears Training</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li><a href="index.html" target="_self">Home</a></li>
+              <li class="active"><a href="#about" class="">About</a></li>
+              <li><a href="#contact" class="">Contact</a></li>
+            </ul>
+         
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+    
+    <div class="container" id="content">
+    
+      
+      <div class="page-header">
+        <h1 class="">About Rugbears Training Site</h1>
+        </div>
+    
+         
+      <div class="row">
+        <div class="span12">
+          <h2 class="">Purpose</h2>
+          <div><p>This training site is used to coordinate the trainings and other events of the Munich Rugbears, a wheelchair-rugby team based in Munich, Germany</p>
+              <p>It is also used as my playground for experiments with contemporary web design tolls, libraries and practices</p>
+          </div>
+          <h2 class="">Technology</h2>
+          <div><p>The original app was an ugly hacked thing using PHP with mixed presentation and code.</p>
+              <p> It was reworked for flexibility and maintainability, in the rework it was (mostly) seperated into a MVC-architecture<br/>
+                  The Model is a plain <a href="http://dev.mysql.com/" title="mySQL homepage" target="_new" >MySQL</a> db using MyISAM, there is no abstraction layer or ORM (yet). Database access is only abstracted via <a href="http://pear.php.net/package/MDB2/" title="PEAR::MDB2 description" target="_new">PEAR::MDB2</a><br/>
+              These databadse calls are abstracted into a RESTful controller tier using the exceptionally well-designed <a href="https://github.com/jmathai/epiphany" title="Epiphany framework on GitHub">epiphany framework by jmathai</a></p>
+              <p>There are currently 4 different views that access this layer:</p>
+              <dl>
+                  <dt>/retro</dt>
+                  <dd>A backport of the old design  with mixed logic and presentation, no overview but only a viewfor a single event.<br/>
+                      <a href="http://training.munich-rugbears.de/retro/next" target="_new" title="Next event in Retro view">See here</a>
+                  </dd>
+                  <dt>Rugtrain</dt>
+                  <dd>The first attempt of a new AJAX-based design. Uses JQuery UI and in the event view also AngularJS<br/>
+                      <a href="http://training.munich-rugbears.de/" target="_new" title="Overview in Rugtrain view">See here</a>
+                  </dd>
+                  <dt>/mobile</dt>
+                  <dd>A view for smartphones and mobile devices, based on Uses JQuery mobile, AngularJS 
+                      and an <a href="https://github.com/opitzconsulting/jquery-mobile-angular-adapter" title="JQuery Mobile Angular Adapter on GitHub">adapter by opitzconsulting combining both</a>.
+                      It was also build on <a href="http://phonegap.com/" target="_new" title="PhoneGap homepage">PhoneGap</a>, to be provided as an installable app. However, as Apple thinks it's a good idea to charge developers for API keys, no IOS version will  be provided.
+                      <br/>
+                      <a href="http://training.munich-rugbears.de/mobile" target="_new" title="mobile view">See here</a>
+                  </dd>
+                  <dt>/shiny</dt>
+                  <dd>The newest view, codenamed shiny, is built on <a href="http://getbootstrap.com/2.3.2/index.html" title="Bootstrap docs">Twitter's Bootstrap  (v2.3.2)</a>,
+                      <a href="http://angularjs.org/" title="AngularJS homepage">AngularJS</a> and <a href="http://angular-ui.github.io/" title="AngularUI homepage">AngularUI</a>, designed eith both mobile and desktop devices in mind.
+                      <br/>
+                      <a href="http://training.munich-rugbears.de/shiny" target="_new" title="shiny view">See here</a>
+                  </dd>
+              </dl>
+          </div>
+         <h2 class="">Participate</h2>
+         <div>
+             <p>The whole code is publicly availiable on my <a title="sources of these pages" href="https://github.com/h0ru5/rugtrain" >GitHub repo</a>, feel free to send merge requests</p>
+             <p>We can also offer limited support to any other rugby teams or other sports clubs to adapt this application to their needs, please contact us on that behalf</p>
+         </div>
+
+          
+        </div>
+      </div>
+    
+      <hr />
+    
+      <footer>
+          <p class="">© <a href="http://www.johanneshund.de" target="_new" title="eCV of Johannes Hund">Dr. Johannes Hund</a> for Munich Rugbears 2013</p>
+      </footer>
+    
+    </div> <!-- /container -->
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+     <script src="assets/js/bootstrap.min.js"></script> <!-- for nav-collabsible -->
+     
+    
+  </body>
+</html>
