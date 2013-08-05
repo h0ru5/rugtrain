@@ -46,7 +46,7 @@ require_once 'functions.inc.php';
             <script src="js/ng-directives/dialog.min.js"></script>
             <script src="js/ng-directives/jqButton.js"></script>
             <script src="js/controllers/training.min.js"></script-->
-            <script src="js/training-pack.min.js" type="text/javascript"></script><!-- todo: pack&min -->
+            <script src="js/dist/train-all.min.js" type="text/javascript"></script><!-- todo: pack&min -->
         <? } #end dbg?>
         <script type="text/javascript">
             //<?= $_REQUEST["tid"] ?>

@@ -111,6 +111,7 @@
 }
 
 .guiders_highlight {
+  background-color: white;
   position: relative;
   z-index: 101;
 }
