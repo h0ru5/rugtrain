@@ -81,8 +81,9 @@ function userAdmin($scope,$window,$resource) {
         $scope.curUsr=new User();
         
 }
+userAdmin.$inject = ['$scope','$window','$resource'];
 
-function eventAdmin($scope,$resource,$window) {
+function eventAdmin($scope,$window,$resource) {
 	$scope.eventColumnDefs = [ 
             { "mDataProp": "what", "aTargets":[0] },
             { "mDataProp": "where", "aTargets":[1] },
@@ -129,9 +130,9 @@ function eventAdmin($scope,$resource,$window) {
         $scope.curEvt.when = new Date();
         $scope.curEvt.end = new Date();
 }
+eventAdmin.$inject = ['$scope','$window','$resource'];
 
-
-function commentAdmin($scope,$resource,$window) {
+function commentAdmin($scope,$window,$resource) {
 	$scope.commentColumnDefs = [ 
             { "mDataProp": "tid", "aTargets":[0] },
             { "mDataProp": "autor", "aTargets":[1] },
@@ -169,3 +170,4 @@ function commentAdmin($scope,$resource,$window) {
         refresh();
         $scope.curCmt = new Comment();
 }
+commentAdmin.$inject = ['$scope','$window','$resource'];

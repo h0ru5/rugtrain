@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-angular.module('addButton', []).directive("addButton", 
+angular.module('addButton', []).directive("addButton",['$compile', 
 function($compile) {
         return function(scope, element, attrs) {
         
@@ -34,4 +34,4 @@ function($compile) {
         
          
    }
-});
+}]);

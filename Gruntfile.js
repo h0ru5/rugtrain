@@ -27,11 +27,19 @@ module.exports = function(grunt) {
         src: ['js/lib/jquery.timeago.js','js/lib/jquery.timeago.de.js','js/lib/ui-bootstrap.min.js','js/lib/bootstrap.js','js/lib/guiders-1.3.0.js',
             'js/ng-modules/pdate.js','js/ng-modules/timeago.js','js/controllers/shiny.js','js/controllers/walkthrough-overview.js'],
         dest: 'js/dist/shiny-all.js'
+      },
+    admin: {
+        src: ['js/lib/jquery.dataTables.js','js/lib/angular-ui.min.js','js/ng-directives/datatable.js','js/ng-directives/dialog.js','js/ng-directives/addButton.js','js/controllers/admin.js'],
+        dest: 'js/dist/admin-all.js'
       }
     },
     uglify: {
       options: {
         banner: '<%= banner %>'
+      },
+      admin: {
+        src: '<%= concat.admin.dest %>',
+        dest: 'js/dist/admin-all.min.js'
       },
       train: {
         src: '<%= concat.train.dest %>',

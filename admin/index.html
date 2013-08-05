@@ -9,33 +9,6 @@
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/vader/jquery-ui.css" rel="stylesheet" type="text/css" />
 <link href="../css/adminpanel.min.css" rel="stylesheet" type="text/css" />
 <link href="../css/angular-ui.min.css" rel="stylesheet" type="text/css" />
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js" type="text/javascript"></script>
-<script src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js" type="text/javascript"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js" type="text/javascript"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular-resource.min.js" type="text/javascript"></script>
-<script src="../js/lib/angular-ui.min.js" type="text/javascript"></script>
-<script src="../js/ng-directives/datatable.js" type="text/javascript"></script>
-<script src="../js/ng-directives/dialog.js" type="text/javascript"></script>
-<script src="../js/ng-directives/addButton.js" type="text/javascript"></script>
-<script src="../js/controllers/admin.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-//globals
- /* var butAdd = $("<button ng-click='dlgOpen()'>Neu</button>").button({
-            icons: {
-                primary: "ui-icon-plusthick"
-            }
-        }); */
-//onload handler
-$(function() {
-	$("#vtab").tabs();
-	$(".menubar li").addClass("ui-corner-all");
-	$(".main").css("padding","0px");
-	//butAdd.css("float","right");
-	//$(".main .dataTables_filter").append(butAdd);
-});
-</script>
 </head>
 <body ng-app="adminPanel">
 <div class="ui-widget">
@@ -134,6 +107,28 @@ $(function() {
 <footer>
 	Icons by <a href="http://dryicons.com">http://dryicons.com</a>
 </footer>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular-resource.min.js" type="text/javascript"></script>
+<script src="../js/dist/admin-all.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+//globals
+ /* var butAdd = $("<button ng-click='dlgOpen()'>Neu</button>").button({
+            icons: {
+                primary: "ui-icon-plusthick"
+            }
+        }); */
+//onload handler
+$(function() {
+	$("#vtab").tabs();
+	$(".menubar li").addClass("ui-corner-all");
+	$(".main").css("padding","0px");
+	//butAdd.css("float","right");
+	//$(".main .dataTables_filter").append(butAdd);
+});
+</script>
 
 </body>
 
