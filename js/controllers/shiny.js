@@ -1,7 +1,7 @@
 angular.module("shinyTrain",["ngCookies","pdate","ui.bootstrap"])
-.config(function ($locationProvider) {
+.config(['$locationProvider',function ($locationProvider) {
        $locationProvider.html5Mode(true).hashPrefix('!');
-})
+}])
 .factory('UserService',['$cookies',function($cookies) {
     var UserService = {
             user:  {name : ''}
@@ -132,6 +132,8 @@ var ShinyCtrl=function($scope,$http,$cookies,$log,$location,UserService) {
    
 
 };
+ShinyCtrl.$inject = ['$scope','$http','$cookies','$log','$location','UserService'];
+
 var OverviewCtrl=function($scope,$http,$window,$log,UserService) {
    $http.get("/res/trainings/next/details").success(function(data) {$scope.details=data;});
    $http.get("/res/users").success(function(data) {$scope.unames=data;});
@@ -194,3 +196,4 @@ var OverviewCtrl=function($scope,$http,$window,$log,UserService) {
    });
    
 };
+OverviewCtrl.$inject= ['$scope','$http','$window','$log','UserService'];
