@@ -8,60 +8,9 @@ require_once 'functions.inc.php';
 
     <head>
         <meta charset="utf-8">
-        <? if ($debugging) { ?>
-            <!-- debugging -->
-            <link href="http://code.jquery.com/ui/1.9.2/themes/black-tie/jquery-ui.css" media="all" rel="stylesheet" type="text/css" />
+            <link href="http://code.jquery.com/ui/1.9.2/themes/smoothness/jquery-ui.css" media="all" rel="stylesheet" type="text/css" />
             <link href="css/styling.css" rel="stylesheet" type="text/css" />
 
-            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.js" type="text/javascript"></script>
-            <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js" type="text/javascript"></script>
-            <script src="http://timeago.yarp.com/jquery.timeago.js"></script>
-            <script src="js/lib/jquery.timeago.de.js"></script>
-            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.js" type="text/javascript"></script>
-            <script src="http://cdn.jsdelivr.net/angularjs/1.0.2/i18n/angular-locale_de.js" type="text/javascript"></script>
-            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular-cookies.js" type="text/javascript"></script>
-            <script src="js/ng-modules/pdate.js"></script>
-            <script src="js/ng-modules/timeago.js"></script>
-            <script src="js/ng-directives/autocomplete.js"></script>
-            <script src="js/ng-directives/dialog.js"></script>
-            <script src="js/ng-directives/jqButton.js"></script>
-            <script src="js/controllers/training.js"></script>
-        <? } else { #productive ?>
-            <!-- productive -->
-            <link href="http://code.jquery.com/ui/1.9.2/themes/smoothness/jquery-ui.css" media="all" rel="stylesheet" type="text/css" />
-            <!-- link href="css/black-tie/jquery-ui.min.css" media="all" rel="stylesheet" type="text/css" /-->
-            <link href="css/styling.min.css" rel="stylesheet" type="text/css" />
-
-            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
-            <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.min.js" type="text/javascript"></script>
-            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js" type="text/javascript"></script>
-            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular-cookies.min.js" type="text/javascript"></script>
-            <!-- script src="js/lib/jquery.timeago.min.js"></script>
-            <script src="js/lib/jquery.timeago.de.min.js"></script>
-            <script src="js/lib/angular-locale_de.min.js" type="text/javascript"></script>
-            <script src="js/lib/libs.min.js" type="text/javascript"></script>
-            <script src="js/ng-modules/pdate.min.js"></script>
-            <script src="js/ng-modules/timeago.min.js"></script>
-            <script src="js/ng-directives/autocomplete.min.js"></script>
-            <script src="js/ng-directives/dialog.min.js"></script>
-            <script src="js/ng-directives/jqButton.js"></script>
-            <script src="js/controllers/training.min.js"></script-->
-            <script src="js/dist/train-all.min.js" type="text/javascript"></script><!-- todo: pack&min -->
-        <? } #end dbg?>
-        <script type="text/javascript">
-            //<?= $_REQUEST["tid"] ?>
-            
-            var tid=<?= nextOrNum($_REQUEST["tid"]) ?>;
-            $(function() {
-                $(".addButton").button({
-                    icons: {
-                        primary: "ui-icon-plusthick"
-                    }
-                });
-                $("#diagCmt").parent().resizable({"alsoResize":"#msg"});
-            });
-            
-        </script>
         <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
         <title>New Training site</title>
     </head>
@@ -151,5 +100,41 @@ require_once 'functions.inc.php';
         </footer>
 
     </body>
-
+        <? if ($debugging) { ?>
+            <!-- debugging -->
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.js" type="text/javascript"></script>
+            <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js" type="text/javascript"></script>
+            <script src="http://timeago.yarp.com/jquery.timeago.js"></script>
+            <script src="js/lib/jquery.timeago.de.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.js" type="text/javascript"></script>
+            <script src="http://cdn.jsdelivr.net/angularjs/1.0.2/i18n/angular-locale_de.js" type="text/javascript"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular-cookies.js" type="text/javascript"></script>
+            <script src="js/ng-modules/pdate.js"></script>
+            <script src="js/ng-modules/timeago.js"></script>
+            <script src="js/ng-directives/autocomplete.js"></script>
+            <script src="js/ng-directives/dialog.js"></script>
+            <script src="js/ng-directives/jqButton.js"></script>
+            <script src="js/controllers/training.js"></script>
+        <? } else { #productive ?>
+            <!-- productive -->
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
+            <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.min.js" type="text/javascript"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js" type="text/javascript"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular-cookies.min.js" type="text/javascript"></script>
+            <script src="js/dist/train-all.min.js" type="text/javascript"></script><!-- todo: pack&min -->
+        <? } #end dbg?>
+        <script type="text/javascript">
+            //<?= $_REQUEST["tid"] ?>
+            
+            var tid=<?= nextOrNum($_REQUEST["tid"]) ?>;
+            $(function() {
+                $(".addButton").button({
+                    icons: {
+                        primary: "ui-icon-plusthick"
+                    }
+                });
+                $("#diagCmt").parent().resizable({"alsoResize":"#msg"});
+            });
+            
+        </script>
 </html>

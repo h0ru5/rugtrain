@@ -25,7 +25,7 @@ module.exports = function(grunt) {
       },
       shiny: {
         src: ['js/lib/jquery.timeago.js','js/lib/jquery.timeago.de.js','js/lib/ui-bootstrap.min.js','js/lib/bootstrap.js','js/lib/guiders-1.3.0.js',
-            'js/ng-modules/pdate.js','js/ng-modules/timeago.js','js/controllers/shiny.js','js/controllers/walkthrough-overview.js'],
+            'js/ng-modules/pdate.js','js/ng-modules/timeago.js','js/controllers/shiny.js'],
         dest: 'js/dist/shiny-all.js'
       },
     admin: {
