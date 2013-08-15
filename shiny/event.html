@@ -84,7 +84,10 @@
           <h2 class="">Zusammenfassung</h2>
           <div ng-repeat="stat in details.stats">
               <div class="dropdown">
-              <a class="dropdown-toggle">{{stat.vote}}: {{stat.count}}</a>
+              <a class="dropdown-toggle">
+                      <span ng-class="{'badge-important' : stat.id==3,'badge-warning': stat.id==2,'badge-success': stat.id==1}" class="badge">
+                          {{stat.count}}</span> x {{stat.vote}}
+                  </a>
               <ul class="dropdown-menu">
                 <li ng-repeat="vote in votes | filter: {vid :  stat.id}">
                   <a>{{vote.name}}</a>
