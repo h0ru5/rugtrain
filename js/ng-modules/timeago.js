@@ -4,3 +4,4 @@
 		return $.timeago(input);
 	}
 });
+jQuery.timeago.settings.allowFuture=true;

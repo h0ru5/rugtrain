@@ -1,4 +1,4 @@
-angular.module("shinyTrain",["ngCookies","pdate","ui.bootstrap"])
+angular.module("shinyTrain",["ngCookies","pdate","ui.bootstrap","timeago"])
 .config(['$locationProvider',function ($locationProvider) {
        $locationProvider.html5Mode(true).hashPrefix('!');
 }])

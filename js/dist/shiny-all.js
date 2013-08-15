@@ -1,4 +1,4 @@
-/*! RugTrain - v0.0.1 - 2013-08-05
+/*! RugTrain - v0.0.1 - 2013-08-15
 * http://training.munich-rugbears.de/shiny/
 * Copyright (c) 2013 h0ru5; Licensed MIT */
 (function($) {
@@ -3000,7 +3000,8 @@ angular.module('timeago', [])
 		return $.timeago(input);
 	}
 });
-angular.module("shinyTrain",["ngCookies","pdate","ui.bootstrap"])
+jQuery.timeago.settings.allowFuture=true;
+angular.module("shinyTrain",["ngCookies","pdate","ui.bootstrap","timeago"])
 .config(['$locationProvider',function ($locationProvider) {
        $locationProvider.html5Mode(true).hashPrefix('!');
 }])

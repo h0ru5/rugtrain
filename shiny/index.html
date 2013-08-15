@@ -84,7 +84,7 @@
       <div class="row">
         <div class="span4" id="nextEvent">
           <h2>Nächster Termin</h2>
-          <p>{{details.what}} in {{details.where}} am {{details.start | pdate| date: 'EEE dd.MM.yy'}} (in xx Tagen):<br/>
+          <p>{{details.what}} in {{details.where}} am {{details.start | pdate| date: 'EEE dd.MM.yy'}} ({{details.start | pdate| timeago}}):<br/>
               <span ng-repeat="stat in details.stats">
                   {{stat.count}}x {{stat.vote}}<br/>
               </span>
