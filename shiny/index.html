@@ -88,7 +88,8 @@
           <h2>Nächster Termin</h2>
           <p>{{details.what}} in {{details.where}} am {{details.start | pdate| date: 'EEE dd.MM.yy'}}<br/> ({{details.start | pdate| timeago}}):<br/>
               <span ng-repeat="stat in details.stats">
-                  {{stat.count}}x {{stat.vote}}<br/>
+                      <span ng-class="{'badge-important' : stat.id==3,'badge-warning': stat.id==2,'badge-success': stat.id==1}" class="badge">
+                          {{stat.count}}</span> x {{stat.vote}}<br/>
               </span>
           </p>
           <p><a class="btn btn-primary" href="event.html">Details »</a></p>
