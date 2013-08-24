@@ -12346,7 +12346,7 @@ function eventAdmin($scope,$window,$resource) {
             if($window.confirm(evt.what + " (" + evt.where +") wirklich löschen?")) {            
                Event.remove({evtId:evt.tid});
             }
-            refresh();
+            //refresh();
         };
   
         $scope.doEdit = function(evt) {

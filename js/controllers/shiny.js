@@ -139,6 +139,22 @@ var OverviewCtrl=function($scope,$http,$window,$log,UserService) {
    $http.get("/res/users").success(function(data) {$scope.unames=data;});
    $http.get("/res/soon/5").success(function(data) {$scope.soon=data;});
    
+   //toggle Trainings in outlook
+   $scope.showTrain=true;
+   $scope.$watch('showTrain', function(doshow)  {
+       //$log.log("saw showtrain being " + doshow);
+       if(doshow)
+           $http.get("/res/soon/5").success(function(data) {
+               $scope.soon=data;
+           });
+       else
+           $http.get("/res/othersoon/5").success(function(data) {
+               $scope.soon=data;
+           });
+   });
+   
+   
+   
    //switch to event
    $scope.gotoEvt = function(tid) {
        $log.log("switching to " + tid);
@@ -170,7 +186,7 @@ var OverviewCtrl=function($scope,$http,$window,$log,UserService) {
          }
    }
    
-       //Alert handling
+   //Alert handling
    $scope.alerts = [];
 
     $scope.addAlert = function(msg,type) {
