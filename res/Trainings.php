@@ -21,6 +21,11 @@ class Trainings {
     public static function soon($n=10) {
         $data =& soon($n);
         return $data->fetchAll();
+    } 
+    
+    public static function othersoon($n=10) {
+        $data =& soon($n,TRUE);
+        return $data->fetchAll();
     }
     
     public static function votetypes() {

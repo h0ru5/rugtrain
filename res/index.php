@@ -23,6 +23,7 @@ getApi()->post('/trainings/([^/]+)/comments/?',array('Trainings','addComment'), 
 getApi()->post('/trainings/([^/]+)/votes/?',array('Trainings','addVote'), EpiApi::external);
 #getApi()->get('/soon/?',array('Trainings','soon'), EpiApi::external);
 getApi()->get('/soon/?([^/]+)?/?',array('Trainings','soon'), EpiApi::external);
+getApi()->get('/othersoon/?([^/]+)?/?',array('Trainings','othersoon'), EpiApi::external);
 getRoute()->run();
 
 ?>

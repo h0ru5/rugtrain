@@ -81,8 +81,13 @@ function allFutures() {
     return $data;
 }
 
-function soon($limit=1) {
-    $sql = "SELECT `tid`,`what`,`where`,`when`, DATEDIFF(`when`,CURDATE()) AS diff  FROM trainings WHERE `when` > CURDATE() ORDER BY diff ASC LIMIT $limit";
+function soon($limit=1,$noTraining=FALSE) {
+    if($noTraining) {
+        $filter = "AND NOT `type` = 'TRAINING'";
+    } else {
+        $filter = "";
+    }
+    $sql = "SELECT `tid`,`what`,`where`,`when`, DATEDIFF(`when`,CURDATE()) AS diff  FROM trainings WHERE `when` > CURDATE() $filter ORDER BY diff ASC LIMIT $limit";
     $data = & doQuery($sql);
     return $data;
 }
