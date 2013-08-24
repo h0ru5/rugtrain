@@ -1,4 +1,4 @@
-﻿angular.module("adminPanel",["myTable","ngResource","jqDialog","addButton","ui"]);
+﻿angular.module("adminPanel",["myTable","ngResource","jqDialog","addButton","dateTimePicker"]);
 
 function actButtons(_mData) {
       this.aTargets=[-1];

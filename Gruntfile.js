@@ -29,7 +29,7 @@ module.exports = function(grunt) {
         dest: 'js/dist/shiny-all.js'
       },
     admin: {
-        src: ['js/lib/jquery.dataTables.js','js/lib/angular-ui.min.js','js/ng-directives/datatable.js','js/ng-directives/dialog.js','js/ng-directives/addButton.js','js/controllers/admin.js'],
+        src: ['js/lib/jquery.dataTables.js','js/lib/jquery-ui-timepicker-addon.js','js/lib/jquery-ui-timepicker-de.js','js/ng-directives/datetimePicker.js','js/ng-directives/datatable.js','js/ng-directives/dialog.js','js/ng-directives/addButton.js','js/controllers/admin.js'],
         dest: 'js/dist/admin-all.js'
       }
     },

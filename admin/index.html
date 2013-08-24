@@ -46,9 +46,9 @@
                             <label for="termin">Termin</label>
                             <input id="termin" name="termin" type="text" class="text ui-widget-content ui-corner-all" ng-model="curEvt.what"/>
                             <label for="time">Zeit</label>
-                            <input id="time" type="datetime" name="time" class="text ui-widget-content ui-corner-all" ng-model="curEvt.when" ui-date="{'dateFormat' : 'yy-mm-dd'}" ui-date-format="yy-mm-dd"/>
+                            <input id="time" type="datetime" name="time" class="text ui-widget-content ui-corner-all" ng-model="curEvt.when" date-time-picker date-format="yy-mm-dd" time-format="HH:mm:ss" />
                             <label for="time">Ende</label>
-                            <input id="end" type="datetime" name="end" class="text ui-widget-content ui-corner-all" ng-model="curEvt.end" ui-date="{'dateFormat' : 'yy-mm-dd'}" ui-date-format="yy-mm-dd"/>
+                            <input id="end" type="datetime" name="end" class="text ui-widget-content ui-corner-all" ng-model="curEvt.end"  date-time-picker date-format="yy-mm-dd" time-format="HH:mm:ss" />
                             <label for="ort">Ort</label>
                             <input id="ort" name="ort" type="text" class="text ui-widget-content ui-corner-all" ng-model="curEvt.where" />
                             <label for="ort">Typ</label>
