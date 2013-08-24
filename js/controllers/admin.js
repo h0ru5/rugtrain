@@ -89,6 +89,7 @@ function eventAdmin($scope,$window,$resource) {
             { "mDataProp": "where", "aTargets":[1] },
             { "mDataProp": "when", "aTargets":[2] },
             { "mDataProp": "end", "aTargets":[3] },
+            { "mDataProp": "type", "aTargets":[4] },
             new actButtons("tid")
         ]; 
 	
@@ -102,7 +103,7 @@ function eventAdmin($scope,$window,$resource) {
             if($window.confirm(evt.what + " (" + evt.where +") wirklich löschen?")) {            
                Event.remove({evtId:evt.tid});
             }
-            refresh();
+            //refresh();
         };
   
         $scope.doEdit = function(evt) {

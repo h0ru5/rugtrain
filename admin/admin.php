@@ -28,24 +28,24 @@ getRoute()->run();
 class Trainings {
     public static function create() {
         $data = & jsonPostData();
-        return self::createTrain($data->when,$data->end,$data->where,$data->what);
+        return self::createTrain($data->when,$data->end,$data->where,$data->what,$data->type);
     }
     
     public static function index() {
-        $ts =& doQuery("SELECT `tid`,`when`,`where`,`what`,`start`,`end` FROM trainings WHERE `start` > CURDATE() ORDER BY `start`");
+        $ts =& doQuery("SELECT `tid`,`when`,`where`,`what`,`start`,`end`,`type` FROM trainings WHERE `start` > CURDATE() ORDER BY `start`");
         return $ts->fetchAll();
     }
     
     public static function get($tid) {
         $tid = escapeSQL($tid);
-        $ts =& doQuery("SELECT `tid`,`when`,`where`,`what`,`start`,`end` FROM trainings WHERE `tid` = $tid");
+        $ts =& doQuery("SELECT `tid`,`when`,`where`,`what`,`start`,`end`,`type` FROM trainings WHERE `tid` = $tid");
         return $ts->fetchRow();
     }
 
     public static function update($tid) {
         $data =& jsonPostData();
         #$mysqldate=$data->when->format("Y-m-d H:i:s");
-        $ts =& doQuery("REPLACE  INTO trainings (`tid`,`when`,`where`,`what`,`start`,`end`) VALUES ($tid,'$data->when','$data->where','$data->what','$data->when','$data->end') ");
+        $ts =& doQuery("REPLACE  INTO trainings (`tid`,`when`,`where`,`what`,`start`,`end`,`type`) VALUES ($tid,'$data->when','$data->where','$data->what','$data->when','$data->end','$data->type') ");
         return $ts->fetchAll();
     }
     
@@ -82,9 +82,9 @@ class Trainings {
         return array("count" => $j);
     }
     
-    private static function createTrain($start,$end,$where,$what) {
+    private static function createTrain($start,$end,$where,$what,$type='TRAINING') {
         #$mysqldate=$day->format("Y-m-d H:i:s");
-        $sql="INSERT INTO trainings (`when`,`start`,`end`,`where`,`what`) VALUES ('$start','$start','$end','$where','$what')";
+        $sql="INSERT INTO trainings (`when`,`start`,`end`,`where`,`what`,`type`) VALUES ('$start','$start','$end','$where','$what','$type')";
         $res = doQuery($sql)->fetchAll();
     }
     

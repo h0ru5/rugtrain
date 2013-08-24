@@ -1,4 +1,4 @@
-/*! RugTrain - v0.0.1 - 2013-08-05
+/*! RugTrain - v0.0.1 - 2013-08-24
 * http://training.munich-rugbears.de/shiny/
 * Copyright (c) 2013 h0ru5; Licensed MIT */
 /*jslint evil: true, undef: true, browser: true */
@@ -12332,6 +12332,7 @@ function eventAdmin($scope,$window,$resource) {
             { "mDataProp": "where", "aTargets":[1] },
             { "mDataProp": "when", "aTargets":[2] },
             { "mDataProp": "end", "aTargets":[3] },
+            { "mDataProp": "type", "aTargets":[4] },
             new actButtons("tid")
         ]; 
 	

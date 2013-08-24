@@ -34,6 +34,7 @@
 						<th>Ort</th>
 						<th>Zeit</th>
                                                 <th>Ende</th>
+                                                <th>Typ</th>
                                                 <th>Aktion</th>
 					</tr>
 				</thead>
@@ -50,6 +51,12 @@
                             <input id="end" type="datetime" name="end" class="text ui-widget-content ui-corner-all" ng-model="curEvt.end" ui-date="{'dateFormat' : 'yy-mm-dd'}" ui-date-format="yy-mm-dd"/>
                             <label for="ort">Ort</label>
                             <input id="ort" name="ort" type="text" class="text ui-widget-content ui-corner-all" ng-model="curEvt.where" />
+                            <label for="ort">Typ</label>
+                            <select name="type" id="type" class="text ui-widget-content ui-corner-all" ng-model="curEvt.type">
+                                <option value="TRAINING">Training</option>
+                                <option value="OTHER">Anderes</option>
+                            </select>
+                            <!-- input id="type" name="type" type="text" class="text ui-widget-content ui-corner-all" ng-model="curEvt.type" /-->
                         </fieldset>
                     </form>
                 </div>
