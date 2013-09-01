@@ -7,6 +7,7 @@ AddHandler x-httpd-php5 .php
 
 RewriteEngine On 
 RewriteRule ^retro/([0-9]+|next)$ ./training.php?tid=$1 
+RedirectMatch 301 ^/shiny/([0-9]+|next)$ /shiny/event.html?tid=$1 
 RewriteRule ^cal/?$ ./res/calender.php [QSA] 
 RewriteRule ^([0-9]+|next)$ ./train2.php?tid=$1 
 RewriteRule ^([0-9]+|next)/([a-zA-Z]+)$ ./index.php?tid=$1&action=$2 [QSA,L]
