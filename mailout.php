@@ -50,7 +50,6 @@ $html_body = "
 
 <body>
 <div class='logo'>
-<img src='http://training.munich-rugbears.de/img/logo_rb.jpg' alt='Rugbears logo' />
 <h1>RugBears $evt->what am $td</h1>
 <p>Ort: $evt->where</p>
 </div>
@@ -67,6 +66,7 @@ Die Liste aller Termine findest du auf <a href='http://training.munichrugbears.d
 <td width='33%'><a href='http://training.munich-rugbears.de/$evt->tid/add?vote=3&name=$name'>Komme nicht</a></td>
 </tr>
 </table>
+<p>&nbsp;</p>
 </body>
 </html>";
 
@@ -74,7 +74,7 @@ $text_body = "
 Rugbears $evt->what am $td\nin $evt->where\n\nKommst du? einfach link anklicken\n
 Spiele: http://training.munich-rugbears.de/$evt->tid/add?vote=3&name=$name\n\n
 Komme: http://training.munich-rugbears.de/$evt->tid/add?vote=3&name=$name\n\n
-Komme nicht: http://training.munich-rugbears.de/$evt->tid/add?vote=3&name=$name\n\n";
+Komme nicht: http://training.munich-rugbears.de/$evt->tid/add?vote=3&name=$name\n\n\n";
 $grenze="NextpartInMyMultiModalmessage";
 
 $headers ="MIME-Version: 1.0\n";
@@ -94,6 +94,6 @@ $msg.="Content-Disposition: inline\n\n";
 $msg.=$html_body;
 $msg.="\n\n--$grenze--";
 
-mail($mailadd,"RugBears Training $td",$msg,$headers);
+mail($mailadd,"[RugBears] $td: $evt->what ($evt->where)",$msg,$headers);
 }
 ?>
