@@ -12,10 +12,11 @@ getApi()->post('/users',array('Users','create'), EpiApi::external);
 
 getApi()->get('/trainings',array('Trainings','index'), EpiApi::external);
 getApi()->post('/trainings',array('Trainings','create'), EpiApi::external);
+getApi()->post('/trainings/weekdays',array('Trainings','createForWeekDays'), EpiApi::external);
 getApi()->get('/trainings/([^/]+)',array('Trainings','get'), EpiApi::external);
 getApi()->post('/trainings/([^/]+)',array('trainings','update'), EpiApi::external);
 getApi()->delete('/trainings/([^/]+)',array('Trainings','delete'), EpiApi::external);
-getApi()->post('/trainings/weekdays',array('Trainings','createForWeekDays'), EpiApi::external);
+
 
 getApi()->get('/comments',array('Comments','index'), EpiApi::external);
 getApi()->post('/comments',array('Comments','create'), EpiApi::external);
@@ -56,9 +57,13 @@ class Trainings {
     }
     
     public static function createForWeekDays() {
-        $weekday=  escapeSQL($_POST['weekday']);
-        $where=  escapeSQL($_POST['where']);
-        $what=  escapeSQL($_POST['what']);
+        $data =& jsonPostData();
+        #$weekday=  escapeSQL($_POST['weekday']);
+        $weekday=  escapeSQL($data->weekday);
+        $where=  escapeSQL($data->where);
+        #$where=  escapeSQL($_POST['where']);
+        $what=  escapeSQL($data->what);
+        #$what=  escapeSQL($_POST['what']);
         
         setlocale(LC_ALL,'de_DE','de');
         $start =& new DateTime();
@@ -72,7 +77,7 @@ class Trainings {
         $j=0;
 	while($i<=365) {
                 if($start->format('w')==$weekday) {
-                    self::createTrain($start,$end,$where,$what);
+                    self::createTrain($start->format('Y-m-d H:i:s'),$end->format('Y-m-d H:i:s'),$where,$what);
                     $j++;
                 }
 		$start->modify("+1 day");
