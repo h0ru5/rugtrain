@@ -136,6 +136,7 @@ ShinyCtrl.$inject = ['$scope','$http','$cookies','$log','$location','UserService
 
 var OverviewCtrl=function($scope,$http,$window,$log,UserService) {
    $http.get("/res/trainings/next/details").success(function(data) {$scope.details=data;});
+   $http.get("/res/trainings/next/votes").success(function(data) {$scope.votes=data;});
    $http.get("/res/users").success(function(data) {$scope.unames=data;});
    $http.get("/res/soon/5").success(function(data) {$scope.soon=data;});
    
