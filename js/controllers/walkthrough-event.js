@@ -9,7 +9,7 @@ guiders.createGuider({
   next: "login",
   overlay: true,
   title: "Willkommen auf der neuen Ansicht der Trainingsseite!"
-}).show();
+});
 
 guiders.createGuider({
   attachTo: ".navbar-inner button:visible",
