@@ -67,18 +67,28 @@ if(!$_REQUEST['action']) {
                     function () {
                         $(this).toggleClass('ui-state-hover');
                     }
-                );
+                    );
+                    $('#betabadge').hide().delay(200).show("bounce",{ direction:'left' },"slow").click(function() {
+                        window.location = "shiny/"
+                    }); 
                 });
                 
             </script>
     </head>
     <body>
-        <div class="logo">
-            <img src="/img/logo_rb.jpg" alt="Rugbears Logo" width="369" height="295" />
+
+   <div style="float:right;margin-top: 100px; padding: 1em;cursor: pointer" id="betabadge" class="ui-state-highlight ui-corner-all">
+            <span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
+            zur Beta-Version der neuen Ansicht >>
+        </div>      
+        
+        <div class="logo">   
+            <img src="/img/logo_rb.jpg" alt="Rugbears Logo" width="369" height="295" style="padding-left: 286px;" />
             <h1>Training-site der Munich Rugbears</h1>
             <p><a href="/next" title="n&auml;chster Termin" id="butnext">n&auml;chster Termin</a></p>
         </div>
         
+      
         
 <table id="ttab" width='100%' class="ui-widget ui-corner-all">
     <thead class="ui-widget-header"><tr>
