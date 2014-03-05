@@ -24,9 +24,11 @@ if($_REQUEST['tid']) {
 <body>
 
 <h1>RugBears Training <?= trainday3($tid) ?><!-- trainday(<?= $tid ?>); --></h1>	
+
 <div id="linkback">
     <a href="<?=getViewUrl() ?>">zur&uuml;ck zur &Uuml;bersicht</a><br/>
-    <a href="<?=getViewUrl() . $tid ?>">zur neuen Ansicht</a>
+    <a href="<?=getViewUrl() . $tid ?>">zur normalen Ansicht</a><br/>
+    <a id="betabadge" href="<?=getViewUrl() . "shiny/" . $tid ?>">zur Beta-Version der noch neueren Ansicht >></a>
 </div>
 <div class="kommentare">
 	<h3>Kommentare: <a href="javascript:addcmt()" class="lil">hinzuf&uuml;gen...</a></h3>
@@ -46,7 +48,6 @@ if($_REQUEST['tid']) {
 	</div>
 	<? comments($tid) ?>
 </div>
-
 	
 <h3>Bisher gemeldet:</h3>
 <p><?= nl2br(stats($tid)) ?></p>
@@ -66,6 +67,11 @@ function addcmt() {
 	else
 		document.getElementById("cmtaddform").style.visibility = "visible";
 }
+$(function() {
+    $('#betabadge').hide().delay(200).show("bounce",{ direction:'left' },"slow");
+});
+
+
 </script>
 </body>
 </html>

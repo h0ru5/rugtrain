@@ -16,6 +16,13 @@ require_once 'functions.inc.php';
     </head>
 
     <body ng-controller="TrainCtrl">
+           <div style="float:right;margin-top: 50px; padding: 1em;cursor: pointer"
+        id="betabadge"
+        class="ui-state-highlight ui-corner-all">
+        <span class="ui-icon ui-icon-info"
+              style="float: left; margin-right: .3em;"></span>
+        zur Beta-Version der neuen Ansicht >>
+    </div>
         <div class="ui-widget ui-corner-all">
             <header class="ui-widget-header">
                 <a jq-button="home" href="/" style="float: left">zur &Uuml;bersichtseite</a>
@@ -134,6 +141,9 @@ require_once 'functions.inc.php';
                     }
                 });
                 $("#diagCmt").parent().resizable({"alsoResize":"#msg"});
+                $('#betabadge').hide().delay(200).show("bounce",{ direction:'left' },"slow").click(function() {
+                        window.location = "shiny/" + tid;
+                 });
             });
             
         </script>

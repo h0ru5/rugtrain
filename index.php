@@ -77,10 +77,13 @@ if(!$_REQUEST['action']) {
     </head>
     <body>
 
-   <div style="float:right;margin-top: 100px; padding: 1em;cursor: pointer" id="betabadge" class="ui-state-highlight ui-corner-all">
-            <span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-            zur Beta-Version der neuen Ansicht >>
-        </div>      
+   <div style="float:right;margin-top: 100px; padding: 1em;cursor: pointer"
+        id="betabadge"
+        class="ui-state-highlight ui-corner-all">
+        <span class="ui-icon ui-icon-info"
+              style="float: left; margin-right: .3em;"></span>
+        zur Beta-Version der neuen Ansicht >>
+    </div>
         
         <div class="logo">   
             <img src="/img/logo_rb.jpg" alt="Rugbears Logo" width="369" height="295" style="padding-left: 286px;" />
@@ -120,4 +123,4 @@ while($row = $data->fetchRow()) {
         
     </body>
 </html>
-<? } ?>    
+<? } ?>
