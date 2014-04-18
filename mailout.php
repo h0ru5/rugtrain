@@ -1,39 +1,45 @@
 <?
+
 require_once("functions.inc.php");
 require_once("const.inc.php");
 
 
-    $now =& new DateTime();
-    $fp = fopen("mailout.log", "w");
-    $data = & soon(8);
-        
-    fputs($fp, "Mailout running on " . $now->format("Y-m-d") ."\n");
-    while($row = $data->fetchRow()) {
-      fputs($fp,"> $row->tid: $row->what in $row->where in $row->diff days\n");
-      if($row->diff == $daysahead) {
-          fputs($fp,"mailing out...\n");
-          mailOutFor($row,$fp);
-      }
+$now = & new DateTime();
+$fp = fopen("mailout.log", "w");
+$data = & soon(8);
+
+fputs($fp, "Mailout running on " . $now->format("Y-m-d H:i:s") . "\n");
+while ($row = $data->fetchRow()) {
+    fputs($fp, "> $row->tid: $row->what in $row->where in $row->diff days\n");
+    if ($row->type == 'TRAINING') {
+        fputs($fp, "is a training\n");
+        if ($row->diff == $daysahead) {
+            fputs($fp, "mailing out...\n");
+            mailOutFor($row,$fp);
+        }  
+    } else {
+        fputs($fp, "is not a training\n");
     }
-    fputs($fp,"done!\n");
+}
+fputs($fp, "done!\n");
 
-    fclose($fp);
+fclose($fp);
 
-function mailOutFor($evt,$log) {
+function mailOutFor($evt, $log) {
     $data = & doQuery("SELECT name,email FROM mailliste ORDER BY name");
-    fputs($log,"start mailing\n");
-    while($row = $data->fetchRow()) {
-        fputs($log,$row->name . ": " . $row->email . "\n");
-        mailout($row->name,$row->email,$evt);
+    fputs($log, "start mailing\n");
+    while ($row = $data->fetchRow()) {
+        fputs($log, $row->name . ": " . $row->email . "\n");
+        mailout($row->name, $row->email, $evt);
     }
-    fputs($log,"mailing done\n");
+    fputs($log, "mailing done\n");
 }
 
-function mailout($name_i,$mailadd,$evt) {
-$name = urlencode($name_i);
-$td = trainday3($evt->tid);
+function mailout($name_i, $mailadd, $evt) {
+    $name = urlencode($name_i);
+    $td = trainday3($evt->tid);
 
-$html_body = "
+    $html_body = "
 <html>
 <head>
 <meta charset='utf-8'>
@@ -70,30 +76,31 @@ Die Liste aller Termine findest du auf <a href='http://training.munichrugbears.d
 </body>
 </html>";
 
-$text_body = "
+    $text_body = "
 Rugbears $evt->what am $td\nin $evt->where\n\nKommst du? einfach link anklicken\n
 Spiele: http://training.munich-rugbears.de/$evt->tid/add?vote=3&name=$name\n\n
 Komme: http://training.munich-rugbears.de/$evt->tid/add?vote=3&name=$name\n\n
 Komme nicht: http://training.munich-rugbears.de/$evt->tid/add?vote=3&name=$name\n\n\n";
-$grenze="NextpartInMyMultiModalmessage";
+    $grenze = "NextpartInMyMultiModalmessage";
 
-$headers ="MIME-Version: 1.0\n";
+    $headers = "MIME-Version: 1.0\n";
 #$headers.="From:\"$name_i\"<$mailadd>\n";
-$headers.="From:\"Rugbot\"<training@munich-rugbears.de>\n";
-$headers.="Content-Type: multipart/alternative;\n\tboundary=$grenze\n";
+    $headers.="From:\"Rugbot\"<training@munich-rugbears.de>\n";
+    $headers.="Content-Type: multipart/alternative;\n\tboundary=$grenze\n";
 
-$msg = "\n--$grenze\n";
-$msg.="Content-transfer-encoding: 7BIT\n";
-$msg.="Content-type: text/plain\n";
-$msg.="Content-Disposition: inline\n\n";
-$msg.=text_body;
-$msg = "\n\n\n--$grenze\n";
-$msg.="Content-transfer-encoding: 7BIT\n";
-$msg.="Content-type: text/html\n";
-$msg.="Content-Disposition: inline\n\n";
-$msg.=$html_body;
-$msg.="\n\n--$grenze--";
+    $msg = "\n--$grenze\n";
+    $msg.="Content-transfer-encoding: 7BIT\n";
+    $msg.="Content-type: text/plain\n";
+    $msg.="Content-Disposition: inline\n\n";
+    $msg.=text_body;
+    $msg = "\n\n\n--$grenze\n";
+    $msg.="Content-transfer-encoding: 7BIT\n";
+    $msg.="Content-type: text/html\n";
+    $msg.="Content-Disposition: inline\n\n";
+    $msg.=$html_body;
+    $msg.="\n\n--$grenze--";
 
-mail($mailadd,"[RugBears] $td: $evt->what ($evt->where)",$msg,$headers);
+    mail($mailadd, "[RugBears] $td: $evt->what ($evt->where)", $msg, $headers);
 }
+
 ?>
