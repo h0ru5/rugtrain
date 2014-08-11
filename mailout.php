@@ -1,29 +1,40 @@
-<?
+<? 
 
 require_once("functions.inc.php");
 require_once("const.inc.php");
 
-
 $now = & new DateTime();
 $fp = fopen("mailout.log", "w");
+$rl = fopen("mailcalls.log", "a");
 $data = & soon(8);
 
 fputs($fp, "Mailout running on " . $now->format("Y-m-d H:i:s") . "\n");
+fputs($rl, "Mailout called on " . $now->format("Y-m-d H:i:s") . " from " . $_SERVER['REMOTE_ADDR'] . " (". $_SERVER['REMOTE_HOST'] . ")" .  "\n");
+
 while ($row = $data->fetchRow()) {
     fputs($fp, "> $row->tid: $row->what in $row->where in $row->diff days\n");
-    if ($row->type == 'TRAINING') {
+//    fputs($fp, "sending a testmail for $row->tid " . "\n");
+    //mailout("Test","rugby@johanneshund.de",$row);
+    if ($row->type == 'TRAINING' && $row->sent==0) {
         fputs($fp, "is a training\n");
-        if ($row->diff == $daysahead) {
+        //fputs($fp, print_r($row, true));
+        if ($row->diff == $daysahead && $row->sent==0) {
+            fputs($fp, "setting mailed flag\n");
+            didmail($row->tid);
+            
             fputs($fp, "mailing out...\n");
             mailOutFor($row,$fp);
         }  
-    } else {
+    } else if($row->sent) {
+        fputs($fp, "is already mailed out\n");
+    }else{
         fputs($fp, "is not a training\n");
     }
 }
 fputs($fp, "done!\n");
 
 fclose($fp);
+fclose($rl);
 
 function mailOutFor($evt, $log) {
     $data = & doQuery("SELECT name,email FROM mailliste ORDER BY name");

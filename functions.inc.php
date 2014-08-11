@@ -87,9 +87,14 @@ function soon($limit=1,$noTraining=FALSE) {
     } else {
         $filter = "";
     }
-    $sql = "SELECT `tid`,`what`,`where`,`when`, DATEDIFF(`when`,CURDATE()) AS diff, `type`  FROM trainings WHERE `when` > CURDATE() $filter ORDER BY diff ASC LIMIT $limit";
+    $sql = "SELECT `tid`,`what`,`where`,`when`, DATEDIFF(`when`,CURDATE()) AS diff, `type`,`sent`  FROM trainings WHERE `when` > CURDATE() $filter ORDER BY diff ASC LIMIT $limit";
     $data = & doQuery($sql);
     return $data;
+}
+
+function didmail($tid) {
+    $sql = "UPDATE trainings SET `sent` = 1 WHERE `tid` = " . escapeSQL($tid);
+    doQuery($sql);
 }
 
 function setUsrCookie($usrname) {
