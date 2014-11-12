@@ -13,6 +13,7 @@ getApi()->post('/users',array('Users','create'), EpiApi::external);
 getApi()->get('/trainings',array('Trainings','index'), EpiApi::external);
 getApi()->post('/trainings',array('Trainings','create'), EpiApi::external);
 getApi()->post('/trainings/weekdays',array('Trainings','createForWeekDays'), EpiApi::external);
+getApi()->get('/trainings/weekdays',array('Trainings','explainWeekDays'), EpiApi::external);
 getApi()->get('/trainings/([^/]+)',array('Trainings','get'), EpiApi::external);
 getApi()->post('/trainings/([^/]+)',array('trainings','update'), EpiApi::external);
 getApi()->delete('/trainings/([^/]+)',array('Trainings','delete'), EpiApi::external);
@@ -56,6 +57,10 @@ class Trainings {
         return $ts->fetchRow();
     }
     
+    public static function explainWeekDays() {
+        return array("weekday" => 1, "what" =>" Montagstraining", "where" => "Halle Pfennigparade");
+    }
+
     public static function createForWeekDays() {
         $data =& jsonPostData();
         #$weekday=  escapeSQL($_POST['weekday']);
